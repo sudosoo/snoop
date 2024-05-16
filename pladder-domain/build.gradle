@@ -1,0 +1,19 @@
+plugins {
+    id("org.jetbrains.kotlin.plugin.lombok")
+}
+
+dependencies {
+//    implementation 'org.springframework:spring-context'
+    //h2
+    runtimeOnly 'com.h2database:h2'
+
+    //postgresql
+    //implementation 'org.postgresql:postgresql'
+
+    // slf4j & logback
+    implementation 'org.slf4j:jcl-over-slf4j'
+    implementation 'ch.qos.logback:logback-classic'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}

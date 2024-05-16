@@ -1,7 +1,6 @@
 rootProject.name = "pladder"
 
 include("boot")
-include("pladder-presentation")
 include("pladder-application")
 include("pladder-domain")
 
@@ -18,7 +17,6 @@ pluginManagement {
 				"org.jetbrains.kotlin.jvm" -> useVersion(kotlinVersion)
 				"org.jetbrains.kotlin.plugin.spring" -> useVersion(kotlinVersion)
 				"org.jetbrains.kotlin.plugin.jpa" -> useVersion(kotlinVersion)
-				"org.jetbrains.kotlin.plugin.allopen" -> useVersion(kotlinVersion)
 				"org.gradle.core" -> useVersion(kotlinVersion)
 				"org.jetbrains.kotlin.plugin.lombok" -> useVersion(kotlinVersion)
 			}
