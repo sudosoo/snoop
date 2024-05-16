@@ -6,6 +6,7 @@ import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.service.user.UserService
 import com.api.pladder.application.service.user.customer.manager.CustomerManager
 import com.api.pladder.application.service.user.customer.manager.CustomerReader
+import com.api.pladder.domain.entity.user.User
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,8 +15,8 @@ class BossService : UserService {
     private lateinit var customerManager: CustomerManager
     private lateinit var customerReader: CustomerReader
 
-    override fun findByEmail(email: String): UserResp {
-        return UserResp(customerReader.findByEmail(email))
+    override fun findByEmail(email: String): User {
+        return customerReader.findByEmail(email)
     }
 
     override fun validate(req: SignInReq): Boolean {

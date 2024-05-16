@@ -6,14 +6,15 @@ import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.service.user.UserService
 import com.api.pladder.application.service.user.admin.manager.AdminReader
 import com.api.pladder.domain.entity.user.Admin
+import com.api.pladder.domain.entity.user.User
 import org.springframework.stereotype.Service
 
 @Service
 class AdminService : UserService{
     private lateinit var adminReader: AdminReader
 
-    override fun findByEmail(email: String): UserResp {
-        return UserResp(adminReader.findByEmail(email))
+    override fun findByEmail(email: String): User {
+        return adminReader.findByEmail(email)
     }
 
     override fun withdraw(userId: String): WithdrawResp {

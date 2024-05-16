@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class HttpResolver {
-    fun resolveToken(request: HttpServletRequest): String? {
+    fun tokenResolve(request: HttpServletRequest): String? {
         val bearerToken = request.getHeader(HeaderPrefix.AUTHORIZATION)
         return if (!bearerToken.isNullOrBlank() && bearerToken.startsWith(HeaderPrefix.BEARER)) {
             bearerToken.substring(7)

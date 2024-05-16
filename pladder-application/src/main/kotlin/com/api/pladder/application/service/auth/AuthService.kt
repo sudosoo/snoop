@@ -2,17 +2,21 @@ package com.api.pladder.application.service.auth
 
 import com.api.pladder.application.auth.enums.UserType
 import com.api.pladder.application.auth.jwt.JwtUtil
+import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
 import com.api.pladder.application.core.exception.InvalidRequestException
 import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.UserResp
+import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.service.common.CommonService.checkNotNullData
 import com.api.pladder.application.service.user.UserService
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.boss.BossService
 import com.api.pladder.application.service.user.customer.CustomerService
+import com.api.pladder.domain.entity.user.User
 import com.api.pladder.domain.entity.user.UserStatus
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,12 +27,10 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signIn(req: SignInReq): AuthResp {
-        // TODO : check token
+    fun signIn(req: SignInReq , servletResp: HttpServletResponse) {
 
-        // register user data
         val userService = getUserService(req.userType)
-        var user: UserResp? = null
+        val user:User
         try { // login
             user = userService.findByEmail(req.email)
             if (user.status != UserStatus.ACTIVE)
@@ -37,13 +39,6 @@ class AuthService(
         } catch (e: NotFoundException){
             throw NotFoundException("사용자 정보가 존재하지 않습니다.")
         }
-
-        // create jwt token
-        checkNotNullData(user, "사용자 정보가 존재하지 않습니다.")
-        checkNotNullData(user!!.userId, "사용자 아이디가 존재하지 않습니다.")
-        val authReqForToken = AuthReq(user, req.userType)
-        val token = jwtUtil.generateToken(authReqForToken)
-
         //TODO Spring security 기능 추가 필요
 //        val authorities = mutableListOf<GrantedAuthority>()
 //        when(req.userType){
@@ -51,11 +46,10 @@ class AuthService(
 //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
 //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
 //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
-        val accessToken: String = jwtUtil.createAccessToken(user.userId, req.userType)
-        response.addCookie(cookie)
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken)
-
-        return AuthResp(authorization = token)
+        val accessToken: String = jwtUtil.generate(user.id, req.userType)
+        //TODO 토큰 어디에 넣을건지 ?
+        //servletResp.addCookie(cookie)
+        servletResp.addHeader(AUTHORIZATION, accessToken)
     }
 
     fun signOut(){
@@ -65,9 +59,8 @@ class AuthService(
 
 
     fun withdraw(authReq: AuthReq): WithdrawResp {
-        // TODO : check token
-        // TODO : unlink auth service
 
+        // TODO : unlink auth service
         // change user status : DORMANT 휴면 계정
         val userService = getUserService(authReq.userType)
         return userService.withdraw(authReq.userId
