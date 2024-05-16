@@ -7,9 +7,11 @@ import com.api.pladder.domain.entity.user.Boss
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.BossRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.stereotype.Component
 
+@Component
 class BossManager(
-    private var bossRepository: BossRepository
+    private val bossRepository: BossRepository
 
 ) : JpaService<Boss, String> {
 

@@ -22,6 +22,7 @@ public class Boss {
     private String phoneNumber;
     private String companyId;
     private UserStatus status = UserStatus.ACTIVE;
+    private AuthChannel authChannel = AuthChannel.LOCAL;
 
     public Boss(String email, String passwd, String phoneNumber) {
         this.email = email;

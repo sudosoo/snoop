@@ -5,16 +5,16 @@ import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.entity.user.UserStatus
 
 class UserResp(
-    val email: String?,
-    val status: UserStatus,
+    private val userId: String?,
+    private val status: UserStatus,
 ) {
     constructor(model: Customer) : this(
-        email = model.email,
+        userId = model.id,
         status = model.status,
     )
 
     constructor(model: Boss) : this(
-        email = model.email,
+        userId = model.id,
         status = model.status,
     )
 }

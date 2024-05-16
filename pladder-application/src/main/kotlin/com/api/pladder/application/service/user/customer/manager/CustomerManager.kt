@@ -9,20 +9,21 @@ import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.stereotype.Component
 
+@Component
 class CustomerManager(
     private val customerRepository: CustomerRepository
-
 ):JpaService<Customer, String> {
 
     override var jpaRepository: BaseRepository<Customer, String> = customerRepository
 
 
-    fun register(req : RegisterCustomerReq): UserResp {
+    fun register(req : RegisterCustomerReq) {
         val encoder = BCryptPasswordEncoder()
         val convertPasswd = encoder.encode(req.passwd)
         val customer = Customer(req.email, convertPasswd , req.phoneNumber, req.nickName)
-        return UserResp(save(customer))
+        save(customer)
     }
 
     fun updateInfo(req: UpdateInfoCustomerReq):UserResp{

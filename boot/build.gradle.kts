@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":pladder-presentation"))
+    implementation(project(":pladder-application"))
 }
