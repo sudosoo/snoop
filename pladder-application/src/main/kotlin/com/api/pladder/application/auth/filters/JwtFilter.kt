@@ -1,21 +1,25 @@
 package com.api.pladder.application.auth.filters
 
-import io.jsonwebtoken.MalformedJwtException
-import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
+import com.api.pladder.application.auth.jwt.JwtUtil
+import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
+import com.api.pladder.application.core.enums.HeaderPrefix.REFRESHTOKEN
+import com.api.pladder.application.core.enums.HeaderPrefix.REFRESHToken
+import com.api.pladder.application.dto.auth.request.AuthReq
+import com.api.pladder.application.service.http.HttpResolver
+import io.jsonwebtoken.Claims
+import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import java.security.SignatureException
-
 
 @Component
 class JwtFilter(
-    private val jwtTokenService: JwtTokenService
+    private val jwtUtil: JwtUtil,
+    private val resolver : HttpResolver
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -23,47 +27,31 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        // check token
-        try {
-            val resourceType = ResourceType.getResourceType(request.requestURI)
-            if (resourceType.needToken){
-                /**
-                 * check token and set security-context
-                 */
-                val authReq = extractAuthRequest(request)
-                setSecurityContext(authReq)
-
-                /**
-                 * check diff token with url
-                 * 클라이언트가 알맞은 엔드포인트를 요청했는지 확인해야 함.
-                 * 예를 들어서, boss 타입의 사용자는 /api/boss 로 시작하는 엔드포인트로만 접근할 수 있음.
-                 */
-                if (!request.requestURI.startsWith(authReq.userType.requestMapper))
-                    throw AccessDeniedException("""
-                        ${authReq.userType}타입의 사용자에게 허용되지 않은 리소스입니다. 
-                    """.trimIndent())
-            } else if (resourceType.needAuthReq) {
-                setSecurityContext(AuthReq(userType = UserType.UNKNOWN))
+        var refreshToken: String? = null;
+        val token = resolver.resolveToken(request)
+        if (token != null) {
+            if (!jwtUtil.validate(token)) {
+               //TODO refresh token
+                 val cookies = request.cookies
+                for (cookie in cookies) {
+                    if (cookie.name == REFRESHTOKEN) {
+                        refreshToken = cookie.value
+                        break
+                    } else {
+                        return
+                    }
+                }
+                val atInfo = authenticatedUserByToken(token)
+                if (jwtUtil.getRefreshTokenIsTrue(atInfo.subject, refreshToken)) {
+                    val member = jwtUtil.authenticatedUser(atInfo.subject)
+                    response.addHeader(
+                        AUTHORIZATION,
+                        jwtUtil.createAccessToken(user.email,)
+                    )
+                }
             }
-
-        } catch (e: IllegalArgumentException) { // Token is required
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized: Token is required")
-            return
-        } catch (e : MalformedJwtException){
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized: Invalid token")
-            return
-        } catch (e : SignatureException){
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized: ${e.message}")
-            return
-        } catch (e : AccessDeniedException){
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized: ${e.message}")
-            return
-        } catch (e: Exception) {
-            // Handle other exceptions as needed
-            response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error")
-            return
+            authenticatedUserByToken(token)
         }
-
         filterChain.doFilter(request, response)
     }
 
@@ -79,10 +67,15 @@ class JwtFilter(
     private fun extractAuthRequest(request: HttpServletRequest) : AuthReq {
         val token = request.getHeader("authorization")
             ?: throw IllegalArgumentException("Token is required")
-        return jwtTokenService.convertToRequest(token)
+        return jwtUtil.convertToRequest(token)
     }
 
     fun getAuthorities(authReq : AuthReq): List<SimpleGrantedAuthority> {
         return listOf(SimpleGrantedAuthority(authReq.userType.authorization))
     }
+
+
+
+
+
 }

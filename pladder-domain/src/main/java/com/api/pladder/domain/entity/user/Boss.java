@@ -11,7 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Boss {
+public class Boss extends User{
 
     @Id
     @UuidGenerator

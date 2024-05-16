@@ -7,7 +7,6 @@ import com.api.pladder.domain.repository.user.AdminRepository
 
 class AdminReader (
     private var adminRepository: AdminRepository
-
 ):JpaService<Admin,String>{
 
     //TODO property에 admin 계정 만들어서 넣기
@@ -16,8 +15,8 @@ class AdminReader (
 
     override var jpaRepository: BaseRepository<Admin, String> = adminRepository
 
-    override fun findById(adminId: String): Admin {
-        return adminRepository.findById(adminId).get()
+    fun findByEmail(adminId: String): Admin {
+        return findById(adminId)
     }
 
 }

@@ -1,7 +1,7 @@
 package com.api.pladder.application.service.auth
 
 import com.api.pladder.application.auth.enums.UserType
-import com.api.pladder.application.auth.service.JwtTokenService
+import com.api.pladder.application.auth.jwt.JwtUtil
 import com.api.pladder.application.core.exception.InvalidRequestException
 import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
-    private val jwtTokenService: JwtTokenService,
+    private val jwtUtil: JwtUtil,
     private val bossService: BossService,
     private val customerService: CustomerService,
     private val adminService: AdminService,
@@ -32,17 +32,17 @@ class AuthService(
         try { // login
             user = userService.findByEmail(req.email)
             if (user.status != UserStatus.ACTIVE)
-                throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${user.status.name})")
+                throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${user.status})")
 
-        } catch (e: NotFoundException){ // register
-            user = userService.validate(req)
+        } catch (e: NotFoundException){
+            throw NotFoundException("사용자 정보가 존재하지 않습니다.")
         }
 
         // create jwt token
         checkNotNullData(user, "사용자 정보가 존재하지 않습니다.")
-        checkNotNullData(user!!.email, "사용자 아이디가 존재하지 않습니다.")
+        checkNotNullData(user!!.userId, "사용자 아이디가 존재하지 않습니다.")
         val authReqForToken = AuthReq(user, req.userType)
-        val token = jwtTokenService.generateToken(authReqForToken)
+        val token = jwtUtil.generateToken(authReqForToken)
 
         //TODO Spring security 기능 추가 필요
 //        val authorities = mutableListOf<GrantedAuthority>()
@@ -51,6 +51,10 @@ class AuthService(
 //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
 //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
 //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
+        val accessToken: String = jwtUtil.createAccessToken(user.userId, req.userType)
+        response.addCookie(cookie)
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken)
+
         return AuthResp(authorization = token)
     }
 
@@ -66,7 +70,7 @@ class AuthService(
 
         // change user status : DORMANT 휴면 계정
         val userService = getUserService(authReq.userType)
-        return userService.withdrawMember(authReq.userId
+        return userService.withdraw(authReq.userId
             ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다."))
     }
 

@@ -17,7 +17,7 @@ class CustomerService : UserService {
     private lateinit var customerReader: CustomerReader
 
     override fun findByEmail(email: String): UserResp {
-        TODO("Not yet implemented")
+        return UserResp(customerReader.findByEmail(email))
     }
 
     override fun withdraw(userId: String): WithdrawResp {

@@ -8,7 +8,6 @@ enum class UserType(
     CUSTOMER(authorization = "customer", requestMapper = "/api/customer"),
     ADMIN(authorization = "admin", requestMapper = "/api/admin"),
     UNKNOWN(authorization = "open", requestMapper = "/api/open");
-
     companion object {
         fun fromString(value: String): UserType {
             return requireNotNull(values().find { it.name.equals(value, ignoreCase = true) }) {

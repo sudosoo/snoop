@@ -9,7 +9,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity(name ="pd_customer")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Customer {
+public class Customer extends User{
     @Id
     @UuidGenerator
     private String id;
