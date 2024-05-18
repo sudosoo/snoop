@@ -38,7 +38,7 @@ public class Customer extends User{
         this.authChannel = authChannel;
     }
 
-    public void update(String nickName, String phoneNumber) {
+    public void updateInfo(String nickName, String phoneNumber) {
         this.nickName = nickName;
         this.phoneNumber = phoneNumber;
     }
