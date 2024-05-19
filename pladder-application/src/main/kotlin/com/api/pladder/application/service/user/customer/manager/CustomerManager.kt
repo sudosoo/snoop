@@ -36,7 +36,7 @@ class CustomerManager(
     fun updatePasswd(req: UpdatePasswdCustomerReq):UserResp{
         val customer = customerRepository.findByEmail(req.email).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
         val encoder = BCryptPasswordEncoder()
-        val convertPasswd = encoder.encode(req.passwd)
+        val convertPasswd = encoder.encode(req.reqUpdatePasswd)
         customer.updatePasswd(convertPasswd)
         return UserResp(save(customer))
     }
