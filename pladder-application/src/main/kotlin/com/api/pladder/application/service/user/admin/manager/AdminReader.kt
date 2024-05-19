@@ -4,7 +4,9 @@ import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Admin
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.AdminRepository
+import org.springframework.stereotype.Component
 
+@Component
 class AdminReader (
     private var adminRepository: AdminRepository
 ):JpaService<Admin,String>{

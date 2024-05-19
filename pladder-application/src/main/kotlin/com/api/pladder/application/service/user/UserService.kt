@@ -9,4 +9,5 @@ interface UserService{
     fun findByEmail(email: String): User
     fun withdraw(userId: String): WithdrawResp
     fun validate(req: SignInReq): Boolean
+
 }

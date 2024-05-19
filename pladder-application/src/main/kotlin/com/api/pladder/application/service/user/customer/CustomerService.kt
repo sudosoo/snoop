@@ -34,7 +34,7 @@ class CustomerService : UserService {
     }
 
     fun update(req: UpdateInfoCustomerReq): UserResp {
-        return customerManager.updateInfo(req)
+        return customerManager.update(req)
     }
 
     fun updatePasswd(req: UpdatePasswdCustomerReq): UserResp {

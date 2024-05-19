@@ -1,6 +1,8 @@
 package com.api.pladder.application.service.user.customer.manager
 
 import com.api.pladder.application.dto.user.UserResp
+import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.toEntity
+import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.updateInfo
 import com.api.pladder.application.dto.user.customer.request.RegisterCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdatePasswdCustomerReq
@@ -13,29 +15,28 @@ import org.springframework.stereotype.Component
 
 @Component
 class CustomerManager(
-    private val customerRepository: CustomerRepository
+    private val customerRepository: CustomerRepository,
 ):JpaService<Customer, String> {
-
     override var jpaRepository: BaseRepository<Customer, String> = customerRepository
-
 
     fun register(req : RegisterCustomerReq) {
         val encoder = BCryptPasswordEncoder()
         val convertPasswd = encoder.encode(req.passwd)
-        val customer = Customer(req.email, convertPasswd , req.phoneNumber, req.nickName)
+        req.setConvertPasswd(convertPasswd)
+        val customer = toEntity(req)
         save(customer)
     }
 
-    fun updateInfo(req: UpdateInfoCustomerReq):UserResp{
+    fun update(req: UpdateInfoCustomerReq):UserResp{
         val customer = findById(req.userId)
-        customer.update(req.nickName,req.phoneNumber)
+        updateInfo(customer,req)
         return UserResp(save(customer))
     }
 
     fun updatePasswd(req: UpdatePasswdCustomerReq):UserResp{
         val customer = customerRepository.findByEmail(req.email).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
         val encoder = BCryptPasswordEncoder()
-        val convertPasswd = encoder.encode(req.passwd)
+        val convertPasswd = encoder.encode(req.reqUpdatePasswd)
         customer.updatePasswd(convertPasswd)
         return UserResp(save(customer))
     }

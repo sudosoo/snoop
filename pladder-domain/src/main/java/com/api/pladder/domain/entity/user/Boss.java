@@ -30,6 +30,9 @@ public class Boss extends User{
         this.phoneNumber = phoneNumber;
     }
 
+    public void updateInfo(String companyId){
+        this.phoneNumber = companyId;
+    }
     public void setCompany(String companyId){
         this.companyId = companyId;
     }

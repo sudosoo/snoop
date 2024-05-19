@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.user.admin
 
+import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.UserResp
 import com.api.pladder.application.dto.user.WithdrawResp
@@ -18,7 +19,7 @@ class AdminService : UserService{
     }
 
     override fun withdraw(userId: String): WithdrawResp {
-        TODO("Not yet implemented")
+        throw NotFoundException("Admin cannot withdraw")
     }
 
     override fun validate(req: SignInReq): Boolean {
