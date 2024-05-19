@@ -1,6 +1,6 @@
 package com.api.pladder.application.dto.user
 
-import com.api.pladder.domain.entity.user.AuthChannel
+import com.api.pladder.domain.entity.user.enums.AuthChannel
 import com.api.pladder.domain.entity.user.Boss
 import com.api.pladder.domain.entity.user.Customer
 

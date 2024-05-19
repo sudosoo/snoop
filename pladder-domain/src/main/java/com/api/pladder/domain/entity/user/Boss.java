@@ -1,26 +1,35 @@
 package com.api.pladder.domain.entity.user;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.api.pladder.domain.entity.user.enums.AuthChannel;
+import com.api.pladder.domain.entity.user.enums.UserStatus;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.Map;
+import java.util.UUID;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Boss extends User{
-
     @Id
     @UuidGenerator
-    private String id;
+    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    private UUID id;
     @Column(unique = true)
     private String email;
     private String passwd;
     private String phoneNumber;
-    private String companyId;
+    private UUID companyId;
+    //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
+    @ElementCollection
+    @CollectionTable(name = "boss_career", joinColumns = @JoinColumn(name = "boss_id"))
+    @MapKeyColumn(name = "year")
+    @Column(name = "description")
+    private Map<Integer,String> career  = null;
     private UserStatus status = UserStatus.ACTIVE;
     private AuthChannel authChannel = AuthChannel.LOCAL;
 
@@ -33,8 +42,11 @@ public class Boss extends User{
     public void updateInfo(String companyId){
         this.phoneNumber = companyId;
     }
-    public void setCompany(String companyId){
+    public void setCompany(UUID companyId){
         this.companyId = companyId;
+    }
+    public int totalCareer() {
+        return career.keySet().stream().mapToInt(Integer::intValue).sum();
     }
 
 }

@@ -1,12 +1,16 @@
 package com.api.pladder.domain.entity.contract;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.api.pladder.domain.entity.company.Company;
+import com.api.pladder.domain.entity.contract.enums.ContractStatus;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Entity
@@ -15,8 +19,24 @@ import org.hibernate.annotations.UuidGenerator;
 public class Contract {
     @Id
     @UuidGenerator
-    private String id;
-
+    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    private UUID id;
     private String name;
-    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company companyId;
+    private UUID contractContentId;
+    private String advance;
+    private String pee;
+    private String purpose;
+    private String solution;
+    private LocalDate startPeriod;
+    private LocalDate endPeriod = LocalDate.of(9999,12,31);
+    private String returnFormat;
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    private ContractStatus status = ContractStatus.WAITING;
+
+
 }

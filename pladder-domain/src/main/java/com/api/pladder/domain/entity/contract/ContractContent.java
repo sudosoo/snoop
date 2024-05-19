@@ -1,29 +1,31 @@
-package com.api.pladder.domain.entity.user;
+package com.api.pladder.domain.entity.contract;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Admin extends User {
+@AllArgsConstructor
+public class ContractContent {
+
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String pwd;
-
-    private Admin(String email, String pwd) {
-        this.email = email;
-        this.pwd = pwd;
-    }
+    private UUID perpetratorId;
+    private UUID victimId;
+    private String incidentLocation;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime incidentTime;
 }

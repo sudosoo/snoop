@@ -7,15 +7,13 @@ import com.api.pladder.application.core.exception.InvalidRequestException
 import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.auth.request.SignInReq
-import com.api.pladder.application.dto.user.UserResp
 import com.api.pladder.application.dto.user.WithdrawResp
-import com.api.pladder.application.service.common.CommonService.checkNotNullData
 import com.api.pladder.application.service.user.UserService
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.boss.BossService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.domain.entity.user.User
-import com.api.pladder.domain.entity.user.UserStatus
+import com.api.pladder.domain.entity.user.enums.UserStatus
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 

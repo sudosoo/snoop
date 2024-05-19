@@ -3,7 +3,7 @@ package com.api.pladder.application.dto.user
 import com.api.pladder.domain.entity.user.Admin
 import com.api.pladder.domain.entity.user.Boss
 import com.api.pladder.domain.entity.user.Customer
-import com.api.pladder.domain.entity.user.UserStatus
+import com.api.pladder.domain.entity.user.enums.UserStatus
 
 class UserResp(
     val userId: String,

@@ -1,29 +1,24 @@
-package com.api.pladder.domain.entity.user;
+package com.api.pladder.domain.entity.contract;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
-@Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Admin extends User {
+public class Victim{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String pwd;
-
-    private Admin(String email, String pwd) {
-        this.email = email;
-        this.pwd = pwd;
-    }
+    private String name;
+    private String relationship;
+    private String phoneNumber;
 }
