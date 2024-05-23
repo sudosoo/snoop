@@ -34,8 +34,11 @@ public class Company extends BaseEntity {
 
     private String address;
 
-    @Enumerated(value = STRING)
-    private SpecializeStatus specialization = SpecializeStatus.NONE;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "specialize_status")
+    @ElementCollection(targetClass = SpecializeStatus.class)
+    @CollectionTable(name = "specialize_status", joinColumns = @JoinColumn(name = "company_id"))
+    private List<SpecializeStatus> specialization = new ArrayList<>();
 
     private String introduction;
 
@@ -48,13 +51,14 @@ public class Company extends BaseEntity {
     public Company(String companyName,
                    String address,
                    String phoneNumber ,
-                   SpecializeStatus specializeStatus ,
                    String introduction) {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.specialization = specializeStatus;
         this.introduction = introduction;
+    }
+    public void appendSpecialize(List<SpecializeStatus> specializeStatus){
+        this.specialization.addAll(specializeStatus);
     }
 
     public void update(String companyName, String address, String phoneNumber) {

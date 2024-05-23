@@ -9,7 +9,12 @@ import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.manager.CustomerManager
 import com.api.pladder.application.service.user.customer.manager.CustomerReader
 import com.api.pladder.domain.entity.user.User
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class CustomerService : UserService {
@@ -35,4 +40,6 @@ class CustomerService : UserService {
     fun updatePasswd(req: UpdatePasswdCustomerReq): UserResp {
         return customerManager.updatePasswd(req)
     }
+
+
 }

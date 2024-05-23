@@ -26,6 +26,7 @@ public class Contract extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company companyId;
+
     private UUID contractContentId;
     private String advance;
     private String pee;
