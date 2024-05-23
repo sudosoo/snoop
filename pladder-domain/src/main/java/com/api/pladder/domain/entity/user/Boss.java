@@ -1,7 +1,8 @@
 package com.api.pladder.domain.entity.user;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.AuthChannel;
-import com.api.pladder.domain.entity.user.enums.UserStatus;
+import com.api.pladder.domain.entity.user.enums.SpecializeStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Boss extends User{
+public class Boss extends BaseEntity implements User{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
@@ -30,7 +31,7 @@ public class Boss extends User{
     @MapKeyColumn(name = "year")
     @Column(name = "description")
     private Map<Integer,String> career  = null;
-    private UserStatus status = UserStatus.ACTIVE;
+    private SpecializeStatus specializeStatus = SpecializeStatus.NONE;
     private AuthChannel authChannel = AuthChannel.LOCAL;
 
     public Boss(String email, String passwd, String phoneNumber) {

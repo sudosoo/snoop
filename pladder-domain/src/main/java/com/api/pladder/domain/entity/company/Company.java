@@ -1,8 +1,9 @@
 package com.api.pladder.domain.entity.company;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
-import com.api.pladder.domain.entity.user.Boss;
+import com.api.pladder.domain.entity.user.enums.SpecializeStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,6 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -21,27 +21,40 @@ import static jakarta.persistence.EnumType.STRING;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Company {
+public class Company extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
+
     @Column(unique = true)
     private String companyName;
-    private UUID bossId;
+
     private String phoneNumber;
+
     private String address;
-    private String specialization;
+
+    @Enumerated(value = STRING)
+    private SpecializeStatus specialization = SpecializeStatus.NONE;
+
     private String introduction;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,mappedBy = "company")
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "company")
     private List<Contract> contracts = new ArrayList<>();
+
     @Enumerated(value = STRING)
     private ConfirmStatus confirmStatus = ConfirmStatus.WAIT_TING;
 
-    public Company(String companyName, String address, String phoneNumber) {
+    public Company(String companyName,
+                   String address,
+                   String phoneNumber ,
+                   SpecializeStatus specializeStatus ,
+                   String introduction) {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.specialization = specializeStatus;
+        this.introduction = introduction;
     }
 
     public void update(String companyName, String address, String phoneNumber) {
@@ -52,5 +65,6 @@ public class Company {
     public void updateConfirmStatus(ConfirmStatus confirmStatus) {
         this.confirmStatus = confirmStatus;
     }
+
 
 }

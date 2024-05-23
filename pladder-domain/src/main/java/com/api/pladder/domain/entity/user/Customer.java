@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.user;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.AuthChannel;
 import com.api.pladder.domain.entity.user.enums.UserStatus;
 import jakarta.persistence.*;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Entity(name ="pd_customer")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Customer extends User{
+public class Customer extends BaseEntity implements User {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")

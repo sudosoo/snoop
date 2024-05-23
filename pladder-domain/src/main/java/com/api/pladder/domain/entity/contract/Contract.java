@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.contract;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Contract {
+public class Contract extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")

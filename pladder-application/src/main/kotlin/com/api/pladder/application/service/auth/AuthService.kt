@@ -8,7 +8,7 @@ import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.WithdrawResp
-import com.api.pladder.application.service.user.UserService
+import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.boss.BossService
 import com.api.pladder.application.service.user.customer.CustomerService
@@ -57,7 +57,6 @@ class AuthService(
 
 
     fun withdraw(authReq: AuthReq): WithdrawResp {
-
         // TODO : unlink auth service
         // change user status : DORMANT 휴면 계정
         val userService = getUserService(authReq.userType)

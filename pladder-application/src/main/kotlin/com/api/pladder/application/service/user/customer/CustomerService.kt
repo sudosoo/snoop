@@ -1,12 +1,11 @@
 package com.api.pladder.application.service.user.customer
 
-import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.UserResp
 import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.dto.user.customer.request.RegisterCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdatePasswdCustomerReq
-import com.api.pladder.application.service.user.UserService
+import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.manager.CustomerManager
 import com.api.pladder.application.service.user.customer.manager.CustomerReader
 import com.api.pladder.domain.entity.user.User
@@ -22,10 +21,6 @@ class CustomerService : UserService {
     }
 
     override fun withdraw(userId: String): WithdrawResp {
-        TODO("Not yet implemented")
-    }
-
-    override fun validate(req: SignInReq): Boolean {
         TODO("Not yet implemented")
     }
 

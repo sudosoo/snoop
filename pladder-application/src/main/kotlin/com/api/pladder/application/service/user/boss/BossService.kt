@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
 import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
-import com.api.pladder.application.service.user.UserService
+import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.boss.manager.BossManager
 import com.api.pladder.application.service.user.boss.manager.BossReader
 import com.api.pladder.domain.entity.user.User
@@ -18,10 +18,6 @@ class BossService : UserService {
 
     override fun findByEmail(email: String): User {
         return bossManager.findById(email)
-    }
-
-    override fun validate(req: SignInReq): Boolean {
-        TODO("Not yet implemented")
     }
 
     override fun withdraw(userId: String): WithdrawResp {
