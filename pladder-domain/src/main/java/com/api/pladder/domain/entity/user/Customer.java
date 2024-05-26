@@ -2,7 +2,7 @@ package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.AuthChannel;
-import com.api.pladder.domain.entity.user.enums.UserActive;
+import com.api.pladder.domain.entity.user.enums.CustomerStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,16 +22,12 @@ public class Customer extends BaseEntity implements User {
     @Column(unique = true)
     private String email;
     private String passwd;
+    private String nickName;
     //TODO  계약서
     private String phoneNumber;
-    private String nickName;
-
     @Enumerated(EnumType.STRING)
     private AuthChannel authChannel = AuthChannel.LOCAL;
-
-    @Enumerated(EnumType.STRING)
-    private Boolean isActive = true;
-
+    private CustomerStatus status = CustomerStatus.UNVERIFIED;
     public Customer(String email, String passwd, String phoneNumber, String nickName) {
         this.email = email;
         this.passwd = passwd;
@@ -54,5 +50,10 @@ public class Customer extends BaseEntity implements User {
 
     public void updatePasswd(String pwd) {
         this.passwd = pwd;
+    }
+
+    //계약서 작성하면 인증상태로 변경
+    public void updateCertified() {
+        this.status = CustomerStatus.CERTIFIED;
     }
 }

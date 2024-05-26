@@ -1,8 +1,8 @@
 package com.api.pladder.application.service.user.boss
 
 import com.api.pladder.application.dto.user.WithdrawResp
-import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
-import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
+import com.api.pladder.application.dto.user.detective.request.RegisterBossReq
+import com.api.pladder.application.dto.user.detective.request.UpdateInfoBossReq
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.boss.manager.BossManager
 import com.api.pladder.application.service.user.boss.manager.BossReader

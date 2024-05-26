@@ -1,7 +1,7 @@
-package com.api.pladder.application.dto.user.boss.mapper
+package com.api.pladder.application.dto.user.detective.mapper
 
-import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
-import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
+import com.api.pladder.application.dto.user.detective.request.RegisterBossReq
+import com.api.pladder.application.dto.user.detective.request.UpdateInfoBossReq
 import com.api.pladder.domain.entity.user.Detective
 
 

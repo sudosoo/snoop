@@ -18,5 +18,7 @@ public class BaseEntity {
 
     @LastModifiedDate
     private LocalDate updatedAt;
+
+    private boolean isActive = true;
 }
 

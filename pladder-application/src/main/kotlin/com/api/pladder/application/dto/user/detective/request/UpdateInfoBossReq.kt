@@ -1,4 +1,4 @@
-package com.api.pladder.application.dto.user.boss.request
+package com.api.pladder.application.dto.user.detective.request
 
 data class UpdateInfoBossReq (
     val userId: String,

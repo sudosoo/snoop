@@ -1,10 +1,10 @@
 package com.api.pladder.application.service.user.boss.manager
 
 import com.api.pladder.application.dto.user.UserResp
-import com.api.pladder.application.dto.user.boss.mapper.DtoMapper.toEntity
-import com.api.pladder.application.dto.user.boss.mapper.DtoMapper.updateInfo
-import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
-import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
+import com.api.pladder.application.dto.user.detective.mapper.DtoMapper.toEntity
+import com.api.pladder.application.dto.user.detective.mapper.DtoMapper.updateInfo
+import com.api.pladder.application.dto.user.detective.request.RegisterBossReq
+import com.api.pladder.application.dto.user.detective.request.UpdateInfoBossReq
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.repository.common.BaseRepository
