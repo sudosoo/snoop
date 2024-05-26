@@ -8,19 +8,18 @@ import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.WithdrawResp
-import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.admin.AdminService
-import com.api.pladder.application.service.user.boss.BossService
+import com.api.pladder.application.service.user.boss.DetectiveService
+import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.domain.entity.user.User
-import com.api.pladder.domain.entity.user.enums.UserStatus
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
     private val jwtUtil: JwtUtil,
-    private val bossService: BossService,
+    private val detectiveService: DetectiveService,
     private val customerService: CustomerService,
     private val adminService: AdminService,
 ) {
@@ -31,8 +30,8 @@ class AuthService(
         val user:User
         try { // login
             user = userService.findByEmail(req.email)
-            if (user.status != UserStatus.ACTIVE)
-                throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${user.status})")
+            if (user.isActive != true)
+                throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${user.isActive})")
 
         } catch (e: NotFoundException){
             throw NotFoundException("사용자 정보가 존재하지 않습니다.")
@@ -58,17 +57,18 @@ class AuthService(
 
     fun withdraw(authReq: AuthReq): WithdrawResp {
         // TODO : unlink auth service
-        // change user status : DORMANT 휴면 계정
         val userService = getUserService(authReq.userType)
-        return userService.withdraw(authReq.userId
-            ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다."))
+        return userService.withdraw(
+            (authReq.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
+                    ).toString()
+        )
     }
 
     private fun getUserService(userType: UserType): UserService {
         return when (userType){
-            UserType.BOSS -> return bossService
-            UserType.CUSTOMER -> return customerService
             UserType.ADMIN -> return adminService
+            UserType.DETECTIVE -> return detectiveService
+            UserType.CUSTOMER -> return customerService
             else -> {throw InvalidRequestException("지원하지 않는 사용자 유형입니다.")}
         }
     }

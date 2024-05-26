@@ -2,6 +2,7 @@ package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.AuthChannel;
+import com.api.pladder.domain.entity.user.enums.DetectiveLevel;
 import com.api.pladder.domain.entity.user.enums.SpecializeStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Boss extends BaseEntity implements User{
+public class Detective extends BaseEntity implements User{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
@@ -23,18 +24,19 @@ public class Boss extends BaseEntity implements User{
     @Column(unique = true)
     private String email;
     private String passwd;
+    private DetectiveLevel level;
     private String phoneNumber;
     private UUID companyId;
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
-    @CollectionTable(name = "boss_career", joinColumns = @JoinColumn(name = "boss_id"))
+    @CollectionTable(name = "detective_career", joinColumns = @JoinColumn(name = "detective_id"))
     @MapKeyColumn(name = "year")
-    @Column(name = "description")
     private Map<Integer,String> career  = null;
     private SpecializeStatus specializeStatus = SpecializeStatus.NONE;
     private AuthChannel authChannel = AuthChannel.LOCAL;
+    private Boolean isActive = true;
 
-    public Boss(String email, String passwd, String phoneNumber) {
+    public Detective(String email, String passwd, String phoneNumber) {
         this.email = email;
         this.passwd = passwd;
         this.phoneNumber = phoneNumber;

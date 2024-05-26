@@ -10,7 +10,6 @@ data class AuthReq(
     val userId: UUID? = null,
     //@Schema(description = "User type (BOSS, CUSTOMER, ADMIN, UNKNOWN)")
     val userType: UserType = UserType.UNKNOWN,
-
     ) {
     constructor(response: UserResp, userType: UserType) : this(
         userId = response.userId,

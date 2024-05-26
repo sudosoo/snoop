@@ -6,19 +6,19 @@ import com.api.pladder.application.dto.user.boss.mapper.DtoMapper.updateInfo
 import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
 import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
 import com.api.pladder.application.service.common.jpa.JpaService
-import com.api.pladder.domain.entity.user.Boss
+import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.repository.common.BaseRepository
-import com.api.pladder.domain.repository.user.BossRepository
+import com.api.pladder.domain.repository.user.DetectiveRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class BossManager(
-    private val bossRepository: BossRepository
+    private val detectiveRepository: DetectiveRepository
 
-) : JpaService<Boss, String> {
+) : JpaService<Detective, String> {
 
-    override var jpaRepository: BaseRepository<Boss, String> = bossRepository
+    override var jpaRepository: BaseRepository<Detective, String> = detectiveRepository
 
     fun register(req : RegisterBossReq): UserResp {
         val encoder = BCryptPasswordEncoder()

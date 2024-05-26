@@ -2,7 +2,7 @@ package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.AuthChannel;
-import com.api.pladder.domain.entity.user.enums.UserStatus;
+import com.api.pladder.domain.entity.user.enums.UserActive;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +22,7 @@ public class Customer extends BaseEntity implements User {
     @Column(unique = true)
     private String email;
     private String passwd;
+    //TODO  계약서
     private String phoneNumber;
     private String nickName;
 
@@ -29,7 +30,7 @@ public class Customer extends BaseEntity implements User {
     private AuthChannel authChannel = AuthChannel.LOCAL;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.ACTIVE;
+    private Boolean isActive = true;
 
     public Customer(String email, String passwd, String phoneNumber, String nickName) {
         this.email = email;

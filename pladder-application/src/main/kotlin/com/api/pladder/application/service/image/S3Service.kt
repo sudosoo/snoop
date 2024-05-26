@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RequestBody
 import software.amazon.awssdk.core.ResponseBytes
-import software.amazon.awssdk.core.async.AsyncRequestBody
-import software.amazon.awssdk.core.async.AsyncRequestBody.fromBytes
+import software.amazon.awssdk.core.sync.RequestBody.fromBytes
 import software.amazon.awssdk.core.exception.SdkException
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest
@@ -33,7 +32,7 @@ class S3Service (
                 .key("$fileName")
                 .contentType(file.contentType)
                 .build()
-            var body : RequestBody = fromBytes(file.bytes)
+            val body = fromBytes(file.bytes)
             s3Client.putObject(putObjectRequest,body)
         } catch (e: IOException) {
             // 처리 중 발생한 예외 처리

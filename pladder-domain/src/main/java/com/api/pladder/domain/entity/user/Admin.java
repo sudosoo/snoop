@@ -14,7 +14,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Admin extends BaseEntity implements User{
+public class Admin extends BaseEntity{
+
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")

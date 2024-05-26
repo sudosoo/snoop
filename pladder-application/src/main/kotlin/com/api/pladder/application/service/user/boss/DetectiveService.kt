@@ -1,6 +1,5 @@
 package com.api.pladder.application.service.user.boss
 
-import com.api.pladder.application.dto.auth.request.SignInReq
 import com.api.pladder.application.dto.user.WithdrawResp
 import com.api.pladder.application.dto.user.boss.request.RegisterBossReq
 import com.api.pladder.application.dto.user.boss.request.UpdateInfoBossReq
@@ -11,7 +10,7 @@ import com.api.pladder.domain.entity.user.User
 import org.springframework.stereotype.Service
 
 @Service
-class BossService : UserService {
+class DetectiveService : UserService {
 
     private lateinit var bossManager: BossManager
     private lateinit var bossReader: BossReader

@@ -1,8 +1,5 @@
 package com.api.pladder.application.dto.image.enums
 
-import com.api.pladder.application.auth.enums.UserType
-import com.api.pladder.domain.entity.user.enums.UserStatus
-
 enum class ImageType (
     val prefix: String,
     val description: String

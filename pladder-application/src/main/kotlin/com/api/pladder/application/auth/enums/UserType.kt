@@ -4,14 +4,14 @@ enum class UserType(
     val authorization : String,
     val requestMapper : String,
 ) {
-    BOSS(authorization = "boss", requestMapper = "/api/boss"),
-    CUSTOMER(authorization = "customer", requestMapper = "/api/customer"),
     ADMIN(authorization = "admin", requestMapper = "/api/admin"),
+    DETECTIVE(authorization = "detective", requestMapper = "/api/detective"),
+    CUSTOMER(authorization = "customer", requestMapper = "/api/customer"),
     UNKNOWN(authorization = "open", requestMapper = "/api/open");
     companion object {
         fun fromString(value: String): UserType {
-            return requireNotNull(values().find { it.name.equals(value, ignoreCase = true) }) {
-                "No enum constant UserType for string: $value"
+            return requireNotNull(entries.find { it.name.equals(value, ignoreCase = true) }) {
+                "존재하지 않는 유저타입 입니다: $value"
             }
         }
     }
