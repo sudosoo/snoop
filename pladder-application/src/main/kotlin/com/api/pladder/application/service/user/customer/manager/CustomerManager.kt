@@ -1,16 +1,14 @@
 package com.api.pladder.application.service.user.customer.manager
 
-import com.api.pladder.application.dto.user.UserResp
+import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.toEntity
 import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.updateInfo
-import com.api.pladder.application.dto.user.customer.request.RegisterCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdatePasswdCustomerReq
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,26 +17,21 @@ class CustomerManager(
 ):JpaService<Customer, String> {
     override var jpaRepository: BaseRepository<Customer, String> = customerRepository
 
-    fun register(req : RegisterCustomerReq) {
-        val encoder = BCryptPasswordEncoder()
-        val convertPasswd = encoder.encode(req.passwd)
-        req.setConvertPasswd(convertPasswd)
+    fun register(req : RegisterUserReq) :Customer {
         val customer = toEntity(req)
-        save(customer)
+        return save(customer)
     }
 
-    fun update(req: UpdateInfoCustomerReq):UserResp{
+    fun update(req: UpdateInfoCustomerReq): Customer {
         val customer = findById(req.userId)
         updateInfo(customer,req)
-        return UserResp(save(customer))
+        return save(customer)
     }
 
-    fun updatePasswd(req: UpdatePasswdCustomerReq):UserResp{
+    fun updatePasswd(req: UpdatePasswdCustomerReq): Customer {
         val customer = customerRepository.findByEmail(req.email).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
-        val encoder = BCryptPasswordEncoder()
-        val convertPasswd = encoder.encode(req.reqUpdatePasswd)
-        customer.updatePasswd(convertPasswd)
-        return UserResp(save(customer))
+        customer.updatePasswd(req.reqUpdatePasswd)
+        return save(customer)
     }
 
     //임시 비밀번호 생성기
@@ -56,9 +49,5 @@ class CustomerManager(
         }
         return str.toString()
     }
-
-
-
-
 
 }

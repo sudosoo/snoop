@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Admin extends BaseEntity{
+public class Admin extends BaseEntity implements User{
 
     @Id
     @UuidGenerator
@@ -27,5 +27,10 @@ public class Admin extends BaseEntity{
     private Admin(String email, String pwd) {
         this.email = email;
         this.pwd = pwd;
+    }
+
+    @Override
+    public Boolean isActive() {
+        return true;
     }
 }

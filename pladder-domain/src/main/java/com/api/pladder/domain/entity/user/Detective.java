@@ -37,7 +37,7 @@ public class Detective extends BaseEntity implements User{
     private Map<Integer,String> career  = null;
     private SpecializeStatus specializeStatus = SpecializeStatus.NONE;
     private AuthChannel authChannel = AuthChannel.LOCAL;
-
+    private boolean isActive = true;
     public Detective(String email, String passwd, String phoneNumber) {
         this.email = email;
         this.passwd = passwd;
@@ -55,6 +55,6 @@ public class Detective extends BaseEntity implements User{
     public int totalCareer() {
         return career.keySet().stream().mapToInt(Integer::intValue).sum();
     }
-
+    public Boolean isActive() { return this.isActive; }
 
 }

@@ -1,6 +1,5 @@
 dependencies {
-    api(project(":pladder-domain"))
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation(project(":pladder-domain"))
 
     // JSON Web Token (JWT) library - jjwt
     implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
@@ -12,4 +11,5 @@ dependencies {
 
     // fixture-monkey
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.0.17")
+
 }

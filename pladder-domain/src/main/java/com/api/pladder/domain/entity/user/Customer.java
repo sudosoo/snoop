@@ -28,6 +28,7 @@ public class Customer extends BaseEntity implements User {
     @Enumerated(EnumType.STRING)
     private AuthChannel authChannel = AuthChannel.LOCAL;
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
+    private boolean isActive = true;
     public Customer(String email, String passwd, String phoneNumber, String nickName) {
         this.email = email;
         this.passwd = passwd;
@@ -56,4 +57,11 @@ public class Customer extends BaseEntity implements User {
     public void updateCertified() {
         this.status = CustomerStatus.CERTIFIED;
     }
+    public  Boolean isActive() {
+        return this.isActive;
+    }
+
+
 }
+
+

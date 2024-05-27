@@ -1,18 +1,18 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.application.auth.enums.UserType
+import com.api.pladder.domain.entity.user.enums.UserType
 import com.api.pladder.application.auth.jwt.JwtUtil
 import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
 import com.api.pladder.application.core.exception.InvalidRequestException
-import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.auth.request.AuthReq
-import com.api.pladder.application.dto.auth.request.SignInReq
+import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.WithdrawResp
+import com.api.pladder.application.dto.user.common.request.RegisterUserReq
+import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.service.user.admin.AdminService
-import com.api.pladder.application.service.user.boss.DetectiveService
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
-import com.api.pladder.domain.entity.user.User
+import com.api.pladder.application.service.user.detective.DetectiveService
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 
@@ -24,29 +24,31 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signIn(req: SignInReq , servletResp: HttpServletResponse) {
-
+    fun signUp(req: RegisterUserReq) : UserResp{
         val userService = getUserService(req.userType)
-        val user:User
-        try { // login
-            user = userService.findByEmail(req.email)
-            if (user.isActive != true)
-                throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${user.isActive})")
+        val userRes = userService.register(req)
+        return userRes
+    }
 
-        } catch (e: NotFoundException){
-            throw NotFoundException("사용자 정보가 존재하지 않습니다.")
-        }
-        //TODO Spring security 기능 추가 필요
-//        val authorities = mutableListOf<GrantedAuthority>()
-//        when(req.userType){
-//            ADMIN -> authorities.add(SimpleGrantedAuthority("ADMIN"))
-//            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
-//            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
-//            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
-        val accessToken: String = jwtUtil.generate(user.id, req.userType)
+    fun signIn(req: SignInUserReq, authReq: AuthReq, servletResp: HttpServletResponse) : UserResp {
+        val userService = getUserService(req.userType)
+             // login
+        val userResp = userService.findByEmail(req.email!!)
+        if (userResp.isActive != true)
+            throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${userResp.isActive})")
+
+            //TODO Spring security 기능 추가 필요
+    //        val authorities = mutableListOf<GrantedAuthority>()
+    //        when(req.userType){
+    //            ADMIN -> authorities.add(SimpleGrantedAuthority("ADMIN"))
+    //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
+    //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
+    //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
+            val accessToken: String = jwtUtil.generate(userResp.userId, req.userType)
         //TODO 토큰 어디에 넣을건지 ?
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
+        return userResp
     }
 
     fun signOut(){

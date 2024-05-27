@@ -1,6 +1,6 @@
 package com.api.pladder.application.dto.user.customer.mapper
 
-import com.api.pladder.application.dto.user.customer.request.RegisterCustomerReq
+import com.api.pladder.application.dto.user.common.request.RegisterCustomerReq
 import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
 import com.api.pladder.domain.entity.user.Customer
 

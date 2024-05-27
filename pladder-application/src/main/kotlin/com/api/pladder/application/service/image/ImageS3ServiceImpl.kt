@@ -4,7 +4,6 @@ import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.image.request.ImageReq
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.RequestBody
 import software.amazon.awssdk.core.ResponseBytes
 import software.amazon.awssdk.core.sync.RequestBody.fromBytes
 import software.amazon.awssdk.core.exception.SdkException
@@ -18,8 +17,8 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import java.io.IOException
 
 @Service
-class S3Service (
-    private val s3Client : S3Client
+class ImageS3ServiceImpl (
+    private val s3Client: S3Client,
 ) : ImgStorageService {
 
     @Value("\${cloud.bucket.name}")

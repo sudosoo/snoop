@@ -1,4 +1,4 @@
-package com.api.pladder.application.auth.enums
+package com.api.pladder.domain.entity.user.enums
 
 enum class UserType(
     val authorization : String,

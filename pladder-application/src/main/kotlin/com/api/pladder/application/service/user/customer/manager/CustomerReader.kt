@@ -5,7 +5,6 @@ import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
 
 @Component
 class CustomerReader(
