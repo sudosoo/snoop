@@ -16,8 +16,8 @@ class CustomerService : UserService {
     private lateinit var customerManager: CustomerManager
     private lateinit var customerReader: CustomerReader
 
-    override fun findByEmail(email: String): User {
-        return customerReader.findByEmail(email)
+    override fun findByEmail(email: String): UserResp {
+        return UserResp(customerReader.findByEmail(email))
     }
 
     override fun withdraw(userId: String): WithdrawResp {

@@ -16,8 +16,8 @@ class DetectiveService : UserService {
     private lateinit var detectiveManager: DetectiveManager
     private lateinit var detectiveReader: DetectiveReader
 
-    override fun findByEmail(email: String): User {
-        return detectiveManager.findById(email)
+    override fun findByEmail(email: String): UserResp {
+        return UserResp(detectiveManager.findById(email))
     }
 
     override fun withdraw(userId: String): WithdrawResp {
