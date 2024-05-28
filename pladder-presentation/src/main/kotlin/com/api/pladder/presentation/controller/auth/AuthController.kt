@@ -2,14 +2,12 @@ package com.api.pladder.presentation.controller.auth
 
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.user.common.request.RegisterCustomerReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.service.auth.AuthService
 import com.api.pladder.presentation.common.AuthDataProvider
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.hibernate.usertype.UserType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.GetMapping

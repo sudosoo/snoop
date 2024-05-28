@@ -8,7 +8,8 @@ class ImageReq(
     val file: MultipartFile
 ){
     constructor(type: String, file: MultipartFile) : this(
-        type = ImageType.valueOf(type),
+        type = ImageType.fromPrefix(type.uppercase()),
         file = file
     )
+
 }

@@ -2,10 +2,12 @@ package com.api.pladder.domain.entity.image.enums;
 
 
 import com.api.pladder.domain.entity.user.enums.UserType;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public enum ImageType {
     BUSINESS_REGISTRATION_CERTIFICATE(
             "BU",
@@ -50,12 +52,12 @@ public enum ImageType {
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     );
 
-    private final String prefix;
-    private final String description;
-    private final List<UserType> createPermissions;
-    private final List<UserType> selectPermissions;
-    private final List<UserType> deletePermissions;
-    private final List<String> extension = Arrays.asList("jpg", "jpeg", "png", "gif"); // 확장자 리스트
+    public final String prefix;
+    public final String description;
+    public final List<UserType> createPermissions;
+    public final List<UserType> selectPermissions;
+    public final List<UserType> deletePermissions;
+    public final List<String> extension = Arrays.asList("jpg", "jpeg", "png", "gif"); // 확장자 리스트
     ImageType(String prefix, String description, List<UserType> createPermissions, List<UserType> selectPermissions, List<UserType> deletePermissions) {
         this.prefix = prefix;
         this.description = description;
@@ -63,6 +65,21 @@ public enum ImageType {
         this.selectPermissions = selectPermissions; //조회 권한
         this.deletePermissions = deletePermissions; //삭제 권한
     }
+
+    public static ImageType fromPrefix(String reqPrefix) {
+        return Arrays.stream(ImageType.values())
+                .filter(imageType -> imageType.prefix.equals(reqPrefix))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
+    }
+
+    public static ImageType fromDescription(String reqDescription) {
+        return Arrays.stream(ImageType.values())
+                .filter(imageType -> imageType.description.equals(reqDescription))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
+    }
+
 
 
 }

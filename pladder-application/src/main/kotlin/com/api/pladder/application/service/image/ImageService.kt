@@ -4,37 +4,54 @@ import com.api.pladder.application.core.exception.AccessDeniedException
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
-import com.api.pladder.application.service.common.jpa.JpaService
+import com.api.pladder.application.service.image.manager.ImageManager
+import com.api.pladder.application.service.image.reader.ImageReader
 import com.api.pladder.domain.entity.image.Image
 import com.api.pladder.domain.entity.user.enums.UserType
-import com.api.pladder.domain.repository.common.BaseRepository
-import com.api.pladder.domain.repository.image.ImageRepository
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
+import org.springframework.beans.factory.annotation.Value
 import java.time.LocalDateTime
 import kotlin.random.Random
 
-class ImageService (
-    private var repository: ImageRepository,
-    private var imageService: ImageS3ServiceImpl
-):JpaService<Image,String>{
+class ImageService(
+    private var s3Service: ImageS3ServiceImpl,
+    private val reader: ImageReader,
+    private val manager : ImageManager,
 
-    override var jpaRepository: BaseRepository<Image, String> = repository
+    @Value("\${image.max-file-size}")
+    private var maxFileSize: Long
+){
 
-    fun save(request: ImageReq , authReq: AuthReq): ImageResp {
+    fun save(req: ImageReq , authReq: AuthReq): ImageResp {
+        fileValidation(req)
 
         // file-name 채번
-        val fileName = generateImageFileName(request)
+        val fileName = generateImageFileName(req)
         val writerId = authReq.userId.toString()
         // save image-info
-        val model = Image.of(fileName,writerId,request.type,request.file.size)
-        val result = repository.save(model)
+        val model = Image.of(fileName, writerId ,req.type, req.file.size)
 
+        val result = manager.save(model)
         // save image-file
-        imageService.uploadImage(fileName = fileName, imageReq = request)
+        s3Service.uploadImage(fileName = fileName, imageReq = req)
 
         return ImageResp(result)
     }
+
+    private fun fileValidation(req: ImageReq) {
+        val fileExtension = getFileExtension(req.file.originalFilename)
+        if (req.type.extension.contains(fileExtension.lowercase())) {
+            throw IllegalArgumentException("Unsupported file extension: $fileExtension")
+        } else if (req.file.size > maxFileSize) {
+            throw IllegalArgumentException("File size exceeds the maximum size: ${req.file.size}")
+        }
+    }
+
+    private fun getFileExtension(filename: String?): String {
+        return filename?.substringAfterLast('.', "") ?: ""
+    }
+
 
     private fun generateImageFileName(request: ImageReq) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
@@ -43,26 +60,23 @@ class ImageService (
     }
 
     fun deleteById(id: String, authReq: AuthReq) {
-        val model = findById(id)
+        val model = reader.findById(id)
         if (authReq.userType == UserType.CUSTOMER && model.writerId != authReq.userId.toString()){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
-
-        imageService.deleteImage(id)
-        deleteById(id)
+        s3Service.deleteImage(id)
+        manager.deleteById(id)
     }
 
-    // TODO : 처리방법 조회
     fun findById(id: String, authReq: AuthReq ): ImageResp {
-        val model = findById(id)
+        val model = reader.findById(id)
         if (authReq.userType == UserType.CUSTOMER && model.writerId != authReq.userId.toString()){
             throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
         }
-
         return ImageResp(model)
     }
 
     fun downloadImage(fileName: String): ByteArray {
-        return imageService.downloadImage(fileName)
+        return s3Service.downloadImage(fileName)
     }
 }

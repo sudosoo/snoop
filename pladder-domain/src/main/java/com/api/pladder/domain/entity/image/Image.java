@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Image {
+public class
+Image {
     @Id
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private String id;

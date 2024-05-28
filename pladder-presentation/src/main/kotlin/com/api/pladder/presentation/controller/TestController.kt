@@ -25,10 +25,12 @@ class TestController (
         @RequestParam(name = "file") file: MultipartFile,
         @RequestParam(name = "type") type: String
     ): ResponseEntity<BaseResp> {
+
+
         return getRespEntity(
             service.save(
-                request = ImageReq(type = type, file = file),
-                getAuthReq()
+                req = ImageReq(type = type, file = file),
+                authReq = getAuthReq()
             )
         )
     }
