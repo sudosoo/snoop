@@ -1,4 +1,4 @@
-package com.api.pladder.application.dto.user
+package com.api.pladder.application.dto.user.common.response
 
 import com.api.pladder.domain.entity.user.enums.AuthChannel
 import com.api.pladder.domain.entity.user.Detective

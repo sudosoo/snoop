@@ -1,6 +1,6 @@
 package com.api.pladder.application.service.user.customer
 
-import com.api.pladder.application.dto.user.WithdrawResp
+import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
@@ -8,7 +8,6 @@ import com.api.pladder.application.dto.user.customer.request.UpdatePasswdCustome
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.manager.CustomerManager
 import com.api.pladder.application.service.user.customer.manager.CustomerReader
-import com.api.pladder.domain.entity.user.User
 import org.springframework.stereotype.Service
 
 @Service

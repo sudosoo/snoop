@@ -1,6 +1,5 @@
 package com.api.pladder.application.dto.image.request
 
-import com.api.pladder.domain.entity.image.ImageType
 import org.springframework.web.multipart.MultipartFile
 
 class ImageReq(

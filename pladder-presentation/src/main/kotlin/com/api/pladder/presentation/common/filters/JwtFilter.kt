@@ -1,12 +1,10 @@
-package com.api.pladder.application.auth.filters
+package com.api.pladder.presentation.common.filters
 
-import jakarta.servlet.http.HttpServletRequest
 import com.api.pladder.application.auth.jwt.JwtUtil
-import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
-import com.api.pladder.application.core.enums.HeaderPrefix.REFRESHTOKEN
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.service.http.HttpResolver
 import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority

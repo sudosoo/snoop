@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.image;
 
+import com.api.pladder.domain.entity.image.enums.ImageType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

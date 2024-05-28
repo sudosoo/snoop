@@ -1,13 +1,12 @@
 package com.api.pladder.application.service.user.detective
 
-import com.api.pladder.application.dto.user.WithdrawResp
+import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.dto.user.detective.request.UpdateInfoBossReq
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.detective.manager.DetectiveManager
 import com.api.pladder.application.service.user.detective.manager.DetectiveReader
-import com.api.pladder.domain.entity.user.User
 import org.springframework.stereotype.Service
 
 @Service

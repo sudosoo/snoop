@@ -1,6 +1,6 @@
 package com.api.pladder.application.dto.auth.request
 
-import com.api.pladder.application.dto.auth.common.UserTypeAppender
+import com.api.pladder.application.dto.user.common.UserTypeAppender
 import com.api.pladder.domain.entity.user.enums.UserType
 
 data class SignInUserReq (
