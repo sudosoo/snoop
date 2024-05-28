@@ -10,6 +10,7 @@ data class RegisterUserReq (
     val nickName: String ? = null
 ) : UserTypeAppender {
     lateinit var userType: UserType
+
     fun updateConvertPasswd(convertPass:String) {
         this.passwd = convertPass
     }

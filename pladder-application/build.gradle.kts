@@ -12,4 +12,6 @@ dependencies {
     // fixture-monkey
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.0.17")
 
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
 }

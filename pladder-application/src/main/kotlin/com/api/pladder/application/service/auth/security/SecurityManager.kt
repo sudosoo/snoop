@@ -1,9 +1,7 @@
 package com.api.pladder.application.service.auth.security
 
 import com.api.pladder.application.dto.auth.request.AuthReq
-import io.jsonwebtoken.Claims
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component

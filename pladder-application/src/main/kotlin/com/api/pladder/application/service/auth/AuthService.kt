@@ -14,6 +14,7 @@ import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -25,12 +26,19 @@ class AuthService(
 ) {
 
     fun signUp(req: RegisterUserReq) : UserResp{
+        val convertPasswd= passwdBCryptConvert(req.passwd!!)
+        req.updateConvertPasswd(convertPasswd)
+
+
         val userService = getUserService(req.userType)
         val userRes = userService.register(req)
         return userRes
     }
 
     fun signIn(req: SignInUserReq, authReq: AuthReq, servletResp: HttpServletResponse) : UserResp {
+        val convertPasswd= passwdBCryptConvert(req.passwd!!)
+        req.updateConvertPasswd(convertPasswd)
+
         val userService = getUserService(req.userType)
              // login
         val userResp = userService.findByEmail(req.email!!)
@@ -49,6 +57,13 @@ class AuthService(
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
         return userResp
+    }
+
+    private fun passwdBCryptConvert(rawPass: String): String {
+        val encoder = BCryptPasswordEncoder()
+        return encoder.encode(rawPass)
+
+
     }
 
     fun signOut(){
