@@ -3,7 +3,7 @@ package com.api.pladder.domain.entity.company;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
-import com.api.pladder.domain.entity.user.enums.SpecializeStatus;
+import com.api.pladder.domain.entity.user.enums.Filed;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,10 +35,10 @@ public class Company extends BaseEntity {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "specialize_status")
-    @ElementCollection(targetClass = SpecializeStatus.class)
-    @CollectionTable(name = "specialize_status", joinColumns = @JoinColumn(name = "company_id"))
-    private List<SpecializeStatus> specialization = new ArrayList<>();
+    @Column(name = "Filed")
+    @ElementCollection(targetClass = Filed.class)
+    @CollectionTable(name = "Filed", joinColumns = @JoinColumn(name = "company_id"))
+    private List<Filed> specialization = new ArrayList<>();
 
     private String introduction;
 
@@ -57,8 +57,8 @@ public class Company extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
     }
-    public void appendSpecialize(List<SpecializeStatus> specializeStatus){
-        this.specialization.addAll(specializeStatus);
+    public void appendSpecialize(List<Filed> fileds){
+        this.specialization.addAll(fileds);
     }
 
     public void update(String companyName, String address, String phoneNumber) {

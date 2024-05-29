@@ -14,14 +14,12 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name="pd_victim")
-public class Victim {
+@Entity(name="pd_conclusion")
+public class Conclusion{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
-    private UUID contractId;
-    private String name;
-    private String relationship;
-    private String phoneNumber;
+    private String description;
+    private String file;
 }

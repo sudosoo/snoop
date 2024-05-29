@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.base;
 
+import com.api.pladder.domain.entity.common.DateTimePattern;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -17,11 +18,11 @@ public class BaseEntity {
     @CreatedDate
     @CreationTimestamp
     @Column(updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = DateTimePattern.STANDARD_PATTERN)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = DateTimePattern.STANDARD_PATTERN)
     private LocalDateTime updatedAt;
 
     private boolean isActive = true;

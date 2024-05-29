@@ -1,4 +1,4 @@
-package com.api.pladder.application.auth.jwt
+package com.api.pladder.application.auth
 
 import com.api.pladder.application.core.exception.TokenException
 import com.api.pladder.application.dto.auth.request.AuthReq

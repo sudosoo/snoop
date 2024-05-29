@@ -5,12 +5,13 @@ import com.api.pladder.domain.entity.progressHistory.ProgressHistory
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.progressHistory.ProgressHistoryRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class ProgressManager(
     private val repository: ProgressHistoryRepository
-):JpaService<ProgressHistory, String> {
+):JpaService<ProgressHistory, UUID> {
 
-    override var jpaRepository: BaseRepository<ProgressHistory, String> = repository
+    override var jpaRepository: BaseRepository<ProgressHistory, UUID> = repository
 
 }

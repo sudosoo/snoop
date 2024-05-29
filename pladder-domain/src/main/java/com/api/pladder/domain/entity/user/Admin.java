@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity(name="pd_admin")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Admin extends BaseEntity implements User{
-
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")

@@ -32,6 +32,4 @@ public class ProgressHistory extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     private Contract contract;
-
-
 }

@@ -1,6 +1,6 @@
-package com.api.pladder.application.auth.jwt.filters
+package com.api.pladder.application.auth.filters
 
-import com.api.pladder.application.auth.jwt.JwtUtil
+import com.api.pladder.application.core.jwt.JwtUtil
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.service.auth.http.HttpResolver
 import jakarta.servlet.FilterChain

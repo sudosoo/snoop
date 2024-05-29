@@ -1,18 +1,18 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.domain.entity.user.enums.UserType
-import com.api.pladder.application.auth.jwt.JwtUtil
 import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
 import com.api.pladder.application.core.exception.InvalidRequestException
+import com.api.pladder.application.core.jwt.JwtUtil
 import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.auth.request.SignInUserReq
-import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
+import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService
+import com.api.pladder.domain.entity.user.enums.UserType
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
@@ -62,8 +62,6 @@ class AuthService(
     private fun passwdBCryptConvert(rawPass: String): String {
         val encoder = BCryptPasswordEncoder()
         return encoder.encode(rawPass)
-
-
     }
 
     fun signOut(){
