@@ -1,7 +1,8 @@
-package com.api.pladder.application.service.image
+package com.api.pladder.application.service.image.s3
 
 import com.api.pladder.application.core.exception.NotFoundException
 import com.api.pladder.application.dto.image.request.ImageReq
+import com.api.pladder.application.service.image.ImgStorageService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.core.ResponseBytes

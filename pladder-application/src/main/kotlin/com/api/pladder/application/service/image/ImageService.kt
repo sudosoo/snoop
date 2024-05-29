@@ -6,6 +6,7 @@ import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
 import com.api.pladder.application.service.image.manager.ImageManager
 import com.api.pladder.application.service.image.reader.ImageReader
+import com.api.pladder.application.service.image.s3.ImageS3ServiceImpl
 import com.api.pladder.domain.entity.image.Image
 import com.api.pladder.domain.entity.user.enums.UserType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString

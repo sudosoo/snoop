@@ -13,10 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity(name="pd_contract_content")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Entity(name="pd_contract_content")
 public class ContractContent{
     @Id
     @UuidGenerator
