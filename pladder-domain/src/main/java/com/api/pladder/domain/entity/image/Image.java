@@ -1,16 +1,14 @@
 package com.api.pladder.domain.entity.image;
 
 import com.api.pladder.domain.entity.image.enums.ImageType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity(name="pd_image")
 public class Image {
     @Id
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")

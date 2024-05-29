@@ -13,8 +13,8 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.Map;
 import java.util.UUID;
 
-@Entity
 @Getter
+@Entity(name="pd_detective")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Detective extends BaseEntity implements User{
     @Id

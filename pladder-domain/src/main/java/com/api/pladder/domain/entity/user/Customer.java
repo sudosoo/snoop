@@ -11,8 +11,8 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
-@Entity(name ="pd_customer")
 @Getter
+@Entity(name="pd_customer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity implements User {
     @Id

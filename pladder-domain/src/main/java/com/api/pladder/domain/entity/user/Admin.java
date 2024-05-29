@@ -11,8 +11,8 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
-@Entity
 @Getter
+@Entity(name="pd_admin")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Admin extends BaseEntity implements User{
 

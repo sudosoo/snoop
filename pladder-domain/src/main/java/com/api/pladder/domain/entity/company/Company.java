@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
 
-@Entity
+@Entity(name="pd_company")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

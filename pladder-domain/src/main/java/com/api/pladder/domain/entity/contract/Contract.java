@@ -3,6 +3,7 @@ package com.api.pladder.domain.entity.contract;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
+import com.api.pladder.domain.entity.progressHistory.ProgressHistory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,10 +12,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
-@Entity
+@Entity(name="pd_contract")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Contract extends BaseEntity {
@@ -26,7 +29,12 @@ public class Contract extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
+    private List<ProgressHistory> progressHistory = new ArrayList<>();
+
     private UUID contractContentId;
+
     private String advance;
     private String pee;
     private String purpose;

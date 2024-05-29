@@ -17,6 +17,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity(name="pd_progress_history")
 public class ProgressHistory extends BaseEntity {
     @Id
     @UuidGenerator
