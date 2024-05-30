@@ -5,11 +5,13 @@ import org.springframework.web.multipart.MultipartFile
 
 class ImageReq(
     val type : ImageType,
-    val file: MultipartFile
+    val file: MultipartFile,
+    val fileSize: Long
 ){
     constructor(type: String, file: MultipartFile) : this(
         type = ImageType.fromPrefix(type.uppercase()),
-        file = file
+        file = file,
+        fileSize = file.size
     )
 
 }

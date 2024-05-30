@@ -32,7 +32,7 @@ public class Detective extends BaseEntity implements User{
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
     @CollectionTable(name = "detective_career", joinColumns = @JoinColumn(name = "detective_id"))
-    @MapKeyColumn(name = "year")
+    @MapKeyColumn(name = "career_year")
     private Map<Integer,String> career  = null;
     private Filed filed = Filed.NONE;
     private AuthChannel authChannel = AuthChannel.LOCAL;

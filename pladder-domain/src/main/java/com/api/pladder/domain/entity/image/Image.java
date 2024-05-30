@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity(name="pd_image")
 public class Image {
     @Id
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    @Column(updatable = false, nullable = false)
     private String id;
     private String writerId;
     @Enumerated(EnumType.STRING)

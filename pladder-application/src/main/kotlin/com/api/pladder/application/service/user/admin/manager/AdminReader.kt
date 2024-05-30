@@ -5,20 +5,18 @@ import com.api.pladder.domain.entity.user.Admin
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.AdminRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class AdminReader (
     private var adminRepository: AdminRepository
-):JpaService<Admin,String>{
+):JpaService<Admin,UUID>{
 
     //TODO property에 admin 계정 만들어서 넣기
     private lateinit var adminEmail: String
     private lateinit var adminId: String
 
-    override var jpaRepository: BaseRepository<Admin, String> = adminRepository
+    override var jpaRepository: BaseRepository<Admin, UUID> = adminRepository
 
-    fun findByEmail(adminId: String): Admin {
-        return findById(adminId)
-    }
 
 }

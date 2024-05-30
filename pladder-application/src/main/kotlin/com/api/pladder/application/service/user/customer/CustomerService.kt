@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomerService : UserService {
-    private lateinit var customerManager: CustomerManager
-    private lateinit var customerReader: CustomerReader
+    private lateinit var manager: CustomerManager
+    private lateinit var reader: CustomerReader
 
     override fun findByEmail(email: String): UserResp {
-        return UserResp(customerReader.findByEmail(email))
+        return UserResp(reader.findByEmail(email))
     }
 
     override fun withdraw(userId: String): WithdrawResp {
@@ -24,15 +24,15 @@ class CustomerService : UserService {
     }
 
     override fun register(req: RegisterUserReq) : UserResp{
-        return UserResp(customerManager.register(req))
+        return UserResp(manager.register(req))
     }
 
     fun update(req: UpdateInfoCustomerReq): UserResp {
-        return UserResp(customerManager.update(req))
+        return UserResp(manager.update(req))
     }
 
     fun updatePasswd(req: UpdatePasswdCustomerReq): UserResp {
-        return UserResp(customerManager.updatePasswd(req))
+        return UserResp(manager.updatePasswd(req))
     }
 
 

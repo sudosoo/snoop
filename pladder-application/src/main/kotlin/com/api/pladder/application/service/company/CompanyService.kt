@@ -6,13 +6,14 @@ import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.company.CompanyRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class CompanyService (
     val repository : CompanyRepository
 
-) :JpaService<Company,String> {
-    override var jpaRepository: BaseRepository<Company, String> = repository
+) :JpaService<Company,UUID> {
+    override var jpaRepository: BaseRepository<Company, UUID> = repository
 
     fun register(req: RegisterCompanyReq) {
      //TODO

@@ -11,6 +11,14 @@ data class RegisterUserReq (
 ) : UserTypeAppender {
     lateinit var userType: UserType
 
+    fun setTypeGeneratedCustomer() : UserType {
+        return UserType.CUSTOMER
+    }
+    fun setTypeGeneratedDetective() : UserType{
+        return UserType.DETECTIVE
+    }
+
+
     fun updateConvertPasswd(convertPass:String) {
         this.passwd = convertPass
     }

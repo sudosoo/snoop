@@ -14,8 +14,9 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException
 
 @RestControllerAdvice
 class ExControllerAdvice(
-    @Value("\${spring.servlet.multipart.max-file-size}") private val maxUploadSize: DataSize,
-) {
+    @Value("\${multipart.max-upload-size}")
+    private val maxUploadSize: DataSize,
+){
 
     /**
      * 파라미터 형식 오류
@@ -42,7 +43,7 @@ class ExControllerAdvice(
     @ExceptionHandler(MaxUploadSizeExceededException::class)
     fun handlePayloadTooLarge(e : Exception) : ResponseEntity<BaseResp> {
         return handleError(
-            "File size exceeds the limit of ${maxUploadSize.toKilobytes()} KB",
+            "File size exceeds the limit of ${maxUploadSize.toMegabytes()} KB",
             ErrorStatus.PAYLOAD_TOO_LARGE)
     }
 

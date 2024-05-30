@@ -1,9 +1,9 @@
 package com.api.pladder.presentation.controller
 
+import com.api.pladder.application.auth.AuthDataProvider
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.service.image.ImageService
-import com.api.pladder.application.auth.jwt.AuthDataProvider
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -25,12 +25,10 @@ class TestController (
         @RequestParam(name = "file") file: MultipartFile,
         @RequestParam(name = "type") type: String
     ): ResponseEntity<BaseResp> {
-
-
         return getRespEntity(
             service.save(
-                req = ImageReq(type = type, file = file),
-                authReq = getAuthReq()
+                req = ImageReq(type = type, file = file)
+            //,authReq = getAuthReq()
             )
         )
     }

@@ -21,8 +21,7 @@ import java.io.IOException
 class ImageS3ServiceImpl (
     private val s3Client: S3Client,
 ) : ImgStorageService {
-
-    @Value("\${cloud.bucket.name}")
+    @Value("\${cloud.aws.s3.bucket}")
     private val bucketName: String? = null
     override fun uploadImage(fileName: String, imageReq: ImageReq) {
         try {

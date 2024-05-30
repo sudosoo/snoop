@@ -5,16 +5,17 @@ import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class CustomerReader(
     private val customerRepository: CustomerRepository
-): JpaService<Customer,String> {
+): JpaService<Customer,UUID> {
 
-    override var jpaRepository: BaseRepository<Customer, String> = customerRepository
+    override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
     fun findByEmail(email: String): Customer {
-        return findById(email)
+        return findByEmail(email)
     }
 
 }

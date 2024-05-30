@@ -10,12 +10,13 @@ import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class CustomerManager(
     private val customerRepository: CustomerRepository,
-):JpaService<Customer, String> {
-    override var jpaRepository: BaseRepository<Customer, String> = customerRepository
+):JpaService<Customer, UUID> {
+    override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
     fun register(req : RegisterUserReq) :Customer {
         val customer = toEntity(req)
@@ -23,7 +24,7 @@ class CustomerManager(
     }
 
     fun update(req: UpdateInfoCustomerReq): Customer {
-        val customer = findById(req.userId)
+        val customer = findById(UUID.fromString(req.userId))
         updateInfo(customer,req)
         return save(customer)
     }

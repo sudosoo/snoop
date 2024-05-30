@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service
 @Service
 class DetectiveService : UserService {
 
-    private lateinit var detectiveManager: DetectiveManager
-    private lateinit var detectiveReader: DetectiveReader
+    private lateinit var manager: DetectiveManager
+    private lateinit var reader: DetectiveReader
 
     override fun findByEmail(email: String): UserResp {
-        return UserResp(detectiveManager.findById(email))
+        return UserResp(reader.findByEmail(email))
     }
 
     override fun withdraw(userId: String): WithdrawResp {
@@ -24,11 +24,11 @@ class DetectiveService : UserService {
     }
 
     override fun register(req: RegisterUserReq): UserResp {
-        return UserResp(detectiveManager.register(req))
+        return UserResp(manager.register(req))
     }
 
     fun update(req: UpdateInfoBossReq) {
-        detectiveManager.update(req)
+        manager.update(req)
     }
 
 }

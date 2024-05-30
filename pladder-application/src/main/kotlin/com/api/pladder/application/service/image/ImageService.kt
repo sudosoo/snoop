@@ -12,26 +12,31 @@ import com.api.pladder.domain.entity.user.enums.UserType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+import org.springframework.util.unit.DataSize
 import java.time.LocalDateTime
 import kotlin.random.Random
 
+@Service
 class ImageService(
     private var s3Service: ImageS3ServiceImpl,
     private val reader: ImageReader,
     private val manager : ImageManager,
 
-    @Value("\${image.max-file-size}")
-    private var maxFileSize: Long
+    @Value("\${multipart.max-upload-size}")
+    private var maxFileSize: DataSize
 ){
+    fun save(req: ImageReq ,
+             //authReq: AuthReq
+    ): ImageResp {
 
-    fun save(req: ImageReq , authReq: AuthReq): ImageResp {
         fileValidation(req)
 
         // file-name 채번
         val fileName = generateImageFileName(req)
-        val writerId = authReq.userId.toString()
-        // save image-info
-        val model = Image.of(fileName, writerId ,req.type, req.file.size)
+        //val writerId = authReq.userId.toString()
+        //TODO : writerId 추가
+        val model = Image.of(fileName,"testUser" ,req.type, req.file.size)
 
         val result = manager.save(model)
         // save image-file
@@ -42,9 +47,9 @@ class ImageService(
 
     private fun fileValidation(req: ImageReq) {
         val fileExtension = getFileExtension(req.file.originalFilename)
-        if (req.type.extension.contains(fileExtension.lowercase())) {
+        if (!req.type.extension.contains(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
-        } else if (req.file.size > maxFileSize) {
+        } else if (req.fileSize > maxFileSize.toBytes()) {
             throw IllegalArgumentException("File size exceeds the maximum size: ${req.file.size}")
         }
     }

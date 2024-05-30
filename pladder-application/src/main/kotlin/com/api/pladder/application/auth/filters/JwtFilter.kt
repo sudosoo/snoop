@@ -23,6 +23,7 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+
         var refreshToken: String? = null;
         val accessToken = httpResolver.tokenResolve(request)
         if (accessToken != null) {
@@ -46,6 +47,7 @@ class JwtFilter(
             }*/
             setSecurityContext(authReq)
         }
+
         filterChain.doFilter(request, response)
     }
 

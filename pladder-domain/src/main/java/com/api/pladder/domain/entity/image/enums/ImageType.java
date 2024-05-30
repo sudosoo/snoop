@@ -57,7 +57,7 @@ public enum ImageType {
     public final List<UserType> createPermissions;
     public final List<UserType> selectPermissions;
     public final List<UserType> deletePermissions;
-    public final List<String> extension = Arrays.asList("jpg", "jpeg", "png", "gif"); // 확장자 리스트
+    public final List<String> extension = Arrays.asList("jpg","jpeg","png","gif"); // 확장자 리스트
     ImageType(String prefix, String description, List<UserType> createPermissions, List<UserType> selectPermissions, List<UserType> deletePermissions) {
         this.prefix = prefix;
         this.description = description;

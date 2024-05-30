@@ -1,7 +1,7 @@
 package com.api.pladder.application.dto.auth.request
 
-import com.api.pladder.domain.entity.user.enums.UserType
 import com.api.pladder.application.dto.user.common.response.UserResp
+import com.api.pladder.domain.entity.user.enums.UserType
 import java.util.*
 
 //@Schema(name = "Auth-Request")

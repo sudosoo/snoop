@@ -12,10 +12,8 @@ import software.amazon.awssdk.services.s3.S3Client
 class S3Client {
     @Value("\${cloud.aws.credentials.access-key}")
     private val accessKey: String? = null
-
     @Value("\${cloud.aws.credentials.secret-key}")
     private val secretKey: String? = null
-
     @Value("\${cloud.aws.region.static}")
     private val region: String? = null
 
