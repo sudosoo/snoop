@@ -1,6 +1,6 @@
 package com.api.pladder.application.dto.common
 
-import com.api.pladder.application.core.enums.ErrorStatus
+import com.api.pladder.core.enums.ErrorStatus
 
 //@Schema(name = "공통 리스트 응답")
 class BaseListResp<T>(

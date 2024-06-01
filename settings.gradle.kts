@@ -2,6 +2,7 @@ rootProject.name = "pladder"
 
 include("boot")
 include("pladder-presentation")
+include("pladder-core")
 include("pladder-application")
 include("pladder-domain")
 

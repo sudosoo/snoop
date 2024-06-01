@@ -1,8 +1,8 @@
 package com.api.pladder.presentation.common
 
-import com.api.pladder.application.core.enums.ErrorStatus
 import com.api.pladder.application.dto.common.BaseListRespV2
 import com.api.pladder.application.dto.common.BaseResp
+import com.api.pladder.core.enums.ErrorStatus
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 

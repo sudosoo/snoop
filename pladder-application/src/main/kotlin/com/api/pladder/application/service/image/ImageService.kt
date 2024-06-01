@@ -1,14 +1,13 @@
 package com.api.pladder.application.service.image
 
-import com.api.pladder.application.core.exception.AccessDeniedException
-import com.api.pladder.application.dto.auth.request.AuthReq
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
 import com.api.pladder.application.service.image.manager.ImageManager
 import com.api.pladder.application.service.image.reader.ImageReader
-import com.api.pladder.application.service.image.s3.ImageS3ServiceImpl
+import com.api.pladder.core.auth.obj.AuthObject
+import com.api.pladder.core.exception.AccessDeniedException
+import com.api.pladder.core.s3.ImageS3Provider
 import com.api.pladder.domain.entity.image.Image
-import com.api.pladder.domain.entity.user.enums.UserType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
@@ -19,7 +18,7 @@ import kotlin.random.Random
 
 @Service
 class ImageService(
-    private var s3Service: ImageS3ServiceImpl,
+    private var s3Provider: ImageS3Provider,
     private val reader: ImageReader,
     private val manager : ImageManager,
 
@@ -40,7 +39,7 @@ class ImageService(
 
         val result = manager.save(model)
         // save image-file
-        s3Service.uploadImage(fileName = fileName, imageReq = req)
+        s3Provider.uploadImage(fileName = fileName, req.file)
 
         return ImageResp(result)
     }
@@ -65,24 +64,24 @@ class ImageService(
         return "IM${request.type.prefix}${timestamp}${random}"
     }
 
-    fun deleteById(id: String, authReq: AuthReq) {
+    fun deleteById(id: String, authObject: AuthObject) {
         val model = reader.findById(id)
-        if (authReq.userType == UserType.CUSTOMER && model.writerId != authReq.userId.toString()){
+        if (authObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authObject.userId.toString()){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
-        s3Service.deleteImage(id)
+        s3Provider.deleteImage(id)
         manager.deleteById(id)
     }
 
-    fun findById(id: String, authReq: AuthReq ): ImageResp {
+    fun findById(id: String, authObject: AuthObject): ImageResp {
         val model = reader.findById(id)
-        if (authReq.userType == UserType.CUSTOMER && model.writerId != authReq.userId.toString()){
+        if (authObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authObject.userId.toString()){
             throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
         }
         return ImageResp(model)
     }
 
     fun downloadImage(fileName: String): ByteArray {
-        return s3Service.downloadImage(fileName)
+        return s3Provider.downloadImage(fileName)
     }
 }

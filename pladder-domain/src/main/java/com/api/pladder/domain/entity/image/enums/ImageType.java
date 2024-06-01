@@ -1,7 +1,6 @@
 package com.api.pladder.domain.entity.image.enums;
 
-
-import com.api.pladder.domain.entity.user.enums.UserType;
+import com.api.pladder.core.enums.UserType;
 import lombok.Getter;
 
 import java.util.Arrays;

@@ -1,8 +1,7 @@
 package com.api.pladder.application.service.common.jpa
 
-import com.api.pladder.application.core.exception.NotFoundException
-import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.application.service.common.CommonService.checkNotNullData
+import com.api.pladder.domain.repository.common.BaseRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus

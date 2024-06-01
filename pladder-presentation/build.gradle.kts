@@ -1,9 +1,6 @@
 dependencies {
-    implementation (project(":pladder-application"))
+    implementation(project(":pladder-application"))
+    implementation(project(":pladder-core"))
 
-    // Springdoc OpenAPI
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
-    // Spring Boot Starter Validation
-    implementation ("org.springframework.boot:spring-boot-starter-validation")
 }

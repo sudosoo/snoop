@@ -1,9 +1,6 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.application.core.enums.HeaderPrefix.AUTHORIZATION
-import com.api.pladder.application.core.exception.InvalidRequestException
-import com.api.pladder.application.core.jwt.JwtUtil
-import com.api.pladder.application.dto.auth.request.AuthReq
+import com.api.pladder.core.auth.obj.AuthObject
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
@@ -12,21 +9,24 @@ import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService
-import com.api.pladder.domain.entity.user.enums.UserType
+import com.api.pladder.core.auth.provider.SecurityProvider
+import com.api.pladder.core.enums.HeaderPrefix.AUTHORIZATION
+import com.api.pladder.core.exception.InvalidRequestException
+import com.api.pladder.core.jwt.JwtUtil
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(
     private val jwtUtil: JwtUtil,
+    private val securityProvider: SecurityProvider,
     private val detectiveService: DetectiveService,
     private val customerService: CustomerService,
     private val adminService: AdminService,
 ) {
 
     fun signUp(req: RegisterUserReq) : UserResp{
-        val convertPasswd= passwdBCryptConvert(req.passwd!!)
+        val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
 
@@ -35,8 +35,8 @@ class AuthService(
         return userRes
     }
 
-    fun signIn(req: SignInUserReq, authReq: AuthReq, servletResp: HttpServletResponse) : UserResp {
-        val convertPasswd= passwdBCryptConvert(req.passwd!!)
+    fun signIn(req: SignInUserReq, authObject: AuthObject, servletResp: HttpServletResponse) : UserResp {
+        val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
         val userService = getUserService(req.userType)
@@ -59,10 +59,7 @@ class AuthService(
         return userResp
     }
 
-    private fun passwdBCryptConvert(rawPass: String): String {
-        val encoder = BCryptPasswordEncoder()
-        return encoder.encode(rawPass)
-    }
+
 
     fun signOut(){
         // TODO : check token
@@ -70,20 +67,20 @@ class AuthService(
     }
 
 
-    fun withdraw(authReq: AuthReq): WithdrawResp {
+    fun withdraw(authObject: AuthObject): WithdrawResp {
         // TODO : unlink auth service
-        val userService = getUserService(authReq.userType)
+        val userService = getUserService(authObject.userType)
         return userService.withdraw(
-            (authReq.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
+            (authObject.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
                     ).toString()
         )
     }
 
-    private fun getUserService(userType: UserType): UserService {
+    private fun getUserService(userType: com.api.pladder.core.enums.UserType): UserService {
         return when (userType){
-            UserType.ADMIN -> return adminService
-            UserType.DETECTIVE -> return detectiveService
-            UserType.CUSTOMER -> return customerService
+            com.api.pladder.core.enums.UserType.ADMIN -> return adminService
+            com.api.pladder.core.enums.UserType.DETECTIVE -> return detectiveService
+            com.api.pladder.core.enums.UserType.CUSTOMER -> return customerService
             else -> {throw InvalidRequestException("지원하지 않는 사용자 유형입니다.")}
         }
     }

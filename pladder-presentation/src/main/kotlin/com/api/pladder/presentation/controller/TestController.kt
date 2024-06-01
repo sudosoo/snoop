@@ -1,9 +1,9 @@
 package com.api.pladder.presentation.controller
 
-import com.api.pladder.application.auth.AuthDataProvider
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.service.image.ImageService
+import com.api.pladder.core.auth.provider.AuthDataProvider
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional

@@ -1,17 +1,16 @@
 dependencies {
     implementation(project(":pladder-domain"))
+    implementation(project(":pladder-core"))
 
-    // JSON Web Token (JWT) library - jjwt
-    implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
-    implementation ("io.jsonwebtoken:jjwt-impl:0.11.5")
-    implementation ("io.jsonwebtoken:jjwt-jackson:0.11.5")
-
-    //S3
-    implementation ("io.awspring.cloud:spring-cloud-aws-s3:3.0.2")
+    compileOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
     // fixture-monkey
-    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.0.17")
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.0.14")
 
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    // Springdoc OpenAPI
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+    // Spring Boot Starter Validation
+    implementation ("org.springframework.boot:spring-boot-starter-validation")
 
 }

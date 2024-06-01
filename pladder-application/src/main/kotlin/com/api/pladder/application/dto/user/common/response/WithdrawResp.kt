@@ -1,20 +1,16 @@
 package com.api.pladder.application.dto.user.common.response
 
-import com.api.pladder.domain.entity.user.enums.AuthChannel
-import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.entity.user.Customer
+import com.api.pladder.domain.entity.user.Detective
 
 data class WithdrawResp(
-    val email : String?,
-    val channel: AuthChannel?,
+    val email : String?
 ) {
     constructor(model: Detective) : this(
-        email = model.email,
-        channel = model.authChannel,
+        email = model.email
     )
 
     constructor(model: Customer) : this(
-        email = model.email,
-        channel = model.authChannel,
+        email = model.email
     )
 }

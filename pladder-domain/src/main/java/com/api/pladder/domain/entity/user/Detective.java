@@ -35,7 +35,8 @@ public class Detective extends BaseEntity implements User{
     @MapKeyColumn(name = "career_year")
     private Map<Integer,String> career  = null;
     private Filed filed = Filed.NONE;
-    private AuthChannel authChannel = AuthChannel.LOCAL;
+    //TODO 간편로그인 추후 예정
+    //private AuthChannel authChannel = AuthChannel.LOCAL;
     private boolean isActive = true;
     public Detective(String email, String passwd, String phoneNumber) {
         this.email = email;
