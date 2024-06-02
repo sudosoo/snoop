@@ -1,6 +1,6 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.core.auth.obj.AuthUserObject
+import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
@@ -9,10 +9,10 @@ import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService
-import com.api.pladder.core.auth.provider.SecurityProvider
+import com.api.pladder.core.utils.provider.SecurityProvider
 import com.api.pladder.core.enums.HeaderPrefix.AUTHORIZATION
 import com.api.pladder.core.exception.InvalidRequestException
-import com.api.pladder.core.jwt.JwtUtil
+import com.api.pladder.core.utils.jwt.JwtUtil
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 

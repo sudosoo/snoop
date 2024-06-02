@@ -1,4 +1,4 @@
-package com.api.pladder.core.auth.provider
+package com.api.pladder.core.utils.provider
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component

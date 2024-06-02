@@ -1,6 +1,6 @@
-package com.api.pladder.core.auth.provider
+package com.api.pladder.core.utils.provider
 
-import com.api.pladder.core.auth.obj.AuthUserObject
+import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.exception.TokenException
 import org.springframework.security.core.context.SecurityContextHolder
 

@@ -4,9 +4,9 @@ import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
 import com.api.pladder.application.service.image.manager.ImageManager
 import com.api.pladder.application.service.image.reader.ImageReader
-import com.api.pladder.core.auth.obj.AuthUserObject
+import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.exception.AccessDeniedException
-import com.api.pladder.core.s3.ImageS3Provider
+import com.api.pladder.core.utils.s3.ImageS3Provider
 import com.api.pladder.domain.entity.image.Image
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern

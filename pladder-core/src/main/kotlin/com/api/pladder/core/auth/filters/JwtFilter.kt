@@ -1,21 +1,19 @@
 package com.api.pladder.core.auth.filters
 
-import com.api.pladder.core.auth.http.HttpResolver
-import com.api.pladder.core.auth.obj.AuthUserObject
-import com.api.pladder.core.jwt.JwtUtil
+import com.api.pladder.core.auth.security.SecurityManager
+import com.api.pladder.core.utils.jwt.JwtUtil
+import com.api.pladder.core.utils.http.HttpResolver
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 class JwtFilter(
     private val jwtUtil: JwtUtil,
-    private val httpResolver : HttpResolver
+    private val httpResolver : HttpResolver,
+    private val securityManager: SecurityManager
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -45,27 +43,9 @@ class JwtFilter(
                     response.addHeader(AUTHORIZATION,reIssuance)
                 }
             }*/
-            setSecurityContext(authReq)
+            securityManager.setContextAuthentication(authReq)
         }
-
         filterChain.doFilter(request, response)
     }
-
-    fun setSecurityContext(authUserObject: AuthUserObject) {
-        val authentication = UsernamePasswordAuthenticationToken(
-            authUserObject,
-            null,
-            getAuthorities(authUserObject)
-        )
-        SecurityContextHolder.getContext().authentication = authentication
-    }
-
-    fun getAuthorities(authUserObject : AuthUserObject): List<SimpleGrantedAuthority> {
-        return listOf(SimpleGrantedAuthority(authUserObject.userType.stringStatus))
-    }
-
-
-
-
 
 }

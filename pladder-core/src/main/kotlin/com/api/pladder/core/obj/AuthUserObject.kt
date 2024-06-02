@@ -1,4 +1,4 @@
-package com.api.pladder.core.auth.obj
+package com.api.pladder.core.obj
 
 import com.api.pladder.core.enums.UserType
 import java.util.*

@@ -92,12 +92,21 @@ subprojects {
 		implementation("org.springframework.boot:spring-boot-starter-actuator")
 		implementation("org.springframework.boot:spring-boot-devtools")
 		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-		implementation ("org.springframework.boot:spring-boot-starter")
+		implementation("org.springframework.boot:spring-boot-starter")
 		implementation("org.springframework.boot:spring-boot-starter-web")
 
 		testImplementation("org.junit.jupiter:junit-jupiter-api")
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+		// Springdoc OpenAPI
+		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+		// Spring Boot Starter Validation
+		implementation ("org.springframework.boot:spring-boot-starter-validation")
+
 		testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+
 	}
 
 	tasks.test {

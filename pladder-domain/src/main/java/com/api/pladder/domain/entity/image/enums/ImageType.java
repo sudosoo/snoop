@@ -56,9 +56,9 @@ public enum ImageType implements StatusProvider {
 
     public final String prefix;
     public final String description;
-    public final List<UserType> createPermissions;
-    public final List<UserType> selectPermissions;
-    public final List<UserType> deletePermissions;
+    public final List<UserType> createPermissions; // 생성
+    public final List<UserType> selectPermissions; // 조회
+    public final List<UserType> deletePermissions; // 삭제
     public final List<String> extension = Arrays.asList("jpg","jpeg","png","gif","pdf"); // 확장자 리스트
 
     ImageType(String prefix, String description, List<UserType> createPermissions, List<UserType> selectPermissions, List<UserType> deletePermissions) {

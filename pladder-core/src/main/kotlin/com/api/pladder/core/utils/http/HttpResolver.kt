@@ -1,4 +1,4 @@
-package com.api.pladder.core.auth.http
+package com.api.pladder.core.utils.http
 
 import com.api.pladder.core.enums.HeaderPrefix
 import jakarta.servlet.http.HttpServletRequest

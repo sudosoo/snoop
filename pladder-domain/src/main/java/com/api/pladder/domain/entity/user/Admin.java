@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

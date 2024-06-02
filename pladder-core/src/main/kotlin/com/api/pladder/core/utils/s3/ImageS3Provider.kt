@@ -1,4 +1,4 @@
-package com.api.pladder.core.s3
+package com.api.pladder.core.utils.s3
 
 import com.api.pladder.core.exception.NotFoundException
 import org.springframework.beans.factory.annotation.Value
