@@ -1,10 +1,10 @@
 package com.api.pladder.application.service.user.customer.manager
 
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
-import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.toEntity
-import com.api.pladder.application.dto.user.customer.mapper.DtoMapper.updateInfo
-import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
-import com.api.pladder.application.dto.user.customer.request.UpdatePasswdCustomerReq
+import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
+import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
+import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.customerToEntity
+import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.customerUpdateInfo
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
@@ -19,18 +19,18 @@ class CustomerManager(
     override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
     fun register(req : RegisterUserReq) :Customer {
-        val customer = toEntity(req)
+        val customer = customerToEntity(req)
         return save(customer)
     }
 
-    fun update(req: UpdateInfoCustomerReq): Customer {
-        val customer = findById(UUID.fromString(req.userId))
-        updateInfo(customer,req)
+    fun updateInfo(requestUserId :String, req: UpdateInfoUserReq): Customer {
+        val customer = findById(UUID.fromString(requestUserId))
+        customerUpdateInfo(customer,req)
         return save(customer)
     }
 
-    fun updatePasswd(req: UpdatePasswdCustomerReq): Customer {
-        val customer = customerRepository.findByEmail(req.email).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
+    fun updatePasswd(req: UpdatePasswdUserReq): Customer {
+        val customer = customerRepository.findByEmailAndPasswd(req.email,req.passwd).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
         customer.updatePasswd(req.reqUpdatePasswd)
         return save(customer)
     }

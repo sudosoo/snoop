@@ -1,18 +1,20 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
+import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService
-import com.api.pladder.core.utils.provider.SecurityProvider
 import com.api.pladder.core.enums.HeaderPrefix.AUTHORIZATION
+import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.InvalidRequestException
+import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.jwt.JwtUtil
+import com.api.pladder.core.utils.provider.SecurityProvider
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 
@@ -25,17 +27,17 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signUp(req: RegisterUserReq) : UserResp{
+    fun signUp(req: RegisterUserReq, authObj: AuthUserObject) : UserResp{
+
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
-
-        val userService = getUserService(req.userType)
+        val userService = getUserService(authObj.userType)
         val userRes = userService.register(req)
         return userRes
     }
 
-    fun signIn(req: SignInUserReq, authUserObject: AuthUserObject, servletResp: HttpServletResponse) : UserResp {
+    fun signIn(req: SignInUserReq, servletResp: HttpServletResponse) : UserResp {
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
@@ -53,10 +55,19 @@ class AuthService(
     //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
     //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
             val accessToken: String = jwtUtil.generate(userResp.userId, req.userType)
-        //TODO 토큰 어디에 넣을건지 ?
+        //TODO 토큰 어디에 넣을건지 쿠키?
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
         return userResp
+    }
+
+    fun updatePasswd(req: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
+        val convertReqPasswd = securityProvider.passwdBCryptConvert(req.passwd!!)
+
+
+        val userService = getUserService(authObj.userType)
+        val userRes = userService.updatePasswd(req)
+        return userRes
     }
 
 
@@ -67,21 +78,24 @@ class AuthService(
     }
 
 
-    fun withdraw(authUserObject: AuthUserObject): WithdrawResp {
+    fun withdraw(authObj: AuthUserObject): WithdrawResp {
         // TODO : unlink auth service
-        val userService = getUserService(authUserObject.userType)
+        val userService = getUserService(authObj.userType)
         return userService.withdraw(
-            (authUserObject.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
+            (authObj.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
                     ).toString()
         )
     }
 
-    private fun getUserService(userType: com.api.pladder.core.enums.UserType): UserService {
+    private fun getUserService(userType: UserType): UserService {
         return when (userType){
-            com.api.pladder.core.enums.UserType.ADMIN -> return adminService
-            com.api.pladder.core.enums.UserType.DETECTIVE -> return detectiveService
-            com.api.pladder.core.enums.UserType.CUSTOMER -> return customerService
-            else -> {throw InvalidRequestException("지원하지 않는 사용자 유형입니다.")}
+            UserType.ADMIN -> adminService
+            UserType.DETECTIVE -> detectiveService
+            UserType.CUSTOMER -> customerService
+            else -> {
+                throw InvalidRequestException("지원하지 않는 사용자 유형입니다.")
+            }
         }
+
     }
 }

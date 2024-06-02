@@ -12,6 +12,8 @@ class ContractManager (
     private val repository: ContractRepository
 
 ): JpaService<Contract, UUID> {
-
     override var jpaRepository: BaseRepository<Contract, UUID> = repository
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.user.admin.manager
+package com.api.pladder.application.service.user.admin.reader
 
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Admin

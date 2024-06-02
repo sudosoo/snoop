@@ -47,6 +47,10 @@ public class Detective extends BaseEntity implements User{
         this.phoneNumber = companyId;
     }
 
+    public void updatePasswd(String reqPasswd){
+        this.passwd = reqPasswd;
+    }
+
     public void setCompany(UUID companyId){
         this.companyId = companyId;
     }

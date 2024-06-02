@@ -28,11 +28,11 @@ public class Contract extends BaseEntity {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(description="customer_id")
+    @JoinColumn(name="customer_id")
     private Customer customerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(description="company_id")
+    @JoinColumn(name="company_id")
     private Company company;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
@@ -41,7 +41,7 @@ public class Contract extends BaseEntity {
     //계약서 상세 내용
     private UUID contractContentId;
     //선금
-    private String prepayment;
+    private String advanceDeposit;
     //수임료
     private String pee;
     //목적 ( 고소 , 신고)
@@ -49,7 +49,7 @@ public class Contract extends BaseEntity {
     //조사결과 (사진 , 문서 , 동영상)
     private UUID conclusionId;
     //시작일
-    private LocalDate startPeriod;
+    private LocalDate startPeriod= LocalDate.of(9999,1,1);
     //계약종료일
     private LocalDate endPeriod = LocalDate.of(9999,12,31);
     //해결 포맷 (사진 , 문서 , 동영상)

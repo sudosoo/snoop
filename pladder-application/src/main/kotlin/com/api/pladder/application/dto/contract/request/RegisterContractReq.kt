@@ -3,7 +3,7 @@ package com.api.pladder.application.dto.contract.request
 import io.swagger.v3.oas.annotations.media.Schema
 
 
-class ContractRegisterReq (
+class RegisterContractReq (
     @Schema(description="의뢰인 ID")
     var clientId :String? = null,
     @Schema(description="회사 ID", example = "CP100001" )

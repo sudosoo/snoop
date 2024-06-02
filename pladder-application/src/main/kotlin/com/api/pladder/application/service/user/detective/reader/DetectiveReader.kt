@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.user.detective.manager
+package com.api.pladder.application.service.user.detective.reader
 
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Detective
@@ -9,12 +9,15 @@ import java.util.*
 
 @Component
 class DetectiveReader(
-    private val customerRepository: DetectiveRepository
+    private val repository: DetectiveRepository
 ): JpaService<Detective, UUID> {
 
-    override var jpaRepository: BaseRepository<Detective, UUID> = customerRepository
+    override var jpaRepository: BaseRepository<Detective, UUID> = repository
     fun findByEmail(email: String): Detective {
         return findByEmail(email)
+    }
+    fun isUser(email: String, passwd: String): Boolean {
+        return !repository.findByEmailAndPasswd(email, passwd).isEmpty
     }
 
 }
