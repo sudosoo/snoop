@@ -1,8 +1,11 @@
 package com.api.pladder.application.dto.common
 
 import com.api.pladder.core.enums.ErrorStatus
+import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 
+@Schema(description="공통 리스트 응답")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class BaseListRespV2(
     content : MutableList<Any?>,
     totalElements: Long,
