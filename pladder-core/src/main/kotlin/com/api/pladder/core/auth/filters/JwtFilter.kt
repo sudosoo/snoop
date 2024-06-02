@@ -1,7 +1,7 @@
 package com.api.pladder.core.auth.filters
 
-import com.api.pladder.core.auth.obj.AuthObject
 import com.api.pladder.core.auth.http.HttpResolver
+import com.api.pladder.core.auth.obj.AuthObject
 import com.api.pladder.core.jwt.JwtUtil
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -61,7 +61,7 @@ class JwtFilter(
     }
 
     fun getAuthorities(authObject : AuthObject): List<SimpleGrantedAuthority> {
-        return listOf(SimpleGrantedAuthority(authObject.userType.authorization))
+        return listOf(SimpleGrantedAuthority(authObject.userType.stringStatus))
     }
 
 

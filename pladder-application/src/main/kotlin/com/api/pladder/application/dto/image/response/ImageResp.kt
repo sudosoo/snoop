@@ -1,13 +1,13 @@
 package com.api.pladder.application.dto.image.response
 
 import com.api.pladder.domain.entity.image.Image
+import io.swagger.v3.oas.annotations.media.Schema
 
-//@Schema(name = "Image-Response")
 data class ImageResp(
-    //@Schema(description = "이미지 ID")
+    @Schema(description = "이미지 ID")
     val imageId : String?,
 
-    //@Schema(description = "이미지 주소")
+    @Schema(description = "이미지 주소")
     val location : String? = "/open/images/${imageId}"
 ){
     constructor(model: Image) : this(

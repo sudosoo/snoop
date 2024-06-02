@@ -31,8 +31,8 @@ public class Detective extends BaseEntity implements User{
     private DetectiveStatus status = DetectiveStatus.UNVERIFIED;
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
-    @CollectionTable(name = "detective_career", joinColumns = @JoinColumn(name = "detective_id"))
-    @MapKeyColumn(name = "career_year")
+    @CollectionTable(description="detective_career", joinColumns = @JoinColumn(description="detective_id"))
+    @MapKeyColumn(description="career_year")
     private Map<Integer,String> career  = null;
     private Filed filed = Filed.NONE;
     //TODO 간편로그인 추후 예정

@@ -11,4 +11,5 @@ class CompanyManager (
 ): JpaService<Company, UUID> {
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 
+
 }

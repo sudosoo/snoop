@@ -28,11 +28,11 @@ public class Contract extends BaseEntity {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(description="customer_id")
     private Customer customerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(description="company_id")
     private Company company;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")

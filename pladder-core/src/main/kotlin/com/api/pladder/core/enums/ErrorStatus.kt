@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 enum class ErrorStatus(
     val status : HttpStatus, val message : String
 ) {
+
     OK(HttpStatus.OK, "Your request has been processed successfully."),
     CREATED(HttpStatus.CREATED, "The resource was created successfully."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "You do not have permission to access the resource."),

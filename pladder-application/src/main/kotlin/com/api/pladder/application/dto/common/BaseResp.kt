@@ -4,7 +4,7 @@ import com.api.pladder.core.enums.ErrorStatus
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 
-@Schema(name = "공통 단건 응답")
+@Schema(description="공통 단건 응답")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class BaseResp(
     data : Any?,

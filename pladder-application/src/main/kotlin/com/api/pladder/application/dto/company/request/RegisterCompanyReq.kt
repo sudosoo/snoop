@@ -1,35 +1,21 @@
 package com.api.pladder.application.dto.company.request
 
-import com.api.pladder.domain.entity.company.enums.ConfirmStatus
-import com.api.pladder.domain.entity.contract.Contract
-import jakarta.persistence.CascadeType
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.OneToMany
+import com.api.pladder.domain.entity.user.enums.Filed
+import io.swagger.v3.oas.annotations.media.Schema
 import java.util.*
 
+@Schema(description="회사 등록 요청")
 class RegisterCompanyReq (
+    @Schema(description="회사명",example = "플래더")
     val companyName: String,
-    val bossId: UUID,
+    @Schema(description="회사 전화번호",example = "010-0000-0000")
     val phoneNumber: String,
+    @Schema(description="회사 주소",example = "서울시 강남구 서초동 22-1")
     val addr: String,
-    val specialization: String,
-    val introduction: String
-){
-
-
-}
-
-
-private val companyName: String? = null
-private val bossId: UUID? = null
-private val phoneNumber: String? = null
-private val address: String? = null
-private val specialization: String? = null
-private val introduction: String? = null
-
-@OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "company")
-private val contracts: List<Contract> = ArrayList()
-
-@Enumerated(value = EnumType.STRING)
-private val confirmStatus = ConfirmStatus.WAIT_TING
+    @Schema(description="전문 분야",example = "[\"AFFAIR\",\"FRAUD\",\"MISSING\"]")
+    val specialization: List<Filed>,
+    @Schema(description="회사 소개",example = "안녕하세요 실종 전문 탐정 플래더 입니다.")
+    val introduction: String,
+    @Schema(description="탐정 ID")
+    var detectiveId: UUID ? = null,
+)

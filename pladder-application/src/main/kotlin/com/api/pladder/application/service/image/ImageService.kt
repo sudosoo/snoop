@@ -61,8 +61,21 @@ class ImageService(
     private fun generateImageFileName(request: ImageReq) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
         val random = String.format("%02d", Random.nextInt(0, 100))
-        return "IM${request.type.prefix}${timestamp}${random}"
+        val extension = getExtensionFromMimeType(request.file.contentType!!)
+        return "IM${request.type.prefix}${timestamp}${random}${extension}"
     }
+
+
+    private fun getExtensionFromMimeType(mimeType: String): String {
+        return when (mimeType) {
+            "image/jpeg", "image/jpg" -> ".jpg"
+            "image/png" -> ".png"
+            "image/gif" -> ".gif"
+            "application/pdf" -> ".pdf"
+            else -> throw IllegalArgumentException("지원하지 않는 파일 타입 입니다: $mimeType")
+        }
+    }
+
 
     fun deleteById(id: String, authObject: AuthObject) {
         val model = reader.findById(id)
