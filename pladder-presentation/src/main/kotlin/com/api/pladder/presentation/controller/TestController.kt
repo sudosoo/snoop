@@ -22,8 +22,8 @@ class TestController (
     @Transactional(rollbackFor = [Exception::class])
     @PostMapping(value = [ "/detective/image"], consumes = ["multipart/form-data"])
     fun save(
-        @RequestParam(description="file") file: MultipartFile,
-        @RequestParam(description="type") type: String
+        @RequestParam(name="file") file: MultipartFile,
+        @RequestParam(name="type") type: String
     ): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.save(

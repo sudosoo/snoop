@@ -1,7 +1,7 @@
 package com.api.pladder.core.auth.filters
 
 import com.api.pladder.core.auth.http.HttpResolver
-import com.api.pladder.core.auth.obj.AuthObject
+import com.api.pladder.core.auth.obj.AuthUserObject
 import com.api.pladder.core.jwt.JwtUtil
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -51,17 +51,17 @@ class JwtFilter(
         filterChain.doFilter(request, response)
     }
 
-    fun setSecurityContext(authObject: AuthObject) {
+    fun setSecurityContext(authUserObject: AuthUserObject) {
         val authentication = UsernamePasswordAuthenticationToken(
-            authObject,
+            authUserObject,
             null,
-            getAuthorities(authObject)
+            getAuthorities(authUserObject)
         )
         SecurityContextHolder.getContext().authentication = authentication
     }
 
-    fun getAuthorities(authObject : AuthObject): List<SimpleGrantedAuthority> {
-        return listOf(SimpleGrantedAuthority(authObject.userType.stringStatus))
+    fun getAuthorities(authUserObject : AuthUserObject): List<SimpleGrantedAuthority> {
+        return listOf(SimpleGrantedAuthority(authUserObject.userType.stringStatus))
     }
 
 

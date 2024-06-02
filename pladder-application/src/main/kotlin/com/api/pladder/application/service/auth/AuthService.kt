@@ -1,6 +1,6 @@
 package com.api.pladder.application.service.auth
 
-import com.api.pladder.core.auth.obj.AuthObject
+import com.api.pladder.core.auth.obj.AuthUserObject
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
@@ -35,7 +35,7 @@ class AuthService(
         return userRes
     }
 
-    fun signIn(req: SignInUserReq, authObject: AuthObject, servletResp: HttpServletResponse) : UserResp {
+    fun signIn(req: SignInUserReq, authUserObject: AuthUserObject, servletResp: HttpServletResponse) : UserResp {
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
@@ -67,11 +67,11 @@ class AuthService(
     }
 
 
-    fun withdraw(authObject: AuthObject): WithdrawResp {
+    fun withdraw(authUserObject: AuthUserObject): WithdrawResp {
         // TODO : unlink auth service
-        val userService = getUserService(authObject.userType)
+        val userService = getUserService(authUserObject.userType)
         return userService.withdraw(
-            (authObject.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
+            (authUserObject.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
                     ).toString()
         )
     }

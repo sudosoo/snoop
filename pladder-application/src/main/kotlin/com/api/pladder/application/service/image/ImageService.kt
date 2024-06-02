@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
 import com.api.pladder.application.service.image.manager.ImageManager
 import com.api.pladder.application.service.image.reader.ImageReader
-import com.api.pladder.core.auth.obj.AuthObject
+import com.api.pladder.core.auth.obj.AuthUserObject
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.s3.ImageS3Provider
 import com.api.pladder.domain.entity.image.Image
@@ -77,18 +77,18 @@ class ImageService(
     }
 
 
-    fun deleteById(id: String, authObject: AuthObject) {
+    fun deleteById(id: String, authUserObject: AuthUserObject) {
         val model = reader.findById(id)
-        if (authObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authObject.userId.toString()){
+        if (authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authUserObject.userId.toString()){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
         s3Provider.deleteImage(id)
         manager.deleteById(id)
     }
 
-    fun findById(id: String, authObject: AuthObject): ImageResp {
+    fun findById(id: String, authUserObject: AuthUserObject): ImageResp {
         val model = reader.findById(id)
-        if (authObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authObject.userId.toString()){
+        if (authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER && model.writerId != authUserObject.userId.toString()){
             throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
         }
         return ImageResp(model)
