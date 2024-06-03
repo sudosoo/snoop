@@ -5,11 +5,11 @@ import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.domain.entity.user.Customer
 
 object CustomerDtoMapper {
-    fun customerToEntity(req : RegisterUserReq) : Customer {
+    fun toEntity(req : RegisterUserReq) : Customer {
         return Customer(req.email, req.passwd , req.phoneNumber, req.nickName)
     }
 
-    fun customerUpdateInfo(customer: Customer, req: UpdateInfoUserReq) {
+    fun updateInfo(customer: Customer, req: UpdateInfoUserReq) {
         return customer.updateInfo(req.nickName,req.phoneNumber)
     }
 

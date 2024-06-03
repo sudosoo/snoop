@@ -18,6 +18,7 @@ public enum ContractStatus implements StatusProvider {
     public String getStringStatus() {
         return this.status;
     }
+
     public static ContractStatus fromStatus(String status) {
         return EnumUtils.INSTANCE.fromStringStatus(ContractStatus.class, status);
     }

@@ -4,7 +4,6 @@ import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.detective.mapper.DetectiveDtoMapper
-import com.api.pladder.application.dto.user.detective.mapper.DetectiveDtoMapper.detectiveToEntity
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.core.exception.NotFoundException
 import com.api.pladder.domain.entity.user.Detective
@@ -22,7 +21,7 @@ class DetectiveManager(
     override var jpaRepository: BaseRepository<Detective, UUID> = repository
 
     fun register(req : RegisterUserReq): Detective {
-        val detective = detectiveToEntity(req)
+        val detective = DetectiveDtoMapper.toEntity(req)
         return save(detective)
     }
     fun updatePasswd(req: UpdatePasswdUserReq): Detective {
@@ -36,7 +35,7 @@ class DetectiveManager(
 
     fun updateInfo(requestUserId :String, req: UpdateInfoUserReq): Detective {
         val detective = findById(UUID.fromString(requestUserId))
-        DetectiveDtoMapper.detectiveUpdateInfo(detective, req)
+        DetectiveDtoMapper.updateInfo(detective, req)
         return save(detective)
     }
 

@@ -3,8 +3,8 @@ package com.api.pladder.application.service.user.customer.manager
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
-import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.customerToEntity
-import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.customerUpdateInfo
+import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper
+import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.updateInfo
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
@@ -19,13 +19,13 @@ class CustomerManager(
     override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
     fun register(req : RegisterUserReq) :Customer {
-        val customer = customerToEntity(req)
+        val customer = CustomerDtoMapper.toEntity(req)
         return save(customer)
     }
 
     fun updateInfo(requestUserId :String, req: UpdateInfoUserReq): Customer {
         val customer = findById(UUID.fromString(requestUserId))
-        customerUpdateInfo(customer,req)
+        updateInfo(customer,req)
         return save(customer)
     }
 

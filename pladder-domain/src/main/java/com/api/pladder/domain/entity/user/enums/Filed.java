@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.user.enums;
 
+import com.api.pladder.core.utils.enums.EnumUtils;
 import com.api.pladder.core.utils.enums.StatusProvider;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +31,7 @@ public enum Filed implements StatusProvider {
         return this.status;
     }
 
+    public static Filed fromStatus(String status) {
+        return EnumUtils.INSTANCE.fromStringStatus(Filed.class, status);
+    }
 }

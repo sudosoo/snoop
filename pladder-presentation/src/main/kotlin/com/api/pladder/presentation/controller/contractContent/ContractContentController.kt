@@ -1,8 +1,9 @@
-package com.api.pladder.presentation.controller.contract
+package com.api.pladder.presentation.controller.contractContent
 
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.service.contract.ContractService
+import com.api.pladder.application.service.contractContent.ContractContentService
 import com.api.pladder.core.utils.provider.AuthDataProvider
 import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
 import com.api.pladder.presentation.common.ResponseEntityCreation
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @Tag(name = "계약서", description = "계약서 관련 API")
 @RequestMapping("/api")
-class ContractController (
-    val service: ContractService
+class ContractContentController (
+    val service: ContractContentService
 ) : ResponseEntityCreation, AuthDataProvider {
 
     @ExplainRegisterContract
@@ -24,18 +25,5 @@ class ContractController (
     fun register(request: RegisterContractReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request, getAuthReq()))
     }
-/*
-    @ExplainGetContract
-    @GetMapping(value = ["/detective/contract","/customer/contract"])
-    fun getContract() : ResponseEntity<BaseResp>{
 
-    }
-
-    @ExplainDeleteContract
-    @PutMapping(value = ["/detective/contract","/customer/contract"])
-    fun deleteContract(){
-
-    }
-
-*/
 }

@@ -7,10 +7,10 @@ import com.api.pladder.domain.entity.user.Detective
 
 object DetectiveDtoMapper {
 
-    fun detectiveToEntity(req : RegisterUserReq) : Detective {
+    fun toEntity(req : RegisterUserReq) : Detective {
         return Detective(req.email, req.passwd, req.phoneNumber)
     }
-    fun detectiveUpdateInfo(detective: Detective, req: UpdateInfoUserReq) {
+    fun updateInfo(detective: Detective, req: UpdateInfoUserReq) {
         return detective.updateInfo(req.phoneNumber)
     }
 }

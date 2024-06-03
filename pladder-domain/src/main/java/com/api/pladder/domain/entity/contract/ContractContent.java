@@ -1,9 +1,8 @@
 package com.api.pladder.domain.entity.contract;
 
+import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.user.enums.Filed;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +23,7 @@ public class ContractContent{
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
     //계약 분야
+    @Enumerated(EnumType.STRING)
     private Filed contractField = Filed.NONE;
     //가해자
     private UUID perpetratorId;
@@ -33,5 +33,11 @@ public class ContractContent{
     private String incidentLocation;
     //사건시간
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime incidentTime;
+    private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
+
+    public ContractContent(String contractField, String incidentLocation, LocalDateTime incidentTime) {
+        this.contractField = Filed.fromStatus(contractField);
+        this.incidentLocation = incidentLocation;
+        this.incidentTime = incidentTime;
+    }
 }

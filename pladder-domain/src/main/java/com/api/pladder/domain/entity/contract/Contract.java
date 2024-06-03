@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.contract;
 
+import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
@@ -46,9 +47,9 @@ public class Contract extends BaseEntity {
     //조사결과 (사진 , 문서 , 동영상)
     private UUID conclusionId;
     //시작일
-    private LocalDate startPeriod = LocalDate.of(9999,1,1);
+    private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
     //계약종료일
-    private LocalDate endPeriod = LocalDate.of(9999,12,31);
+    private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
     //해결 포맷 (사진 , 문서 , 동영상)
     private String description;
 
