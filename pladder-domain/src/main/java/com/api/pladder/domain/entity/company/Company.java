@@ -30,6 +30,8 @@ public class Company extends BaseEntity {
     @Column(unique = true)
     private String companyName;
 
+    private UUID detectiveId;
+
     private String phoneNumber;
 
     private String address;
@@ -47,17 +49,19 @@ public class Company extends BaseEntity {
     @Enumerated(value = STRING)
     private ConfirmStatus confirmStatus = ConfirmStatus.WAIT_TING;
 
+
     public Company(String companyName,
                    String address,
                    String phoneNumber ,
-                   String introduction) {
+                   String introduction,
+                   List<Filed> specialization,
+                   UUID detectiveId) {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
-    }
-    public void appendSpecialize(List<Filed> fileds){
-        this.specialization.addAll(fileds);
+        this.specialization.addAll(specialization);
+        this.detectiveId = detectiveId;
     }
 
     public void update(String companyName, String address, String phoneNumber) {

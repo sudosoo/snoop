@@ -27,7 +27,7 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signUp(req: RegisterUserReq, authObj: AuthUserObject) : UserResp{
+    fun signUp(req: RegisterUserReq, authObj: AuthUserObject): UserResp{
 
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)

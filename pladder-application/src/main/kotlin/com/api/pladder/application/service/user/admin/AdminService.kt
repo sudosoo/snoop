@@ -19,7 +19,7 @@ class AdminService :UserService {
         throw AccessDeniedException("관리자는 회원탈퇴를 할 수 없습니다.")
     }
 
-    override fun withdrawn(userId: String): WithdrawResp {
+    override fun withdrawn(userId: String) {
         throw AccessDeniedException("관리자는 회원탈퇴를 할 수 없습니다.")
     }
 

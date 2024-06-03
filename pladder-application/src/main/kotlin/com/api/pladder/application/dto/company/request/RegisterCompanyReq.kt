@@ -2,7 +2,6 @@ package com.api.pladder.application.dto.company.request
 
 import com.api.pladder.domain.entity.user.enums.Filed
 import io.swagger.v3.oas.annotations.media.Schema
-import java.util.*
 
 @Schema(description="회사 등록 요청")
 class RegisterCompanyReq (
@@ -15,7 +14,5 @@ class RegisterCompanyReq (
     @Schema(description="전문 분야",example = "[\"AFFAIR\",\"FRAUD\",\"MISSING\"]")
     val specialization: List<Filed>,
     @Schema(description="회사 소개",example = "안녕하세요 실종 전문 탐정 플래더 입니다.")
-    val introduction: String,
-    @Schema(description="탐정 ID")
-    var detectiveId: UUID ? = null,
+    val introduction: String
 )

@@ -4,8 +4,10 @@ import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.company.CompanyRepository
+import org.springframework.stereotype.Component
 import java.util.*
 
+@Component
 class CompanyReader (
     val repository: CompanyRepository
 ): JpaService<Company, UUID> {
