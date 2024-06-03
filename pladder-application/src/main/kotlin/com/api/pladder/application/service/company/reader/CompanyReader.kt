@@ -13,4 +13,7 @@ class CompanyReader (
 ): JpaService<Company, UUID> {
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 
+    fun getInstance(companyId: String) : Company {
+        return findById(UUID.fromString(companyId))
+    }
 }

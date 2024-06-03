@@ -1,18 +1,21 @@
 package com.api.pladder.application.dto.contract.mapper
 
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.user.customer.request.UpdateInfoCustomerReq
+import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.entity.contract.Contract
-import com.api.pladder.domain.entity.user.Customer
-import com.api.pladder.domain.entity.user.Detective
+import java.util.*
 
 object ContractDtoMapper {
 
-    fun ContractToEntity(req : RegisterContractReq, detective: Detective, ) : Contract {
-        return Contract();
+    fun ContractToEntity(req : RegisterContractReq, company: Company) : Contract {
+        return Contract(
+            UUID.fromString(req.clientId),
+            company,
+            req.advanceDeposit,
+            req.pee,
+            req.purpose,
+            req.requestSolution
+        );
     }
 
-    fun ContractUpdateInfo(customer: Customer, req: UpdateInfoContractReq) {
-        return customer.updateInfo(req.nickName,req.phoneNumber)
-    }
 }
