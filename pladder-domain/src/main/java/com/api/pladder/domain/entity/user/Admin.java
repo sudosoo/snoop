@@ -1,7 +1,6 @@
 package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -32,5 +31,10 @@ public class Admin extends BaseEntity implements User{
     @Override
     public Boolean isActive() {
         return true;
+    }
+
+    @Override
+    public void withdrawn() {
+        throw new UnsupportedOperationException("관리자는 탈퇴할 수 없습니다.");
     }
 }

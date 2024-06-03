@@ -4,7 +4,6 @@ import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
-import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.detective.manager.DetectiveManager
 import com.api.pladder.application.service.user.detective.reader.DetectiveReader
@@ -20,8 +19,8 @@ class DetectiveService : UserService {
         return UserResp(reader.findByEmail(email))
     }
 
-    override fun withdraw(userId: String): WithdrawResp {
-        TODO("Not yet implemented")
+    override fun withdrawn(userId: String) {
+        manager.withdrawn(userId)
     }
 
     override fun register(req: RegisterUserReq): UserResp {

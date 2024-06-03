@@ -6,5 +6,5 @@ import java.util.UUID;
 public interface User {
     UUID getId();
     Boolean isActive();
-
+    void withdrawn();
 }

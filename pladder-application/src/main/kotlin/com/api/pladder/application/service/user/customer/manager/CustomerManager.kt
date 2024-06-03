@@ -51,4 +51,8 @@ class CustomerManager(
         return str.toString()
     }
 
+    fun withdrawn(reqId: String) {
+        deleteById(UUID.fromString(reqId))
+    }
+
 }

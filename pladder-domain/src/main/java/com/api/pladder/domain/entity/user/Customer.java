@@ -38,7 +38,6 @@ public class Customer extends BaseEntity implements User {
         this.nickName = nickName;
     }
 
-
     public void updateInfo(String nickName, String phoneNumber) {
         this.nickName = nickName;
         this.phoneNumber = phoneNumber;
@@ -52,10 +51,10 @@ public class Customer extends BaseEntity implements User {
     public void updateCertified() {
         this.status = CustomerStatus.CERTIFIED;
     }
-    public  Boolean isActive() {
-        return this.isActive;
-    }
 
+    public void withdrawn() {
+        this.isActive = false;
+    }
 
 }
 

@@ -40,5 +40,9 @@ class DetectiveManager(
         return save(detective)
     }
 
+    fun withdrawn(reqId: String) {
+        deleteById(UUID.fromString(reqId))
+    }
+
 
 }

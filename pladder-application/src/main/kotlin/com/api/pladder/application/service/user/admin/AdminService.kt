@@ -3,7 +3,6 @@ package com.api.pladder.application.service.user.admin
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
-import com.api.pladder.application.dto.user.common.response.WithdrawResp
 import com.api.pladder.application.service.user.admin.reader.AdminReader
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.core.exception.AccessDeniedException
@@ -20,12 +19,16 @@ class AdminService :UserService {
         throw AccessDeniedException("관리자는 회원탈퇴를 할 수 없습니다.")
     }
 
-    override fun withdraw(userId: String): WithdrawResp {
+    override fun withdrawn(userId: String): WithdrawResp {
         throw AccessDeniedException("관리자는 회원탈퇴를 할 수 없습니다.")
     }
 
     override fun updatePasswd(req: UpdatePasswdUserReq): UserResp {
         throw AccessDeniedException("관리자는 비밀번호를 변경 할 수 없습니다.")
+    }
+
+    override fun isUser(email: String, passwd: String): Boolean {
+        throw AccessDeniedException("관리자는 찾기를 지원하지 않습니다..")
     }
 
 }

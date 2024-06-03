@@ -60,4 +60,9 @@ public class Detective extends BaseEntity implements User{
     }
     public Boolean isActive() { return this.isActive; }
 
+    @Override
+    public void withdrawn() {
+        this.isActive = false;
+    }
+
 }
