@@ -5,5 +5,5 @@ import com.api.pladder.domain.repository.common.BaseRepository;
 
 import java.util.UUID;
 
-public interface VictimContentRepository extends BaseRepository<Victim, UUID> {
+public interface VictimRepository extends BaseRepository<Victim, UUID> {
 }

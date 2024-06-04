@@ -15,7 +15,10 @@ class ContractContentManager (
 ) : JpaService<ContractContent, UUID> {
     override var jpaRepository: BaseRepository<ContractContent, UUID> = repository
     fun register(req : RegisterContractContentReq){
-        val contractContent = ContractContentDtoMapper.toEntity(req.contractId, req.content)
+        val contractContent = ContractContentDtoMapper.toEntity(req)
         repository.save(contractContent)
     }
+
+
+
 }

@@ -25,6 +25,7 @@ public class ContractContent{
     //계약 분야
     @Enumerated(EnumType.STRING)
     private Filed contractField = Filed.NONE;
+    private UUID contractId;
     //가해자
     private UUID perpetratorId;
     //피해자
@@ -35,9 +36,12 @@ public class ContractContent{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
-    public ContractContent(String contractField, String incidentLocation, LocalDateTime incidentTime) {
-        this.contractField = Filed.fromStatus(contractField);
+    public ContractContent(String contractId , Filed contractField, String incidentLocation, String incidentTime) {
+        this.contractId = UUID.fromString(contractId);
+        this.contractField = contractField;
         this.incidentLocation = incidentLocation;
-        this.incidentTime = incidentTime;
+        this.incidentTime = LocalDateTime.parse(incidentTime);
     }
+
+
 }

@@ -24,4 +24,12 @@ public class Victim {
     private String name;
     private String relationship;
     private String phoneNumber;
+
+
+    public Victim(UUID contractId, String name, String relationship, String phoneNumber) {
+        this.contractId = contractId;
+        this.name = name;
+        this.relationship = relationship;
+        this.phoneNumber = phoneNumber;
+    }
 }

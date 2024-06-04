@@ -21,19 +21,19 @@ class UserController (
     val service : AuthService
 ) : AuthDataProvider, ResponseEntityCreation {
     @ExplainRegisterUser
-    @PostMapping(value = ["/detective/register","/customer/register"])
+    @PostMapping(value = ["/detective","/customer"])
     fun register(request : RegisterUserReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.signUp(request, getAuthReq()))
     }
 
     @ExplainUpdatePasswdUser
-    @PutMapping(value = ["/detective/register","/customer/register"])
+    @PutMapping(value = ["/detective","/customer"])
     fun updatePasswd(request : UpdatePasswdUserReq):ResponseEntity<BaseResp>{
         return getRespEntity(service.updatePasswd(request,getAuthReq()))
     }
 
     @ExplainUpdatePasswdUser
-    @DeleteMapping(value = ["/detective/register","/customer/register"])
+    @DeleteMapping(value = ["/detective","/customer"])
     fun withdrawn(request : WithdrawnUserReq){
         service.withdrawn(request,getAuthReq())
     }

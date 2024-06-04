@@ -4,8 +4,6 @@ import com.api.pladder.application.dto.contractContent.request.RegisterContractC
 import com.api.pladder.domain.entity.contract.ContractContent
 
 object ContractContentDtoMapper {
-    fun contractContentToEntity(req : RegisterContractContentReq) : ContractContent{
-        return ContractContent(req.contractId,req.)
-
-    }
+    fun toEntity(req : RegisterContractContentReq) : ContractContent{
+        return ContractContent(req.contractId,req.contractField,req.incidentLocation,req.incidentTime) }
 }

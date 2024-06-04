@@ -1,8 +1,7 @@
 package com.api.pladder.presentation.controller.contractContent
 
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.service.contract.ContractService
+import com.api.pladder.application.dto.contractContent.request.RegisterContractContentReq
 import com.api.pladder.application.service.contractContent.ContractContentService
 import com.api.pladder.core.utils.provider.AuthDataProvider
 import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
@@ -22,8 +21,10 @@ class ContractContentController (
 
     @ExplainRegisterContract
     @PostMapping(value = ["/detective/contract"])
-    fun register(request: RegisterContractReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.register(request, getAuthReq()))
+    fun register(request: RegisterContractContentReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.register(request))
     }
+
+
 
 }
