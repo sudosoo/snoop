@@ -7,9 +7,11 @@ import com.api.pladder.domain.entity.contract.Perpetrator
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.contract.PerpetratorRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
+@Transactional
 class PerpetratorService(
     val repository : PerpetratorRepository
 ):JpaService<Perpetrator, UUID>{
@@ -20,9 +22,11 @@ class PerpetratorService(
         repository.save(perpetrator)
     }
 
-    fun appendAccomplice(accompliceId: UUID, perpetratorId: UUID){
+    fun appendAccomplice(perpetratorId: UUID, req: RegisterPerpetratorReq){
         val perpetrator = findById(perpetratorId)
-        perpetrator.appendAccomplice(accompliceId)
+        val accomplice = PerpetratorDtoMapper.toEntity(req)
+        perpetrator.appendAccomplice(accomplice)
+        save(accomplice)
     }
 
 

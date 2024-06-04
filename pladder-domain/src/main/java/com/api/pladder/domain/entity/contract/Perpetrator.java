@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,8 +34,12 @@ public class Perpetrator{
     //집 주소
     private String residenceAddr;
 
-    //공범 가해자 entityId
-    private UUID accompliceId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "leader_id")
+    private Perpetrator leader;
+
+    @OneToMany(mappedBy = "leader", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Perpetrator> accomplice;
 
     public Perpetrator(UUID contractId, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr) {
         this.contractId = contractId;
@@ -46,7 +51,13 @@ public class Perpetrator{
         this.impression = impression;
         this.residenceAddr = residenceAddr;
     }
-    public void appendAccomplice(UUID accompliceId){
-        this.accompliceId = accompliceId;
+    public void appendAccomplice(Perpetrator accomplice){
+        this.accomplice.add(accomplice);
+        accomplice.appendLeader(this);
     }
+    public void appendLeader(Perpetrator leader){
+        this.leader = leader;
+    }
+
+
 }
