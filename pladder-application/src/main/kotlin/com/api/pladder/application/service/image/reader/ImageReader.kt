@@ -5,6 +5,7 @@ import com.api.pladder.domain.entity.image.Image
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.image.ImageRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class ImageReader (
@@ -12,4 +13,9 @@ class ImageReader (
 ) :JpaService<Image, String>{
     override var jpaRepository: BaseRepository<Image, String> = repository
 
+    fun findByWriterId(writerId: UUID): Image {
+        return repository.findByWriterId(writerId).orElseThrow{
+            throw IllegalArgumentException("Image not found")
+        }
+    }
 }
