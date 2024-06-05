@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Tag(name = "피해자", description = "피해자 관련 API")
-@RequestMapping("/api")
+@RequestMapping("/api/detective/victim")
 class VictimController(
     val service : VictimService
 ): AuthDataProvider, ResponseEntityCreation {
 
     @ExplainRegisterUser
-    @PostMapping(value = ["/detective/victim",])
+    @PostMapping(value = [])
     fun register(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request))
     }

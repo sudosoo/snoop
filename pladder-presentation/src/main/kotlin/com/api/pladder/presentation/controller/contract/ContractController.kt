@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Tag(name = "계약서", description = "계약서 관련 API")
-@RequestMapping("/api")
+@RequestMapping("/api/detective/contract")
 class ContractController (
     val service: ContractService
 ) : ResponseEntityCreation, AuthDataProvider {
 
     @ExplainRegisterContract
-    @PostMapping(value = ["/detective/contract"])
+    @PostMapping(value = [])
     fun register(request: RegisterContractReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request, getAuthReq()))
     }
 
     @ExplainGetContract
-    @GetMapping(value = ["/detective/contract"])
+    @GetMapping(value = [])
     fun getContract() : ResponseEntity<BaseResp>{
         return getRespEntity(service.findStatus(getAuthReq()))
     }

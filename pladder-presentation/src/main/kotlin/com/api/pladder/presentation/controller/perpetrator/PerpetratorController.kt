@@ -16,19 +16,19 @@ import java.util.*
 
 @RestController
 @Tag(name = "가해자", description = "가해자 관련 API")
-@RequestMapping("/api")
+@RequestMapping("/api/detective/victim")
 class PerpetratorController(
     val service : PerpetratorService
 ): AuthDataProvider, ResponseEntityCreation {
 
     @ExplainRegisterUser
-    @PostMapping(value = ["/detective/victim",])
+    @PostMapping(value = [])
     fun register(request : RegisterPerpetratorReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request))
     }
 
     @ExplainRegisterUser
-    @PostMapping(value = ["/detective/victim",])
+    @PostMapping(value = [])
     fun appendAccomplice(perpetratorId: UUID,request : RegisterPerpetratorReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.appendAccomplice(perpetratorId,request))
     }

@@ -38,6 +38,11 @@ class UserController (
         service.withdrawn(request,getAuthReq())
     }
 
+    @ExplainUpdatePasswdUser
+    @GetMapping(value = ["/detective","/customer"])
+    fun findSimpleProfile(){
+
+    }
     //TODO
     /*@ExplainSaveProfile
     @PostMapping(value = [ "/detective/image"], consumes = ["multipart/form-data"])
