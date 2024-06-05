@@ -1,6 +1,7 @@
 package com.api.pladder.application.service.contract
 
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
+import com.api.pladder.application.dto.contractContent.response.FindStatusContractResp
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
@@ -17,4 +18,11 @@ class ContractService (
         val company = companyService.reader.getInstance(req.companyId)
         manager.register(req,company)
     }
+
+    fun findStatus(req : AuthUserObject) : FindStatusContractResp {
+        val contracts = reader.findAllById(req.userId)
+        return FindStatusContractResp().toResp(contracts)
+
+    }
+
 }

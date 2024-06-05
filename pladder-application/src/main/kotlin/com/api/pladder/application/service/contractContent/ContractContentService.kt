@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.contractContent
 
+import com.api.pladder.application.dto.contractContent.mapper.ContractContentDtoMapper
 import com.api.pladder.application.dto.contractContent.request.RegisterContractContentReq
 import com.api.pladder.application.service.contractContent.manager.ContractContentManager
 import com.api.pladder.application.service.contractContent.reader.ContractContentReader
@@ -11,8 +12,8 @@ class ContractContentService (
     val reader: ContractContentReader
 ){
     fun register(req : RegisterContractContentReq){
-
-        manager.register(req)
+        val contractContent  = ContractContentDtoMapper.toEntity(req)
+        manager.register(contractContent)
     }
 
 }

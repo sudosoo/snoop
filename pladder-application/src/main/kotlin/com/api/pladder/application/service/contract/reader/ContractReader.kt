@@ -13,4 +13,8 @@ class ContractReader (
 ):JpaService<Contract, UUID>{
 
     override var jpaRepository: BaseRepository<Contract, UUID> = repository
+
+    fun findAllById(id : UUID): List<Contract> {
+        return findAllById(id);
+    }
 }
