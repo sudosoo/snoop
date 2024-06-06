@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@Tag(name = "계약서", description = "계약서 관련 API")
-@RequestMapping("/api/detective/contract")
+@Tag(name = "계약서 내용", description = "계약서 내용 관련 API")
+@RequestMapping("/api/detective/contractContent")
 class ContractContentController (
     val service: ContractContentService
 ) : ResponseEntityCreation, AuthDataProvider {

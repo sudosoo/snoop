@@ -62,28 +62,21 @@ class AuthService(
     }
 
     fun updatePasswd(req: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
-        val convertReqPasswd = securityProvider.passwdBCryptConvert(req.passwd!!)
-
-
+        val convertReqPasswd = securityProvider.passwdBCryptConvert(req.passwd)
+        req.updateConvertPasswd(convertReqPasswd)
         val userService = getUserService(authObj.userType)
         val userRes = userService.updatePasswd(req)
         return userRes
     }
-
-
 
     fun signOut(){
         // TODO : check token
         // TODO : delete token
     }
 
-
     fun withdrawn(req : WithdrawnUserReq,authObj: AuthUserObject) {
         val userService = getUserService(authObj.userType)
-        userService.withdrawn(
-            (authObj.userId ?:throw InvalidRequestException("사용자 아이디는 null 일 수 없습니다.")
-                    ).toString()
-        )
+        userService.withdrawn((authObj.userId).toString())
     }
 
     private fun getUserService(userType: UserType): UserService {

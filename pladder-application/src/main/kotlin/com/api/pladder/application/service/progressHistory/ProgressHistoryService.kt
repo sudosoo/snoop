@@ -26,7 +26,8 @@ class ProgressHistoryService (
     }
 
     fun getProgressHistories(contractId: String,pageReq:PageRequest ): PageImpl<ProgressHistoryResp> {
-        val histories = reader.getHistoriesByContractId(UUID.fromString(contractId),pageReq)
+        val contract = contractService.findById(UUID.fromString(contractId))
+        val histories = reader.getHistoriesByContractId(contract,pageReq)
         return PageImpl(
             histories.content.map { ProgressHistoryDtoMapper.toRespDto(it)}.toList(),
             pageReq,

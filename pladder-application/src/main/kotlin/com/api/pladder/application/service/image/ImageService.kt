@@ -90,7 +90,7 @@ class ImageService(
 
     fun getImage(companyId : UUID): ByteArray {
         val ImageObj = reader.findByWriterId(companyId)
-        return s3Provider.downloadImage(ImageObj.id)
+        return s3Provider.downloadImage(ImageObj.imageId)
     }
 }
 

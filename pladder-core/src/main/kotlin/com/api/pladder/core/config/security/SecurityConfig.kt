@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
 @Configuration
@@ -40,12 +41,12 @@ class SecurityConfig(
 //            .requestMatchers("/api/admin").hasRole("ADMIN")
 //            .requestMatchers("/api/boss").hasRole("BOSS")
 //            .requestMatchers("/api/customer").hasRole("CUSTOMER")
-            .requestMatchers("/h2-console/**").permitAll()
+         //   .requestMatchers("/h2-console/**").permitAll()
             .anyRequest().permitAll()
             .and()
-           // .headers().frameOptions().sameOrigin()
-           // .and()
-           // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .headers().frameOptions().sameOrigin()
+            .and()
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 }

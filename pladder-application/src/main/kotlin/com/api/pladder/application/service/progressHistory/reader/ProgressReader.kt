@@ -2,6 +2,7 @@ package com.api.pladder.application.service.progressHistory.reader
 
 import com.api.pladder.application.service.common.jpa.JpaService
 import com.api.pladder.application.service.common.jpa.JpaSpecificationService
+import com.api.pladder.domain.entity.contract.Contract
 import com.api.pladder.domain.entity.progressHistory.Progress
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.progressHistory.ProgressHistoryRepository
@@ -18,8 +19,8 @@ class ProgressReader(
     override val jpaSpecRepository: BaseRepository<Progress, UUID> = repository
     override var jpaRepository: BaseRepository<Progress, UUID> = repository
 
-    fun getHistoriesByContractId(contractId: UUID,pageable: Pageable): Page<Progress> {
-        return repository.paginationByContractId(contractId,pageable)
+    fun getHistoriesByContractId(contract: Contract ,pageable: Pageable): Page<Progress> {
+        return repository.findByContract(contract,pageable)
     }
 
 

@@ -56,6 +56,11 @@ public class Customer extends BaseEntity implements User {
         this.isActive = false;
     }
 
+    public Boolean isActive(){
+        return this.isActive;
+    }
+
+
 }
 
 

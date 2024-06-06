@@ -18,6 +18,7 @@ class FindStatusContractResp (
                 ContractStatus.ONGOING -> ongoing++
                 ContractStatus.COMPLETED -> complete++
                 ContractStatus.CANCELED -> canceled++
+                else -> throw IllegalArgumentException("Invalid status")
             }
         }
         return this

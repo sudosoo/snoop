@@ -8,5 +8,9 @@ data class UpdatePasswdUserReq (
     @Schema(description = "비밀번호" , example = "abc1q2w3e")
     val passwd: String,
     @Schema(description = "변경 할 비밀번호" , example = "def1q2w3e")
-    val reqUpdatePasswd: String
-)
+    var reqUpdatePasswd: String
+){
+    fun updateConvertPasswd(convertPasswd : String) {
+        this.reqUpdatePasswd = convertPasswd
+    }
+}
