@@ -6,7 +6,9 @@ import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
 import com.api.pladder.core.obj.AuthUserObject
+import com.api.pladder.domain.entity.contract.Contract
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ContractService (
@@ -24,5 +26,8 @@ class ContractService (
         return FindStatusContractResp().toResp(contracts)
 
     }
+
+    fun findById(contractId : UUID) : Contract = reader.getInstance(contractId)
+
 
 }

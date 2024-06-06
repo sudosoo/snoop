@@ -4,7 +4,7 @@ import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
-import com.api.pladder.domain.entity.progressHistory.ProgressHistory;
+import com.api.pladder.domain.entity.progressHistory.Progress;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class Contract extends BaseEntity {
     private Company company;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
-    private List<ProgressHistory> progressHistory = new ArrayList<>();
+    private List<Progress> progress = new ArrayList<>();
 
     //계약서 상세 내용
     private UUID contractContentId;
@@ -56,8 +56,8 @@ public class Contract extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
 
-    public void addProgress(ProgressHistory history ){
-        this.progressHistory.add(history);
+    public void addProgress(Progress history ){
+        this.progress.add(history);
     }
 
     public Contract(UUID customerId, Company company, String advanceDeposit, String pee, String purpose, String description) {
