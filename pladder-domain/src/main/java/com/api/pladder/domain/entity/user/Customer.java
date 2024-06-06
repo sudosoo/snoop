@@ -19,7 +19,7 @@ public class Customer extends BaseEntity implements User {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID customerId;
     @Column(unique = true)
     private String email;
     private String passwd;

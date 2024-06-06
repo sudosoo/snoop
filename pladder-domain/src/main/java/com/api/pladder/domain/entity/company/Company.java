@@ -25,7 +25,7 @@ public class Company extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID companyId;
 
     @Column(unique = true)
     private String companyName;

@@ -19,7 +19,7 @@ public class Perpetrator{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID perpetratorId;
     private UUID contractId;
     private String name;
     @Enumerated(EnumType.STRING)

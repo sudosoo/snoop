@@ -19,7 +19,7 @@ public class Victim {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID victimId;
     private UUID contractId;
     private String name;
     private String relationship;

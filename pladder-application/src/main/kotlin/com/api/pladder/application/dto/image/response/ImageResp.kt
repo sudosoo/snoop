@@ -11,7 +11,7 @@ data class ImageResp(
     val location : String? = "/open/images/${imageId}"
 ){
     constructor(model: Image) : this(
-        imageId = model.id,
-        location = "/open/images/${model.id}"
+        imageId = model.imageId,
+        location = "/open/images/${model.imageId}"
     )
 }

@@ -21,7 +21,7 @@ public class ContractContent{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID contractContentId;
     //계약 분야
     @Enumerated(EnumType.STRING)
     private Filed contractField = Filed.NONE;

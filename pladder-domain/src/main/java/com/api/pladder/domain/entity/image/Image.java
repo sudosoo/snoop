@@ -14,14 +14,14 @@ import java.util.UUID;
 public class Image {
     @Id
     @Column(updatable = false, nullable = false)
-    private String id;
+    private String imageId;
     private UUID writerId;
     @Enumerated(EnumType.STRING)
     private ImageType type;
     private Long size;
 
-    public Image(String id, UUID writerId, ImageType type, Long size) {
-        this.id = id;
+    public Image(String imageId, UUID writerId, ImageType type, Long size) {
+        this.imageId = imageId;
         this.writerId = writerId;
         this.type = type;
         this.size = size;

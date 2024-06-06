@@ -18,7 +18,7 @@ public class Admin extends BaseEntity implements User{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID adminId;
     @Column(unique = true)
     private String email;
     private String pwd;
@@ -32,7 +32,6 @@ public class Admin extends BaseEntity implements User{
     public Boolean isActive() {
         return true;
     }
-
     @Override
     public void withdrawn() {
         throw new UnsupportedOperationException("관리자는 탈퇴할 수 없습니다.");

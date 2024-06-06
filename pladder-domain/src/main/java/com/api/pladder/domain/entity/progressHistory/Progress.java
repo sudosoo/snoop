@@ -23,7 +23,7 @@ public class Progress extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID progressId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime recordingTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();

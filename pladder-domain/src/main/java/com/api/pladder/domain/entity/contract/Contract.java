@@ -25,7 +25,7 @@ public class Contract extends BaseEntity {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID contractId;
 
     private UUID customerId;
 

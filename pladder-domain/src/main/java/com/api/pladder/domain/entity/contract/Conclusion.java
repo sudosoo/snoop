@@ -19,7 +19,7 @@ public class Conclusion{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID conclusionId;
     private String description;
     private String file;
 }

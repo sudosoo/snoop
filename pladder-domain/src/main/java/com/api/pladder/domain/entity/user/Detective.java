@@ -19,7 +19,7 @@ public class Detective extends BaseEntity implements User{
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID id;
+    private UUID detectiveId;
     @Column(unique = true)
     private String email;
     private String passwd;
