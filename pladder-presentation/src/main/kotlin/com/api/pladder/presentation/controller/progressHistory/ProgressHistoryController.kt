@@ -5,6 +5,9 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryRegisterReq
 import com.api.pladder.application.service.progressHistory.ProgressHistoryService
 import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.presentation.anotation.progressHistory.ExplainDeleteProgressHistory
+import com.api.pladder.presentation.anotation.progressHistory.ExplainRegisterProgressHistory
+import com.api.pladder.presentation.anotation.progressHistory.ExplainUpdateProgressHistory
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.PageRequest
@@ -18,11 +21,14 @@ class ProgressHistoryController (
     val service : ProgressHistoryService
 ) : AuthDataProvider, ResponseEntityCreation {
 
+    val PAGE_SIZE = 10
+
+    @ExplainRegisterProgressHistory
     @PostMapping(value = ["/detective"])
     fun register(req : ProgressHistoryRegisterReq) : ResponseEntity<BaseResp>{
         return getRespEntity(service.registerProgress(req))
     }
-
+    @ExplainUpdateProgressHistory
     @PutMapping(value = ["/detective"])
     fun updateContent(req : ProgressHistoryRegisterReq) : ResponseEntity<BaseResp>{
         return getRespEntity(service.registerProgress(req))
@@ -32,10 +38,10 @@ class ProgressHistoryController (
     fun getHistories(contractId : String,
                      @RequestParam(defaultValue = "0") page : Int,
                      ) : ResponseEntity<BaseListRespV2>{
-        val pageSize = 10
-        return getListRespEntity(service.getProgressHistories(contractId, PageRequest.of(page, pageSize)))
+        return getListRespEntity(service.getProgressHistories(contractId, PageRequest.of(page, PAGE_SIZE)))
     }
 
+    @ExplainDeleteProgressHistory
     @DeleteMapping(value = ["/detective/{progressId}"])
     fun delete(@PathVariable progressId : String) : ResponseEntity<BaseResp>{
         return getRespEntity(service.deleteProgress(progressId))

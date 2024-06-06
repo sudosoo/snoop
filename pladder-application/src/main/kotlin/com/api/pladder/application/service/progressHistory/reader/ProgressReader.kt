@@ -5,6 +5,8 @@ import com.api.pladder.application.service.common.jpa.JpaSpecificationService
 import com.api.pladder.domain.entity.progressHistory.Progress
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.progressHistory.ProgressHistoryRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -16,8 +18,8 @@ class ProgressReader(
     override val jpaSpecRepository: BaseRepository<Progress, UUID> = repository
     override var jpaRepository: BaseRepository<Progress, UUID> = repository
 
-    fun getHistoriesByContractId(contractId: UUID): List<Progress> {
-        return repository.findAllByContractId(contractId)
+    fun getHistoriesByContractId(contractId: UUID,pageable: Pageable): Page<Progress> {
+        return repository.paginationByContractId(contractId,pageable)
     }
 
 

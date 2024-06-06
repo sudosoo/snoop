@@ -1,11 +1,12 @@
 package com.api.pladder.application.service.progressHistory
 
+import com.api.pladder.application.dto.progressHistory.mapper.ProgressHistoryDtoMapper
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryRegisterReq
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
+import com.api.pladder.application.dto.progressHistory.response.ProgressHistoryResp
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.application.service.progressHistory.manager.ProgressManager
 import com.api.pladder.application.service.progressHistory.reader.ProgressReader
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
@@ -24,10 +25,12 @@ class ProgressHistoryService (
         progressHistory.addContract(contract)
     }
 
-    fun getProgressHistories(contractId: String,pageReq:PageRequest ): PageImpl<ProgressListResp> {
-        val pageable = getBasePageableWithSorting(pageReq)
-        val histories = reader.getHistoriesByContractId(UUID.fromString(contractId))
-        return PageImpl(histories, pageReq, histories.size.toLong())
+    fun getProgressHistories(contractId: String,pageReq:PageRequest ): PageImpl<ProgressHistoryResp> {
+        val histories = reader.getHistoriesByContractId(UUID.fromString(contractId),pageReq)
+        return PageImpl(
+            histories.content.map { ProgressHistoryDtoMapper.toRespDto(it)}.toList(),
+            pageReq,
+            histories.size.toLong())
     }
 
     fun updateProgress(req : ProgressHistoryUpdateReq){
