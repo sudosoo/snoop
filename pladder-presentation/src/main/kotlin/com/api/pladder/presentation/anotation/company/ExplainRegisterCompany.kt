@@ -1,13 +1,12 @@
-package com.api.pladder.presentation.anotation.user
+package com.api.pladder.presentation.anotation.company
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
-
 @Operation(
-    summary = "(IUS004) 회원 프로필 변경",
+    summary = "(ICP001) 회사 정보 등록"
 )
 @ApiResponse(
     responseCode = "200",
@@ -21,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainUpdateProfileUser()
+annotation class ExplainRegisterCompany()

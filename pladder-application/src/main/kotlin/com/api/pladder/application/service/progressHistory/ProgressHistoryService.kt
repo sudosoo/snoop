@@ -19,13 +19,13 @@ class ProgressHistoryService (
     private val contractService: ContractService
 ){
 
-    fun registerProgress(req : ProgressHistoryRegisterReq) {
+    fun register(req : ProgressHistoryRegisterReq) {
         val contract = contractService.findById(UUID.fromString(req.contractId))
         val progressHistory = manager.register(req.content)
         progressHistory.addContract(contract)
     }
 
-    fun getProgressHistories(contractId: String,pageReq:PageRequest ): PageImpl<ProgressHistoryResp> {
+    fun getHistories(contractId: String, pageReq:PageRequest ): PageImpl<ProgressHistoryResp> {
         val contract = contractService.findById(UUID.fromString(contractId))
         val histories = reader.getHistoriesByContractId(contract,pageReq)
         return PageImpl(
@@ -34,13 +34,13 @@ class ProgressHistoryService (
             histories.size.toLong())
     }
 
-    fun updateProgress(req : ProgressHistoryUpdateReq){
+    fun updateContent(req : ProgressHistoryUpdateReq){
         val progress = reader.findById(UUID.fromString(req.contractId))
         progress.updateContent(req.content)
         manager.saveEntity(progress)
     }
 
-    fun deleteProgress(progressId: String) = manager.deleteById(UUID.fromString(progressId))
+    fun delete(progressId: String) = manager.deleteById(UUID.fromString(progressId))
 
 
 }

@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.core.utils.provider.AuthDataProvider
-import com.api.pladder.presentation.anotation.user.ExplainRegisterUser
+import com.api.pladder.presentation.anotation.company.ExplainRegisterCompany
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 class CompanyController(
     val service: CompanyService
 ): AuthDataProvider , ResponseEntityCreation {
-    @ExplainRegisterUser
+    @ExplainRegisterCompany
     @PostMapping(value = [])
     fun register(req:RegisterCompanyReq): ResponseEntity<BaseResp> {
         return getRespEntity(service.register(req,getAuthReq()))

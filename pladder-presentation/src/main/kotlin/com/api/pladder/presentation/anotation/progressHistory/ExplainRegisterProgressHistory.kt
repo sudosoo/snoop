@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 @Operation(
     summary = "(IPH001) 활동 내역 등록"
 )
+
 @ApiResponse(
     responseCode = "200",
     description = "성공",

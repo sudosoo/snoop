@@ -24,7 +24,6 @@ class ContractService (
     fun findStatus(req : AuthUserObject) : FindStatusContractResp {
         val contracts = reader.findAllById(req.userId)
         return FindStatusContractResp().toResp(contracts)
-
     }
 
     fun findById(contractId : UUID) : Contract = reader.getInstance(contractId)

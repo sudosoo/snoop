@@ -21,25 +21,23 @@ class UserController (
     val service : AuthService
 ) : AuthDataProvider, ResponseEntityCreation {
     @ExplainRegisterUser
-    @PostMapping(value = ["/detective","/customer"])
+    @PostMapping(value = ["/detective/user","/customer/user"])
     fun register(request : RegisterUserReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.signUp(request, getAuthReq()))
     }
 
     @ExplainUpdatePasswdUser
-    @PutMapping(value = ["/detective","/customer"])
+    @PutMapping(value = ["/detective/user","/customer/user"])
     fun updatePasswd(request : UpdatePasswdUserReq):ResponseEntity<BaseResp>{
         return getRespEntity(service.updatePasswd(request,getAuthReq()))
     }
 
-    @ExplainUpdatePasswdUser
-    @DeleteMapping(value = ["/detective","/customer"])
+    @DeleteMapping(value = ["/detective/user","/customer/user"])
     fun withdrawn(request : WithdrawnUserReq){
         service.withdrawn(request,getAuthReq())
     }
 
-    @ExplainUpdatePasswdUser
-    @GetMapping(value = ["/detective","/customer"])
+    @GetMapping(value = ["/detective/user","/customer/user"])
     fun findSimpleProfile(){
 
     }
