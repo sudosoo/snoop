@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class SecurityProvider {
-
     fun passwdBCryptConvert(rawPass: String): String {
         val encoder = BCryptPasswordEncoder()
         return encoder.encode(rawPass)
