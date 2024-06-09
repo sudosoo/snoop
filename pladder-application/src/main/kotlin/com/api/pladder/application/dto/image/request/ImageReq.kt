@@ -15,7 +15,7 @@ class ImageReq(
     val type : ImageType,
     @Schema(description = "파일" , example = "첨부 파일")
     val file: MultipartFile,
-    var fileSize: Long = 0
+    val fileSize: Long = 0
 ){
     constructor(type: String, file: MultipartFile) : this(
         type = ImageType.fromPrefix(type.uppercase()),

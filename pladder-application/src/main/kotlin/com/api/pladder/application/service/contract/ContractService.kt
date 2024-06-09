@@ -22,7 +22,7 @@ class ContractService (
     }
 
     fun findStatus(req : AuthUserObject) : FindStatusContractResp {
-        val contracts = reader.findAllById(req.userId)
+        val contracts = reader.findAllById(req.userId!!)
         return FindStatusContractResp().toResp(contracts)
     }
 

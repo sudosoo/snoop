@@ -17,7 +17,7 @@ class CompanyService (
         if(authObj.userType != UserType.DETECTIVE){
             throw AccessDeniedException("탐정만 회사를 등록할 수 있습니다.")
         }
-        manager.register(req,authObj.userId)
+        manager.register(req,authObj.userId!!)
     }
 
 
