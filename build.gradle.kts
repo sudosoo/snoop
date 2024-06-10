@@ -1,4 +1,5 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
+val kotestVersion = "5.7.2"
 
 plugins {
 	id("org.springframework.boot") apply false
@@ -104,7 +105,18 @@ subprojects {
 		// Spring Boot Starter Validation
 		implementation ("org.springframework.boot:spring-boot-starter-validation")
 
+		// Test framework
 		testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+		testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+		testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+
+		// Assertion library
+		testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+
+
+		// Mockk
+		testImplementation("io.mockk:mockk:1.13.5")
+
 
 
 	}

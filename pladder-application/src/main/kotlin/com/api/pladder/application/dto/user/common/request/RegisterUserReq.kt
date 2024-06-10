@@ -1,5 +1,6 @@
 package com.api.pladder.application.dto.user.common.request
 
+import com.api.pladder.core.enums.UserType
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class RegisterUserReq (
@@ -10,9 +11,11 @@ data class RegisterUserReq (
     @Schema(description="핸드폰번호")
     var phoneNumber: String? = null,
     @Schema(description="닉네임")
-    val nickName: String ? = null
-) {
+    val nickName: String? = null,
+    @Schema(description = "User type (DETECTIVE, CUSTOMER, ADMIN)")
+    val userType: UserType
 
+) {
     fun updateConvertPasswd(convertPass:String) {
         this.passwd = convertPass
     }

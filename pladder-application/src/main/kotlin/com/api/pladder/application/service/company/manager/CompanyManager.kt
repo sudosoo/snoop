@@ -11,7 +11,7 @@ import java.util.*
 
 @Component
 class CompanyManager (
-    val repository: CompanyRepository
+    private val repository: CompanyRepository
 ): JpaService<Company, UUID> {
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 

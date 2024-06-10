@@ -6,11 +6,11 @@ import com.api.pladder.domain.entity.user.Customer
 
 object CustomerDtoMapper {
     fun toEntity(req : RegisterUserReq) : Customer {
-        return Customer(req.email, req.passwd , req.phoneNumber, req.nickName)
+        return Customer(req.nickName,req.passwd)
     }
 
     fun updateInfo(customer: Customer, req: UpdateInfoUserReq) {
-        return customer.updateInfo(req.nickName,req.phoneNumber)
+        return customer.updateInfo(req.nickName)
     }
 
 }

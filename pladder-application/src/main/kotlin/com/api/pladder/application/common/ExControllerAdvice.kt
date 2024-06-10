@@ -5,7 +5,6 @@ import com.api.pladder.core.enums.ErrorStatus
 import com.api.pladder.core.exception.InvalidRequestException
 import com.api.pladder.core.exception.NotFoundException
 import com.api.pladder.core.exception.NotUniqueException
-import com.api.pladder.core.exception.TokenException
 import jakarta.validation.ValidationException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
@@ -61,15 +60,7 @@ class ExControllerAdvice(
     fun handleBadRequest(e : Exception) : ResponseEntity<BaseResp> {
         return handleError(e.message, ErrorStatus.BAD_REQUEST)
     }
-
-    /**
-     * token 관련 오류
-     */
-    @ExceptionHandler(TokenException::class)
-    fun handleUnauthorized(e : Exception) : ResponseEntity<BaseResp> {
-        return handleError(e.message, ErrorStatus.UNAUTHORIZED)
-    }
-
+    
     /**
      * 기타오류
      */

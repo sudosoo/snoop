@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile
 @Schema(description="회사 등록 요청")
 class RegisterCompanyReq (
     @Schema(description="회사 대표 사진")
-    val companyImage: MultipartFile,
+    var companyImage: MultipartFile? = null ,
     @Schema(description="회사명",example = "플래더")
     val companyName: String,
     @Schema(description="회사 전화번호",example = "010-0000-0000")

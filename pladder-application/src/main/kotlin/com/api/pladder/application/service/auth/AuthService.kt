@@ -27,23 +27,21 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signUp(req: RegisterUserReq, authObj: AuthUserObject): UserResp{
-
+    fun signUp(req: RegisterUserReq): UserResp{
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
-
-        val userService = getUserService(authObj.userType)
-        val userRes = userService.register(req)
-        return userRes
+        val userService = getUserService(req.userType)
+        return userService.register(req)
     }
 
-    fun signIn(req: SignInUserReq, servletResp: HttpServletResponse) : UserResp {
+    fun signIn(req: SignInUserReq,servletResp: HttpServletResponse) : UserResp {
         val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
         req.updateConvertPasswd(convertPasswd)
 
         val userService = getUserService(req.userType)
              // login
         val userResp = userService.findByEmail(req.email!!)
+
         if (userResp.isActive != true)
             throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${userResp.isActive})")
 
@@ -54,7 +52,8 @@ class AuthService(
     //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
     //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
     //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
-            val accessToken: String = jwtUtil.generate(userResp.userId, req.userType)
+        val authObj = AuthUserObject(userResp.userId, req.userType)
+        val accessToken: String = jwtUtil.generate(authObj)
         //TODO 토큰 어디에 넣을건지 쿠키?
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
@@ -64,9 +63,9 @@ class AuthService(
     fun updatePasswd(req: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
         val convertReqPasswd = securityProvider.passwdBCryptConvert(req.passwd)
         req.updateConvertPasswd(convertReqPasswd)
+
         val userService = getUserService(authObj.userType)
-        val userRes = userService.updatePasswd(req)
-        return userRes
+        return userService.updatePasswd(req)
     }
 
     fun signOut(){
@@ -88,6 +87,7 @@ class AuthService(
                 throw InvalidRequestException("지원하지 않는 사용자 유형입니다.")
             }
         }
-
     }
+
+
 }

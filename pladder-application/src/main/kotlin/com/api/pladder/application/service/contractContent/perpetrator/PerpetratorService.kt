@@ -18,6 +18,10 @@ class PerpetratorService(
     override var jpaRepository: BaseRepository<Perpetrator, UUID> = repository
 
     fun register(req : RegisterPerpetratorReq){
+        if(req.accompliceId != null){
+            appendAccomplice(UUID.fromString(req.accompliceId), req)
+            return
+        }
         val perpetrator = PerpetratorDtoMapper.toEntity(req)
         repository.save(perpetrator)
     }

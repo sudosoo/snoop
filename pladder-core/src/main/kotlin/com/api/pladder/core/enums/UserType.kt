@@ -10,5 +10,4 @@ enum class UserType (
     DETECTIVE("detective", "/api/detective"),
     CUSTOMER("customer", "/api/customer"),
     UNKNOWN("open", "/api/open");
-
 }
