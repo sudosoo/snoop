@@ -1,6 +1,7 @@
 package com.api.pladder.application.dto.contractContent.mapper
 
 import com.api.pladder.application.dto.contractContent.victim.RegisterVictimReq
+import com.api.pladder.application.dto.contractContent.victim.UpdateVictimReq
 import com.api.pladder.domain.entity.contract.Victim
 import java.util.*
 
@@ -9,6 +10,11 @@ object VictimDtoMapper {
         return Victim(
             UUID.fromString(req.contractId),
             req.name,req.relationship,req.phoneNumber)
+    }
+
+    fun update(victim: Victim, req: UpdateVictimReq): Victim {
+        victim.update(req.name,req.relationship,req.phoneNumber)
+        return victim
     }
 
 }

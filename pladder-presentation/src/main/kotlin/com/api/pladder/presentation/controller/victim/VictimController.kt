@@ -2,16 +2,16 @@ package com.api.pladder.presentation.controller.victim
 
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contractContent.victim.RegisterVictimReq
+import com.api.pladder.application.dto.contractContent.victim.UpdateVictimReq
 import com.api.pladder.application.service.contractContent.victim.VictimService
 import com.api.pladder.core.utils.provider.AuthDataProvider
-import com.api.pladder.presentation.anotation.user.ExplainRegisterUser
+import com.api.pladder.presentation.anotation.victim.ExplainGetVictim
+import com.api.pladder.presentation.anotation.victim.ExplainRegisterVictim
+import com.api.pladder.presentation.anotation.victim.ExplainUpdateVictim
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -23,19 +23,19 @@ class VictimController(
 
     @ExplainRegisterVictim
     @PostMapping(value = [])
-    fun register(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.register(request))
+    fun register(req : RegisterVictimReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.register(req))
     }
 
     @ExplainUpdateVictim
-    @PostMapping(value = [])
-    fun update(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.register(request))
+    @PostMapping(value = ["/{victimId}"])
+    fun update(@PathVariable victimId: String, req : UpdateVictimReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.update(victimId,req))
     }
     @ExplainGetVictim
-    @GetMapping(value = [])
-    fun find(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.register(request))
+    @GetMapping(value = ["/{contractId}"])
+    fun find(@PathVariable contractId : String ) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.findById(contractId))
     }
 
 }
