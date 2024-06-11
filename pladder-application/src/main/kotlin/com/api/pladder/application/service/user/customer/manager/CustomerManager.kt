@@ -30,7 +30,8 @@ class CustomerManager(
     }
 
     fun updatePasswd(req: UpdatePasswdUserReq): Customer {
-        val customer = customerRepository.findByEmailAndPasswd(req.email,req.passwd).orElseThrow({throw Exception("존재하지 않는 이메일입니다")})
+        val customer = customerRepository.findByNickNameAndPasswd(req.nickName,req.passwd)
+            .orElseThrow({throw Exception("존재하지 않는 회원 입니다")})
         customer.updatePasswd(req.reqUpdatePasswd)
         return save(customer)
     }

@@ -15,7 +15,6 @@ import java.util.*
 @Component
 class DetectiveManager(
     private val repository: DetectiveRepository
-
 ) : JpaService<Detective, UUID> {
 
     override var jpaRepository: BaseRepository<Detective, UUID> = repository

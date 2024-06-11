@@ -34,9 +34,5 @@ class CustomerService : UserService {
         return UserResp(manager.updatePasswd(req))
     }
 
-    override fun isUser(email: String, passwd: String): Boolean {
-        return reader.isUser(email, passwd)
-    }
-
 
 }

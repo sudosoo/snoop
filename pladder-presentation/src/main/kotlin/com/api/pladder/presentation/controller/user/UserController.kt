@@ -23,7 +23,7 @@ class UserController (
     @ExplainRegisterUser
     @PostMapping(value = ["/detective/user","/customer/user"])
     fun register(request : RegisterUserReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.signUp(request, getAuthReq()))
+        return getRespEntity(service.signUp(request))
     }
 
     @ExplainUpdatePasswdUser

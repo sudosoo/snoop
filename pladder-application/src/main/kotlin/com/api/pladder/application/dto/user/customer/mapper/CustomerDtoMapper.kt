@@ -10,7 +10,7 @@ object CustomerDtoMapper {
     }
 
     fun updateInfo(customer: Customer, req: UpdateInfoUserReq) {
-        return customer.updateInfo(req.nickName)
+        return customer.updateInfo(req.phoneNumber)
     }
 
 }

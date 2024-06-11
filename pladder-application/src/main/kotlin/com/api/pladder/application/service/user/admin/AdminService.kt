@@ -27,8 +27,4 @@ class AdminService :UserService {
         throw AccessDeniedException("관리자는 비밀번호를 변경 할 수 없습니다.")
     }
 
-    override fun isUser(email: String, passwd: String): Boolean {
-        throw AccessDeniedException("관리자는 찾기를 지원하지 않습니다..")
-    }
-
 }

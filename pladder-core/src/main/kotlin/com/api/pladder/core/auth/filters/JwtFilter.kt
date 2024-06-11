@@ -52,8 +52,7 @@ class JwtFilter(
             } else if (resourceType.needAuthReq) {
                 securityManager.setContextAuthentication(AuthUserObject(userType = UserType.UNKNOWN))
             }
-
-        } catch (e: IllegalArgumentException) { // Token is required
+        } catch (e: IllegalArgumentException) {
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized: Token is required")
             return
         } catch (e : MalformedJwtException){

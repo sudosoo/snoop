@@ -9,5 +9,4 @@ interface UserService{
     fun findByEmail(email: String): UserResp
     fun withdrawn(userId: String)
     fun updatePasswd(req: UpdatePasswdUserReq): UserResp
-    fun isUser(email :String,passwd :String) : Boolean
 }

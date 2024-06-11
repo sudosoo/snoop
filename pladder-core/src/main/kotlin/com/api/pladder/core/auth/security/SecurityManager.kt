@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class SecurityManager {
     fun setContextAuthentication(authUserObject: AuthUserObject) {
         val authentication = UsernamePasswordAuthenticationToken(
-            authUserObject.userId,
+            authUserObject,
             null,
             getAuthorities(authUserObject)
         )

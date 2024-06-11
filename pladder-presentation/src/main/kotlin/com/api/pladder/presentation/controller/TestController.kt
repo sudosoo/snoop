@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api")
 class TestController (
     val service : ImageService
 ): ResponseEntityCreation, AuthDataProvider {
@@ -31,7 +31,7 @@ class TestController (
         )
     }
 
-    @GetMapping(value = ["detective/image/{imageId}"])
+    @GetMapping(value = ["/detective/image/{imageId}"])
     fun findImage(@PathVariable companyId: String): ResponseEntity<ByteArray> {
         val imageData = service.getImage(UUID.fromString(companyId))
         // Content-Type 설정

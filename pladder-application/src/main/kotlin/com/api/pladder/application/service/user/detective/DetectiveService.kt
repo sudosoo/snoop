@@ -31,9 +31,6 @@ class DetectiveService : UserService {
         return UserResp(manager.updatePasswd(req))
     }
 
-    override fun isUser(email: String, passwd: String): Boolean {
-        return reader.isUser(email, passwd)
-    }
 
     fun updateInfo(requestUserId : String, req: UpdateInfoUserReq): UserResp {
         return UserResp(manager.updateInfo(requestUserId, req))

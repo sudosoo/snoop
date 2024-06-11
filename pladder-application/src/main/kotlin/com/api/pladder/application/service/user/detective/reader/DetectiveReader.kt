@@ -16,8 +16,5 @@ class DetectiveReader(
     fun findByEmail(email: String): Detective {
         return findByEmail(email)
     }
-    fun isUser(email: String, passwd: String): Boolean {
-        return !repository.findByEmailAndPasswd(email, passwd).isEmpty
-    }
 
 }

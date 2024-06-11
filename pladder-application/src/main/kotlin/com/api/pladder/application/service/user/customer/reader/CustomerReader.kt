@@ -18,8 +18,4 @@ class CustomerReader(
         return findByEmail(email)
     }
 
-    fun isUser(email: String, passwd: String): Boolean {
-        return !repository.findByEmailAndPasswd(email, passwd).isEmpty
-    }
-
 }
