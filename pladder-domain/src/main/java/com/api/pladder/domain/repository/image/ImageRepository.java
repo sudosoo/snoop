@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface ImageRepository extends BaseRepository<Image, String> {
 
-    Optional<Image> findByWriterId(UUID writerId);
+    Optional<Image> findByCompanyId(UUID companyId);
 }

@@ -2,12 +2,14 @@ package com.api.pladder.application.service.image
 
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
+import com.api.pladder.application.dto.image.response.ImageTestResp
 import com.api.pladder.application.service.image.manager.ImageManager
 import com.api.pladder.application.service.image.reader.ImageReader
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.s3.ImageS3Provider
 import com.api.pladder.domain.entity.image.Image
+import com.api.pladder.domain.entity.image.enums.ImageExtension
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
@@ -42,7 +44,7 @@ class ImageService(
 
     private fun fileValidation(req: ImageReq) {
         val fileExtension = getFileExtension(req.file.originalFilename)
-        if (!req.type.extension.contains(fileExtension.lowercase())) {
+        if (!ImageExtension.hasExtension(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
         } else if (req.fileSize > maxFileSize.toBytes()) {
             throw IllegalArgumentException("File size exceeds the maximum size: ${req.file.size}")
@@ -63,7 +65,8 @@ class ImageService(
 
     private fun getExtensionFromMimeType(mimeType: String): String {
         return when (mimeType) {
-            "image/jpeg", "image/jpg" -> ".jpg"
+            "image/jpg" -> ".jpg"
+            "image/jpeg" -> ".jpeg"
             "image/png" -> ".png"
             "image/gif" -> ".gif"
             "application/pdf" -> ".pdf"
@@ -73,7 +76,7 @@ class ImageService(
 
     fun deleteById(id: String, authUserObject: AuthUserObject) {
         val model = reader.findById(id)
-        if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.writerId != authUserObject.userId)){
+        if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.companyId != authUserObject.userId)){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
         s3Provider.deleteImage(id)
@@ -82,15 +85,17 @@ class ImageService(
 
     fun findById(id: String, authUserObject: AuthUserObject): ImageResp {
         val model = reader.findById(id)
-        if (model.writerId != authUserObject.userId){
+        if (model.companyId != authUserObject.userId){
             throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
         }
         return ImageResp(model)
     }
 
-    fun getImage(companyId : UUID): ByteArray {
-        val ImageObj = reader.findByWriterId(companyId)
-        return s3Provider.downloadImage(ImageObj.imageId)
+    fun getImage(companyId : UUID): ImageTestResp {
+        val imageObj = reader.findByWriterId(companyId)
+        val byteArray = s3Provider.downloadImage(imageObj.imageId)
+        return ImageTestResp(imageObj,byteArray)
     }
+
 }
 

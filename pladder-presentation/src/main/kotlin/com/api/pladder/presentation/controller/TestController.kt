@@ -13,39 +13,46 @@ import java.util.*
 
 @RestController
 @RequestMapping("/api")
-class TestController (
-    val service : ImageService
-): ResponseEntityCreation, AuthDataProvider {
+class TestController(
+    val service: ImageService
+) : ResponseEntityCreation, AuthDataProvider {
 
     @Transactional(rollbackFor = [Exception::class])
-    @PostMapping(value = [ "/detective/image"], consumes = ["multipart/form-data"])
+    @PostMapping(value = ["/detective/image"], consumes = ["multipart/form-data"])
     fun save(
-        @RequestParam(name="file") file: MultipartFile,
-        @RequestParam(name="type") type: String
+        @RequestParam(name = "file") file: MultipartFile,
+        @RequestParam(name = "type") type: String
     ): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.save(
-                req = ImageReq(type = type, file = file)
-                ,authReq = getAuthReq()
+                req = ImageReq(type = type, file = file), authReq = getAuthReq()
             )
         )
     }
 
-    @GetMapping(value = ["/detective/image/{imageId}"])
+    @GetMapping(value = ["/detective/image/{companyId}"])
     fun findImage(@PathVariable companyId: String): ResponseEntity<ByteArray> {
-        val imageData = service.getImage(UUID.fromString(companyId))
-        // Content-Type 설정
-        val contentType: MediaType = MediaType.IMAGE_JPEG
         val headers = HttpHeaders()
+
+        val imageObj = service.getImage(UUID.fromString(companyId))
+        val contentType =
+            when (imageObj.imageExtension) {
+                "jpg" -> MediaType.IMAGE_JPEG
+                "jpeg" -> MediaType.IMAGE_JPEG
+                "png" -> MediaType.IMAGE_PNG
+                "gif" -> MediaType.IMAGE_GIF
+                "pdf" -> MediaType.APPLICATION_PDF
+                else -> throw IllegalArgumentException("Unsupported file extension: ${imageObj.imageExtension}")
+            }
         headers.contentType = contentType
 
         // Content-Disposition 설정 (파일 다운로드를 위한 설정)
         headers.contentDisposition = ContentDisposition
             .builder("inline")
-            .filename("$imageData.${contentType.subtype}")
+            .filename("${imageObj.byte}.${contentType.subtype}")
             .build()
 
-        return ResponseEntity(imageData, headers, HttpStatus.OK)
+        return ResponseEntity(imageObj.byte, headers, HttpStatus.OK)
     }
 
 

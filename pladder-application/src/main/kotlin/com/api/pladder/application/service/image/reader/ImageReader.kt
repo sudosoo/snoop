@@ -13,8 +13,8 @@ class ImageReader (
 ) :JpaService<Image, String>{
     override var jpaRepository: BaseRepository<Image, String> = repository
 
-    fun findByWriterId(writerId: UUID): Image {
-        return repository.findByWriterId(writerId).orElseThrow{
+    fun findByWriterId(companyId: UUID): Image {
+        return repository.findByCompanyId(companyId).orElseThrow{
             throw IllegalArgumentException("Image not found")
         }
     }
