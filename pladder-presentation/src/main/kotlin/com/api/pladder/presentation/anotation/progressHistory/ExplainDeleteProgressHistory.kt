@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(IPH003) 활동 내역 삭제"
+    summary = "(IPH004) 활동 내역 삭제"
 )
 
 @ApiResponse(

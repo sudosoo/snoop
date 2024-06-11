@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
     summary = "(IUS001) 회원 가입",
-    description = "회원 정보 저장",
 )
 @ApiResponse(
     responseCode = "200",

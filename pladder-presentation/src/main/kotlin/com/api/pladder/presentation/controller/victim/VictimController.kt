@@ -8,6 +8,7 @@ import com.api.pladder.presentation.anotation.user.ExplainRegisterUser
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -20,11 +21,21 @@ class VictimController(
     val service : VictimService
 ): AuthDataProvider, ResponseEntityCreation {
 
-    @ExplainRegisterUser
+    @ExplainRegisterVictim
     @PostMapping(value = [])
     fun register(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request))
     }
 
+    @ExplainUpdateVictim
+    @PostMapping(value = [])
+    fun update(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.register(request))
+    }
+    @ExplainGetVictim
+    @GetMapping(value = [])
+    fun find(request : RegisterVictimReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.register(request))
+    }
 
 }

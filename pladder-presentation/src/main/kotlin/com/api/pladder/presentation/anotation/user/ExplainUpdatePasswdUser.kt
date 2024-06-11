@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 
 @Operation(
-    summary = "(IUS002) 회원 비밀번호 변경",
+    summary = "(IUS003) 회원 비밀번호 변경",
 )
 @ApiResponse(
     responseCode = "200",
