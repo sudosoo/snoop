@@ -5,7 +5,7 @@ import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper
 import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.updateInfo
-import com.api.pladder.application.service.common.jpa.JpaService
+import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
@@ -15,7 +15,7 @@ import java.util.*
 @Component
 class CustomerManager(
     private val customerRepository: CustomerRepository,
-):JpaService<Customer, UUID> {
+): JpaService<Customer, UUID> {
     override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
     fun register(req : RegisterUserReq) :Customer {

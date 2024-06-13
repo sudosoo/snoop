@@ -33,13 +33,8 @@ class ContractController (
         return getRespEntity(service.findStatus(getAuthReq()))
     }
 
-/*
-    @ExplainDeleteContract
-    @PutMapping(value = ["/detective/contract","/customer/contract"])
-    fun deleteContract(){
 
-    }
 
-*/
+
 
 }

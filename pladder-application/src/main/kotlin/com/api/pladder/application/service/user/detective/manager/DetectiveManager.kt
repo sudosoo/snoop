@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.detective.mapper.DetectiveDtoMapper
-import com.api.pladder.application.service.common.jpa.JpaService
+import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.core.exception.NotFoundException
 import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.repository.common.BaseRepository

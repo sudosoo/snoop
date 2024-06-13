@@ -11,23 +11,18 @@ class UserResp(
     val userId: UUID,
     @Schema(description="유저 권한")
     val status : String,
-    @Schema(description="계정 활성화 상태")
-    val isActive : Boolean
 ) {
     constructor(model: Customer) : this(
         userId = model.customerId,
-        isActive = model.isActive,
         status = "customer"
     )
     constructor(model: Detective) : this(
         userId = model.detectiveId,
-        isActive = model.isActive,
         status = "detective"
     )
 
     constructor(model: Admin) : this(
         userId = model.adminId,
-        isActive = model.isActive,
         status = "admin"
     )
 

@@ -1,6 +1,6 @@
 package com.api.pladder.application.service.contractContent.reader
 
-import com.api.pladder.application.service.common.jpa.JpaService
+import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.domain.entity.contract.ContractContent
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.contract.ContractContentRepository

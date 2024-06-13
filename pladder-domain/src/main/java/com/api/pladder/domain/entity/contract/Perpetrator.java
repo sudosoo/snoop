@@ -2,7 +2,6 @@ package com.api.pladder.domain.entity.contract;
 
 import com.api.pladder.domain.entity.contract.enums.Gender;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,9 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Entity(name="pd_perpetrator")
-public class Perpetrator{
+public class Perpetrator {
     @Id
     @UuidGenerator
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
@@ -59,5 +58,20 @@ public class Perpetrator{
         this.leader = leader;
     }
 
+    public void update(String name,
+                       Gender gender,
+                       int age,
+                       String relationship,
+                       String workplaceAddr,
+                       String impression,
+                       String residenceAddr){
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.relationship = relationship;
+        this.workplaceAddr = workplaceAddr;
+        this.impression = impression;
+        this.residenceAddr = residenceAddr;
+    }
 
 }

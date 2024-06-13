@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.common
+package com.api.pladder.application.common
 
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert
 import java.lang.reflect.InvocationTargetException
@@ -9,7 +9,17 @@ import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.memberProperties
 
 object ReflectionUtils {
-    fun <F : Any, T : Any>overwrite (
+
+
+    fun <F : Any, T : Any> convertTo(
+        fromSource: F,
+        destinationClass: KClass<T>,
+    ): T {
+        val toSource = destinationClass.createInstance()
+        return overwrite(fromSource, toSource)
+    }
+
+    private fun <F : Any, T : Any> overwrite (
         fromSource: F,
         toSource : T,
     ): T {
@@ -42,21 +52,13 @@ object ReflectionUtils {
         return toSource
     }
 
-    fun <F : Any, T : Any> convertTo(
-        fromSource: F,
-        destinationClass: KClass<T>,
-    ): T {
-        val toSource = destinationClass.createInstance()
-        return overwrite(fromSource, toSource)
-    }
-
     fun <F : Any> getValueWithFieldName(obj: F, fieldName: String): Any {
         val field = obj.javaClass.getDeclaredField(fieldName)
         field.isAccessible = true
         return field.get(obj)
     }
 
-    inline fun <F : Any, reified V> setValueToClass(
+    private inline fun <F : Any, reified V> setValueToClass(
         obj: F,
         fieldName: String,
         value: V,

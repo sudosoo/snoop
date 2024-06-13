@@ -1,6 +1,6 @@
-package com.api.pladder.application.service.common.specification
+package com.api.pladder.application.common.specification
 
-import com.api.pladder.application.service.common.ReflectionUtils
+import com.api.pladder.application.common.ReflectionUtils
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Expression
 import jakarta.persistence.criteria.Predicate

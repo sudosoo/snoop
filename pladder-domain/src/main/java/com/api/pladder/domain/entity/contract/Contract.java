@@ -6,7 +6,6 @@ import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
 import com.api.pladder.domain.entity.progressHistory.Progress;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,7 @@ import java.util.UUID;
 @Getter
 @Entity(name="pd_contract")
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 public class Contract extends BaseEntity {
     @Id
     @UuidGenerator

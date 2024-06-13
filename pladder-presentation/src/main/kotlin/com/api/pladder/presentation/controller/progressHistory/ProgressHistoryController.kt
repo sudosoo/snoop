@@ -2,7 +2,7 @@ package com.api.pladder.presentation.controller.progressHistory
 
 import com.api.pladder.application.dto.common.BaseListRespV2
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryRegisterReq
+import com.api.pladder.application.dto.progressHistory.request.ProgressContentRegisterReq
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
 import com.api.pladder.application.service.progressHistory.ProgressHistoryService
 import com.api.pladder.core.utils.provider.AuthDataProvider
@@ -26,7 +26,10 @@ class ProgressHistoryController (
 
     @ExplainRegisterProgressHistory
     @PostMapping(value = ["/detective/progress"])
-    fun register(request : ProgressHistoryRegisterReq) : ResponseEntity<BaseResp>{
+    fun register(
+        @ModelAttribute
+        request : ProgressContentRegisterReq
+    ) : ResponseEntity<BaseResp>{
         return getRespEntity(service.register(request))
     }
 

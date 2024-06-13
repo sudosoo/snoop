@@ -1,6 +1,7 @@
 package com.api.pladder.application.dto.contractContent.mapper
 
 import com.api.pladder.application.dto.contractContent.perpetrator.RegisterPerpetratorReq
+import com.api.pladder.application.dto.contractContent.perpetrator.UpdatePerpetratorReq
 import com.api.pladder.domain.entity.contract.Perpetrator
 import java.util.*
 
@@ -17,4 +18,19 @@ object PerpetratorDtoMapper {
             req.residenceAddr
         )
     }
+
+    fun update(perpetrator: Perpetrator ,req: UpdatePerpetratorReq) {
+        return perpetrator.update(
+            req.name,
+            req.gender,
+            req.age,
+            req.relationship,
+            req.workplaceAddr,
+            req.impression,
+            req.residenceAddr
+        )
+    }
+
+
+
 }

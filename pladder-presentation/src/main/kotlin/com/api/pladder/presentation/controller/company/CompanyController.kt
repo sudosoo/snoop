@@ -22,7 +22,10 @@ class CompanyController(
     @ExplainRegisterCompany
     @PostMapping(value = [])
     fun register(req:RegisterCompanyReq): ResponseEntity<BaseResp> {
-        return getRespEntity(service.register(req,getAuthReq()))
+        return getRespEntity(
+            service.register(
+                req = req ,
+                authObj = getAuthReq()))
     }
 
 /*

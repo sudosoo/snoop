@@ -25,6 +25,5 @@ public class BaseEntity {
     @DateTimeFormat(pattern = DateTimePattern.STANDARD_PATTERN)
     private LocalDateTime updatedAt;
 
-    private boolean isActive = true;
 }
 

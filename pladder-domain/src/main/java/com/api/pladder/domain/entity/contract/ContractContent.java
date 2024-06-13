@@ -3,7 +3,6 @@ package com.api.pladder.domain.entity.contract;
 import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.user.enums.Filed;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +13,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity(name="pd_contract_content")
+@NoArgsConstructor()
 public class ContractContent{
     @Id
     @UuidGenerator
@@ -43,5 +42,10 @@ public class ContractContent{
         this.incidentTime = LocalDateTime.parse(incidentTime);
     }
 
+    public void update(Filed contractField, String incidentLocation, String incidentTime){
+        this.contractField = contractField;
+        this.incidentLocation = incidentLocation;
+        this.incidentTime = LocalDateTime.parse(incidentTime);
+    }
 
 }

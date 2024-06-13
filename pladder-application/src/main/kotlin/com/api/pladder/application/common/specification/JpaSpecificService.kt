@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.common.jpa
+package com.api.pladder.application.common.specification
 
 import com.api.pladder.domain.repository.common.BaseRepository
 import org.springframework.data.domain.PageRequest
@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
 
-interface JpaSpecificationService<MODEL, ID> {
+interface JpaSpecificService<MODEL, ID> {
     val jpaSpecRepository: BaseRepository<MODEL, ID>
 
     fun findAllBy(

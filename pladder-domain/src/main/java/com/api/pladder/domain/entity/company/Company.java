@@ -18,7 +18,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @Entity(name="pd_company")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 public class Company extends BaseEntity {
     @Id
     @UuidGenerator

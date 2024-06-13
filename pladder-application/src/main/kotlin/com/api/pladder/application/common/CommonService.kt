@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.common
+package com.api.pladder.application.common
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException

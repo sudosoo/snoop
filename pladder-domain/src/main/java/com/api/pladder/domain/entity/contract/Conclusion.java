@@ -11,7 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Entity(name="pd_conclusion")
 public class Conclusion{
     @Id

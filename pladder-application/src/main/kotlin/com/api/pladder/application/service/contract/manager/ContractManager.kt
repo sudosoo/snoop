@@ -2,7 +2,7 @@ package com.api.pladder.application.service.contract.manager
 
 import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.service.common.jpa.JpaService
+import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.entity.contract.Contract
 import com.api.pladder.domain.repository.common.BaseRepository

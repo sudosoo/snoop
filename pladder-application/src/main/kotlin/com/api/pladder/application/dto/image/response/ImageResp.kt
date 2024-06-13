@@ -8,10 +8,10 @@ data class ImageResp(
     val imageId : String?,
 
     @Schema(description = "이미지 주소")
-    val location : String? = "/open/images/${imageId}"
+    val location : String? = "${imageId}"
 ){
     constructor(model: Image) : this(
         imageId = model.imageId,
-        location = "/open/images/${model.imageId}"
+        location = "${model.imageId}"
     )
 }

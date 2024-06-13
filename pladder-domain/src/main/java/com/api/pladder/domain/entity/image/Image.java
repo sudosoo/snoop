@@ -2,6 +2,7 @@ package com.api.pladder.domain.entity.image;
 
 import com.api.pladder.core.exception.NotFoundException;
 import com.api.pladder.domain.entity.image.enums.ImageExtension;
+import com.api.pladder.domain.entity.image.enums.ImageTargetType;
 import com.api.pladder.domain.entity.image.enums.ImageType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,20 +17,23 @@ public class Image {
     @Id
     @Column(updatable = false, nullable = false)
     private String imageId;
-    private UUID companyId;
+    private UUID targetId;
+    @Enumerated(EnumType.STRING)
+    private ImageTargetType targetType;
     @Enumerated(EnumType.STRING)
     private ImageType type;
     private Long size;
 
-    public Image(String imageId, UUID companyId, ImageType type, Long size) {
+    private Image(String imageId,ImageType type, UUID targetId, ImageTargetType targetType , Long size) {
         this.imageId = imageId;
-        this.companyId = companyId;
         this.type = type;
+        this.targetId = targetId;
+        this.targetType = targetType;
         this.size = size;
     }
 
-    public static Image of(String id, UUID writerId, ImageType type, Long size) {
-        return new Image(id, writerId, type, size);
+    public static Image of(String id,ImageType type, UUID targetId,ImageTargetType targetType, Long size) {
+        return new Image(id, type, targetId,targetType, size);
     }
 
     public ImageExtension getExtension() throws NotFoundException {

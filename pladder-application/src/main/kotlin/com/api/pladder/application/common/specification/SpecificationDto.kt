@@ -1,4 +1,4 @@
-package com.api.pladder.application.service.common.specification
+package com.api.pladder.application.common.specification
 
 open class SpecificationDto(
     val columnName : String,

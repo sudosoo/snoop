@@ -29,7 +29,6 @@ public class Customer extends BaseEntity implements User {
     //@Enumerated(EnumType.STRING)
     //private AuthChannel authChannel = AuthChannel.LOCAL;
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
-    private boolean isActive = true;
     public Customer(String nickName, String passwd) {
         this.passwd = passwd;
         this.nickName = nickName;
@@ -48,13 +47,6 @@ public class Customer extends BaseEntity implements User {
         this.status = CustomerStatus.CERTIFIED;
     }
 
-    public void withdrawn() {
-        this.isActive = false;
-    }
-
-    public Boolean isActive(){
-        return this.isActive;
-    }
 
     private Customer(UUID customerId, String nickName, String passwd) {
         this.customerId = customerId;

@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.image
 
+import com.api.pladder.application.dto.image.mapper.ImageDtoMapper
 import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.image.response.ImageResp
 import com.api.pladder.application.dto.image.response.ImageTestResp
@@ -8,7 +9,6 @@ import com.api.pladder.application.service.image.reader.ImageReader
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.s3.ImageS3Provider
-import com.api.pladder.domain.entity.image.Image
 import com.api.pladder.domain.entity.image.enums.ImageExtension
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
@@ -28,12 +28,12 @@ class ImageService(
     @Value("\${multipart.max-upload-size}")
     private var maxFileSize: DataSize
 ){
-    fun save(req: ImageReq ,
-             authReq: AuthUserObject
+    fun save(req: ImageReq
     ): ImageResp {
         fileValidation(req)
         val fileName = generateImageFileName(req)
-        val model = Image.of(fileName,authReq.userId ,req.type, req.file.size)
+        req.updateFileName(fileName)
+        val model = ImageDtoMapper.toEntity(req)
 
         val result = manager.save(model)
         // save image-file
@@ -76,7 +76,7 @@ class ImageService(
 
     fun deleteById(id: String, authUserObject: AuthUserObject) {
         val model = reader.findById(id)
-        if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.companyId != authUserObject.userId)){
+        if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
         s3Provider.deleteImage(id)
@@ -85,7 +85,7 @@ class ImageService(
 
     fun findById(id: String, authUserObject: AuthUserObject): ImageResp {
         val model = reader.findById(id)
-        if (model.companyId != authUserObject.userId){
+        if (model.targetId != authUserObject.userId){
             throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
         }
         return ImageResp(model)
