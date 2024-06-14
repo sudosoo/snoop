@@ -1,8 +1,9 @@
 package com.api.pladder.domain.entity.image.enums;
 
-public enum ImageTargetType {
+public enum FileTargetType {
     CONTRACT,
     USER,
     COMPANY,
-    PROGRESS_HISTORY
+    PROGRESS_HISTORY,
+    EVIDENCE,
 }

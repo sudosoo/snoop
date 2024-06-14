@@ -1,8 +1,9 @@
-package com.api.pladder.domain.entity.agreement;
+package com.api.pladder.domain.entity.evidence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
@@ -10,17 +11,21 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Agreement {
+public class Evidence {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID agreementId;
-    private String name;
+    @Column(updatable = false, nullable = false)
+    private UUID id;
+    private UUID contractId;
+    private String fileName;
     private String content;
 
-    public Agreement(String name, String content) {
-        this.name = name;
+    public Evidence(UUID contractId, String fileName, String content) {
+        this.contractId = contractId;
+        this.fileName = fileName;
         this.content = content;
     }
+
 }

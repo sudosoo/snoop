@@ -12,11 +12,11 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="pd_victim")
 public class Victim {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID victimId;
     private UUID contractId;

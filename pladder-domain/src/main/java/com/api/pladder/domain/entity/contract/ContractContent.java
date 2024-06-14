@@ -1,7 +1,7 @@
 package com.api.pladder.domain.entity.contract;
 
 import com.api.pladder.core.utils.date.DateUtil;
-import com.api.pladder.domain.entity.user.enums.Filed;
+import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,15 +15,15 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @Entity(name="pd_contract_content")
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ContractContent{
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID contractContentId;
     //계약 분야
     @Enumerated(EnumType.STRING)
-    private Filed contractField = Filed.NONE;
+    private Specialty contractField = Specialty.NONE;
     private UUID contractId;
     //가해자
     private UUID perpetratorId;
@@ -35,14 +35,14 @@ public class ContractContent{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
-    public ContractContent(String contractId , Filed contractField, String incidentLocation, String incidentTime) {
+    public ContractContent(String contractId , Specialty contractField, String incidentLocation, String incidentTime) {
         this.contractId = UUID.fromString(contractId);
         this.contractField = contractField;
         this.incidentLocation = incidentLocation;
         this.incidentTime = LocalDateTime.parse(incidentTime);
     }
 
-    public void update(Filed contractField, String incidentLocation, String incidentTime){
+    public void update(Specialty contractField, String incidentLocation, String incidentTime){
         this.contractField = contractField;
         this.incidentLocation = incidentLocation;
         this.incidentTime = LocalDateTime.parse(incidentTime);

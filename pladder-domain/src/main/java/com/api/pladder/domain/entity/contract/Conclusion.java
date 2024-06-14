@@ -11,11 +11,11 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Getter
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="pd_conclusion")
 public class Conclusion{
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID conclusionId;
     private String description;

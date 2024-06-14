@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.image.enums;
 
 import com.api.pladder.core.enums.UserType;
+import com.api.pladder.core.exception.AccessDeniedException;
 import com.api.pladder.core.utils.enums.EnumUtils;
 import com.api.pladder.core.utils.enums.StatusProvider;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public enum ImageType implements StatusProvider {
+public enum FileType implements StatusProvider {
     BUSINESS_REGISTRATION_CERTIFICATE(
             "BU",
             "사업자 등록증",
@@ -53,13 +54,20 @@ public enum ImageType implements StatusProvider {
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     ),
-    EVIDENCE(
-            "ED",
+    EVIDENCE_IMAGE(
+            "EI",
                     "증거사진",
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
-            );
+            ),
+    EVIDENCE_AUDIO(
+            "EO",
+                    "증거사진",
+            Arrays.asList(UserType.DETECTIVE),
+            Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
+            Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
+            );;
 
     public final String prefix;
     public final String description;
@@ -67,7 +75,7 @@ public enum ImageType implements StatusProvider {
     public final List<UserType> selectPermissions; // 조회
     public final List<UserType> deletePermissions; // 삭제
 
-    ImageType(String prefix, String description, List<UserType> createPermissions, List<UserType> selectPermissions, List<UserType> deletePermissions) {
+    FileType(String prefix, String description, List<UserType> createPermissions, List<UserType> selectPermissions, List<UserType> deletePermissions) {
         this.prefix = prefix;
         this.description = description;
         this.createPermissions = createPermissions; //생성 권한
@@ -75,23 +83,29 @@ public enum ImageType implements StatusProvider {
         this.deletePermissions = deletePermissions; //삭제 권한
     }
 
-    public static ImageType fromPrefix(String reqPrefix) {
-        return Arrays.stream(ImageType.values())
-                .filter(imageType -> imageType.prefix.equals(reqPrefix))
+    public static FileType fromPrefix(String reqPrefix) {
+        return Arrays.stream(FileType.values())
+                .filter(fileType -> fileType.prefix.equals(reqPrefix))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
     }
 
-    public static ImageType fromDescription(String reqDescription) {
-        return Arrays.stream(ImageType.values())
-                .filter(imageType -> imageType.description.equals(reqDescription))
+    public static FileType fromDescription(String reqDescription) {
+        return Arrays.stream(FileType.values())
+                .filter(fileType -> fileType.description.equals(reqDescription))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
     }
 
 
-    public static ImageType fromStringStatus(String status) {
-        return EnumUtils.INSTANCE.fromStringStatus(ImageType.class, status);
+    public static FileType fromStringStatus(String status) {
+        return EnumUtils.INSTANCE.fromStringStatus(FileType.class, status);
+    }
+
+    public void checkSelectPermission(UserType userType) throws AccessDeniedException {
+        if (!selectPermissions.contains(userType)) {
+            throw new AccessDeniedException("해당 파일을 조회할 권한이 없습니다.");
+        }
     }
 
     @NotNull

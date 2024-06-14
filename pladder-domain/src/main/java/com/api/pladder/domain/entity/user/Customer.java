@@ -5,20 +5,19 @@ import com.api.pladder.domain.entity.user.enums.CustomerStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Getter
 @Entity(name="pd_customer")
-@NoArgsConstructor
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity implements User {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID customerId;
     @Column(unique = true)

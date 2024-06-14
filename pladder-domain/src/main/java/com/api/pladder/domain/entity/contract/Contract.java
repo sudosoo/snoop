@@ -19,10 +19,10 @@ import java.util.UUID;
 @Getter
 @Entity(name="pd_contract")
 @AllArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract extends BaseEntity {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID contractId;
 

@@ -23,15 +23,15 @@ class ProgressHistoryController (
 ) : AuthDataProvider, ResponseEntityCreation {
 
     val PAGE_SIZE = 10
-
     @ExplainRegisterProgressHistory
     @PostMapping(value = ["/detective/progress"])
     fun register(
         @ModelAttribute
-        request : ProgressContentRegisterReq
+        request : ProgressContentRegisterReq,
     ) : ResponseEntity<BaseResp>{
         return getRespEntity(service.register(request))
     }
+
 
     @ExplainUpdateProgressHistory
     @PutMapping(value = ["/detective/progress"])

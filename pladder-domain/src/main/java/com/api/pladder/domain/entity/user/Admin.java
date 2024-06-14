@@ -12,10 +12,10 @@ import java.util.UUID;
 
 @Getter
 @Entity(name="pd_admin")
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Admin extends BaseEntity implements User{
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID adminId;
     @Column(unique = true)

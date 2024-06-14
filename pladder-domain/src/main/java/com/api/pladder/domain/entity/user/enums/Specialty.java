@@ -2,13 +2,14 @@ package com.api.pladder.domain.entity.user.enums;
 
 import com.api.pladder.core.utils.enums.EnumUtils;
 import com.api.pladder.core.utils.enums.StatusProvider;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
-@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public enum Filed implements StatusProvider {
+public enum Specialty implements StatusProvider {
     NONE("없음"),
     AFFAIR("불륜/외도"),
     FRAUD("사기/횡령"),
@@ -21,7 +22,7 @@ public enum Filed implements StatusProvider {
 
     private String status;
 
-    Filed(String status) {
+    Specialty(String status) {
         this.status = status;
     }
 
@@ -31,7 +32,7 @@ public enum Filed implements StatusProvider {
         return this.status;
     }
 
-    public static Filed fromStatus(String status) {
-        return EnumUtils.INSTANCE.fromStringStatus(Filed.class, status);
+    public static Specialty fromStatus(String status) {
+        return EnumUtils.INSTANCE.fromStringStatus(Specialty.class, status);
     }
 }

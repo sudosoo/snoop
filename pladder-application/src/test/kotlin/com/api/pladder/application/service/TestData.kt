@@ -11,7 +11,7 @@ import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.domain.entity.contract.enums.Gender
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.entity.user.Detective
-import com.api.pladder.domain.entity.user.enums.Filed
+import com.api.pladder.domain.entity.user.enums.Specialty
 import java.util.*
 
 
@@ -76,14 +76,20 @@ object TestData {
         companyName = "PLADDER",
         phoneNumber = "010-0000-0000",
         addr = "서울시 강남구 서초동",
-        specialization = listOf(Filed.AFFAIR,Filed.FRAUD,Filed.MISSING),
+        specialization = listOf(
+            Specialty.AFFAIR,
+            Specialty.FRAUD,
+            Specialty.MISSING),
         introduction = "안녕하세요 실종 전문 탐정 플래더 입니다."
     )
     val companyReq2 = RegisterCompanyReq(
         companyName = "PLADDER2",
         phoneNumber = "010-1234-5664",
         addr = "서울시 강남구 방배동",
-        specialization = listOf(Filed.INDUSTRY,Filed.VIOLENCE,Filed.MISSING),
+        specialization = listOf(
+            Specialty.INDUSTRY,
+            Specialty.VIOLENCE,
+            Specialty.MISSING),
         introduction = "안녕하세요 사기 전문 탐정 플래더 입니다."
     )
 
@@ -125,7 +131,7 @@ object TestData {
     val contractContent1 = RegisterContractContentReq(
         contractId = "CT100001",
         content = "이 계약서는 고소 사건에 대한 것입니다.",
-        contractField = Filed.AFFAIR,
+        contractField = Specialty.AFFAIR,
         incidentLocation = "서울시 강남구",
         incidentTime = "2024-06-01 14:00:00"
     )
@@ -134,14 +140,14 @@ object TestData {
     val contractContent2 = RegisterContractContentReq(
         contractId = "CT100002",
         content = "이 계약서는 재산 분쟁 사건에 대한 것입니다.",
-        contractField = Filed.INDUSTRY,
+        contractField = Specialty.INDUSTRY,
         incidentLocation = "부산시 해운대구",
         incidentTime = "2024-06-02 15:30:00"
     )
     val contractContent3 = RegisterContractContentReq(
         contractId = "CT100003",
         content = "이 계약서는 사기 사건에 대한 것입니다.",
-        contractField = Filed.FRAUD,
+        contractField = Specialty.FRAUD,
         incidentLocation = "대전시 서구",
         incidentTime = "2024-06-03 10:00:00"
     )

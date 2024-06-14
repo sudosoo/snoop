@@ -1,8 +1,8 @@
 package com.api.pladder.presentation.controller
 
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.image.request.ImageReq
-import com.api.pladder.application.service.image.ImageService
+import com.api.pladder.application.dto.image.request.FileReq
+import com.api.pladder.application.service.image.FileService
 import com.api.pladder.core.utils.provider.AuthDataProvider
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import org.springframework.http.*
@@ -14,7 +14,7 @@ import java.util.*
 @RestController
 @RequestMapping("/api")
 class TestController(
-    val service: ImageService
+    val service: FileService
 ) : ResponseEntityCreation, AuthDataProvider {
 
     @Transactional(rollbackFor = [Exception::class])
@@ -25,7 +25,7 @@ class TestController(
     ): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.save(
-                req = ImageReq(type = type, file = file), authReq = getAuthReq()
+                req = FileReq(type = type, file = file), authReq = getAuthReq()
             )
         )
     }

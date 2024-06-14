@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public enum DateTimePattern {
     STANDARD("yyyy-MM-dd HH:mm:ss"),
     COMPACT("yyyy-MM-dd HH:mm");

@@ -1,12 +1,11 @@
 package com.api.pladder.application.service.progressHistory
 
-import com.api.pladder.application.dto.image.request.ImageReq
 import com.api.pladder.application.dto.progressHistory.mapper.ProgressHistoryDtoMapper
 import com.api.pladder.application.dto.progressHistory.request.ProgressContentRegisterReq
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
 import com.api.pladder.application.dto.progressHistory.response.ProgressHistoryResp
 import com.api.pladder.application.service.contract.ContractService
-import com.api.pladder.application.service.image.ImageService
+import com.api.pladder.application.service.image.FileService
 import com.api.pladder.application.service.progressHistory.manager.ProgressManager
 import com.api.pladder.application.service.progressHistory.reader.ProgressReader
 import org.springframework.data.domain.PageImpl
@@ -19,16 +18,12 @@ class ProgressHistoryService (
     private val manager: ProgressManager,
     private val reader: ProgressReader,
     private val contractService: ContractService,
-    private val imageService: ImageService,
+    private val fileService: FileService,
 ){
 
-    fun register(req : ProgressContentRegisterReq,imageReq: ImageReq) {
-
-        val image = imageService.save(imageReq)
+    fun register(req : ProgressContentRegisterReq) {
         val contract = contractService.findById(UUID.fromString(req.contractId))
         val progressHistory = manager.register(req.content)
-
-
         progressHistory.addContract(contract)
     }
 

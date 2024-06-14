@@ -3,6 +3,7 @@ package com.api.pladder.domain.entity.user;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.DetectiveStatus;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
@@ -12,10 +13,10 @@ import java.util.UUID;
 
 @Getter
 @Entity(name="pd_detective")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Detective extends BaseEntity implements User{
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID detectiveId;
     @Column(unique = true)

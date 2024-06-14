@@ -5,7 +5,6 @@ import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.contract.Contract;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +16,11 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="pd_progress_history")
 public class Progress extends BaseEntity {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID progressId;
 

@@ -3,7 +3,7 @@ package com.api.pladder.domain.entity.company;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
-import com.api.pladder.domain.entity.user.enums.Filed;
+import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,10 +18,10 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @Entity(name="pd_company")
-@NoArgsConstructor()
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Company extends BaseEntity {
     @Id
-    @UuidGenerator
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID companyId;
 
@@ -35,9 +35,9 @@ public class Company extends BaseEntity {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Filed.class)
+    @ElementCollection(targetClass = Specialty.class)
     @CollectionTable(name="Filed", joinColumns = @JoinColumn(name="company_id"))
-    private List<Filed> specialization = new ArrayList<>();
+    private List<Specialty> specialization = new ArrayList<>();
 
     private String introduction;
 
@@ -52,7 +52,7 @@ public class Company extends BaseEntity {
                    String address,
                    String phoneNumber ,
                    String introduction,
-                   List<Filed> specialization,
+                   List<Specialty> specialization,
                    UUID detectiveId) {
         this.companyName = companyName;
         this.address = address;
