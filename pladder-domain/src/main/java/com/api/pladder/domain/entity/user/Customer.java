@@ -28,7 +28,8 @@ public class Customer extends BaseEntity implements User {
     //@Enumerated(EnumType.STRING)
     //private AuthChannel authChannel = AuthChannel.LOCAL;
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
-    public Customer(String nickName, String passwd) {
+
+    private Customer(String nickName, String passwd) {
         this.passwd = passwd;
         this.nickName = nickName;
     }
@@ -46,7 +47,9 @@ public class Customer extends BaseEntity implements User {
         this.status = CustomerStatus.CERTIFIED;
     }
 
-
+    public static Customer testEntity(UUID id , String nickName, String passwd){
+        return new Customer(id , nickName, passwd);
+    }
     private Customer(UUID customerId, String nickName, String passwd) {
         this.customerId = customerId;
         this.nickName = nickName;

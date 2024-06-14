@@ -104,7 +104,7 @@ class FileService(
 
     fun getImage(companyId : UUID): ImageTestResp {
         val imageObj = reader.findByTargetId(companyId)
-        val byteArray = s3Provider.downloadImage(imageObj.imageId)
+        val byteArray = s3Provider.downloadImage(imageObj.fileName)
         return ImageTestResp(imageObj,byteArray)
     }
 

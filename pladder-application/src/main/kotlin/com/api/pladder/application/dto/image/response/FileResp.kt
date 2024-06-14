@@ -5,13 +5,13 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 data class FileResp(
     @Schema(description = "이미지 ID")
-    val imageId : String?,
+    val fileName : String?,
 
     @Schema(description = "이미지 주소")
-    val location : String? = "${imageId}"
+    val location : String? = "${fileName}"
 ){
     constructor(model: File) : this(
-        imageId = model.imageId,
-        location = "${model.imageId}"
+        fileName = model.fileName,
+        location = model.fileName
     )
 }

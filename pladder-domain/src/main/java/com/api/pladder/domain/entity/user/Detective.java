@@ -34,7 +34,7 @@ public class Detective extends BaseEntity implements User{
     private Map<Integer,String> career  = null;
     //TODO 간편로그인 추후 예정
     //private AuthChannel authChannel = AuthChannel.LOCAL;
-    public Detective(String email, String passwd, String phoneNumber) {
+    private Detective(String email, String passwd, String phoneNumber) {
         this.email = email;
         this.passwd = passwd;
         this.phoneNumber = phoneNumber;
@@ -43,11 +43,15 @@ public class Detective extends BaseEntity implements User{
         return new Detective(id,email,passwd,phoneNumber);
     }
 
-    public Detective(UUID detectiveId, String email, String passwd, String phoneNumber) {
+    private Detective(UUID detectiveId, String email, String passwd, String phoneNumber) {
         this.detectiveId = detectiveId;
         this.email = email;
         this.passwd = passwd;
         this.phoneNumber = phoneNumber;
+    }
+
+    public static Detective testEntity(UUID id,String email, String passwd, String phoneNumber){
+        return new Detective(id,email,passwd,phoneNumber);
     }
 
     public void updateInfo(String companyId){

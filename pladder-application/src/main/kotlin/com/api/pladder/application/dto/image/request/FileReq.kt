@@ -23,7 +23,7 @@ class FileReq(
 ){
 
     lateinit var fileName : String
-    constructor(type: String, file: MultipartFile, targetId: String , targetType: FileTargetType) : this(
+    constructor(type: String, file: MultipartFile) : this(
         type = FileType.fromPrefix(type.uppercase()),
         file = file,
         fileSize = file.size

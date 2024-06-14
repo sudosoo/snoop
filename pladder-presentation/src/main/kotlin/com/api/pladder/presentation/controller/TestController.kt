@@ -25,7 +25,7 @@ class TestController(
     ): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.save(
-                req = FileReq(type = type, file = file), authReq = getAuthReq()
+                req = FileReq(type = type, file = file)
             )
         )
     }
