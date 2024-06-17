@@ -63,7 +63,7 @@ public enum FileType implements StatusProvider {
             ),
     EVIDENCE_AUDIO(
             "EO",
-                    "증거사진",
+                    "증거오디오",
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)

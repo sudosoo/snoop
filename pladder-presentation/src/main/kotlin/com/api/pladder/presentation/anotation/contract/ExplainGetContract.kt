@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(ICR002) 계약서 조회"
+    summary = "(ICR002) 계약서 갯수 조회"
 )
 @ApiResponse(
     responseCode = "200",

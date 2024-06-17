@@ -3,6 +3,7 @@ package com.api.pladder.domain.entity.contract;
 import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

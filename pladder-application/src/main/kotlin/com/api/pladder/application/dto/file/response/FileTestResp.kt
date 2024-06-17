@@ -1,9 +1,9 @@
-package com.api.pladder.application.dto.image.response
+package com.api.pladder.application.dto.file.response
 
 import com.api.pladder.domain.entity.image.File
 import io.swagger.v3.oas.annotations.media.Schema
 
-data class ImageTestResp(
+data class FileTestResp(
     @Schema(description = "이미지 ID")
     val imageId : String,
     @Schema(description = "파일 확장자")
@@ -12,7 +12,7 @@ data class ImageTestResp(
     val byte: ByteArray
 ){
     constructor(model: File, byteArray: ByteArray) : this(
-        imageId = model.imageId,
+        imageId = model.fileName,
         imageExtension = model.getExtension().toString().lowercase(),
         byte = byteArray
     )

@@ -2,6 +2,7 @@ package com.api.pladder.domain.entity.contract;
 
 import com.api.pladder.domain.entity.contract.enums.Gender;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

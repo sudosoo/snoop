@@ -1,9 +1,9 @@
 package com.api.pladder.application.service.image
 
-import com.api.pladder.application.dto.image.mapper.ImageDtoMapper
-import com.api.pladder.application.dto.image.request.FileReq
-import com.api.pladder.application.dto.image.response.FileResp
-import com.api.pladder.application.dto.image.response.ImageTestResp
+import com.api.pladder.application.dto.file.mapper.FileDtoMapper
+import com.api.pladder.application.dto.file.request.FileReq
+import com.api.pladder.application.dto.file.response.FileResp
+import com.api.pladder.application.dto.file.response.FileTestResp
 import com.api.pladder.application.service.image.manager.FileManager
 import com.api.pladder.application.service.image.reader.FileReader
 import com.api.pladder.core.exception.AccessDeniedException
@@ -33,7 +33,7 @@ class FileService(
         fileValidation(req)
         val fileName = generateFileName(req)
         req.updateFileName(fileName)
-        val model = ImageDtoMapper.toEntity(req)
+        val model = FileDtoMapper.toEntity(req)
 
         val result = manager.save(model)
         // save image-file
@@ -46,7 +46,7 @@ class FileService(
         val fileExtension = getFileExtension(req.file.originalFilename)
         if (!FileExtension.hasExtension(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
-        } else if (req.fileSize > maxFileSize.toBytes()) {
+        } else if (req.file.size > maxFileSize.toBytes()) {
             throw IllegalArgumentException("File size exceeds the maximum size: ${req.file.size}")
         }
     }
@@ -70,7 +70,7 @@ class FileService(
             "image/png" -> "png"
             "image/gif" -> "gif"
             "application/pdf" -> "pdf"
-            "audio/mpeg-4" -> "mp3"
+            "audio/mpeg" -> "mp3"
             "audio/mp4" -> "m4a"
             else -> throw IllegalArgumentException("지원하지 않는 파일 타입 입니다: $mimeType")
         }
@@ -102,10 +102,10 @@ class FileService(
         return FileResp(model)
     }
 
-    fun getImage(companyId : UUID): ImageTestResp {
+    fun getImage(companyId : UUID): FileTestResp {
         val imageObj = reader.findByTargetId(companyId)
         val byteArray = s3Provider.downloadImage(imageObj.fileName)
-        return ImageTestResp(imageObj,byteArray)
+        return FileTestResp(imageObj,byteArray)
     }
 
 }

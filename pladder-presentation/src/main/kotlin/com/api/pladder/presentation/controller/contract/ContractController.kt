@@ -28,10 +28,24 @@ class ContractController (
     }
 
     @ExplainGetContract
-    @GetMapping(value = [])
-    fun getContract() : ResponseEntity<BaseResp>{
+    @GetMapping(value = ["/status"])
+    fun findStatus() : ResponseEntity<BaseResp>{
         return getRespEntity(service.findStatus(getAuthReq()))
     }
+    @ExplainGetContract
+    @GetMapping(value = ["/getContractList"])
+    fun getContractList() : ResponseEntity<BaseResp>{
+        return getRespEntity(service.getContractList(getAuthReq()))
+    }
+
+    @ExplainGetContract
+    @GetMapping(value = ["/getContractDetail"])
+    fun getContractDetail(contractId : String) : ResponseEntity<BaseResp>{
+        return getRespEntity(service.getContractDetail(getAuthReq(),contractId))
+    }
+
+
+
 
 
 

@@ -16,4 +16,10 @@ class CompanyReader (
     fun getInstance(companyId: String) : Company {
         return findById(UUID.fromString(companyId))
     }
+    fun getInstanceByDetectiveId(detectiveId: UUID) : Company {
+        return repository.findByDetectiveId(detectiveId)
+            .orElseThrow{throw IllegalArgumentException("등록된 회사가 존재하지 않습니다.")}
+    }
+
+
 }

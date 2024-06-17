@@ -5,6 +5,7 @@ import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.contract.Contract;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

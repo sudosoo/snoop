@@ -10,10 +10,10 @@ import com.api.pladder.application.service.user.customer.reader.CustomerReader
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService : UserService {
-    private lateinit var manager: CustomerManager
-    private lateinit var reader: CustomerReader
-
+class CustomerService(
+    val manager: CustomerManager,
+   val reader: CustomerReader
+) : UserService {
     override fun findByEmail(email: String): UserResp {
         return UserResp(reader.findByEmail(email))
     }

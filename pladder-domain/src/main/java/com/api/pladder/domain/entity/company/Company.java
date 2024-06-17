@@ -22,7 +22,7 @@ import static jakarta.persistence.EnumType.STRING;
 public class Company extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
+    @Column(updatable = false, nullable = false)
     private UUID companyId;
 
     @Column(unique = true)

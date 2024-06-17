@@ -1,5 +1,6 @@
-package com.api.pladder.application.dto.image.request
+package com.api.pladder.application.dto.file.request
 
+import com.api.pladder.domain.entity.image.enums.FileExtension
 import com.api.pladder.domain.entity.image.enums.FileTargetType
 import com.api.pladder.domain.entity.image.enums.FileType
 import io.swagger.v3.oas.annotations.media.Schema
@@ -16,17 +17,17 @@ class FileReq(
                 "ED - 증거사진")
     val type : FileType,
     @Schema(description = "파일" , example = "첨부 파일")
-    val file: MultipartFile,
-    val targetId : String? = null,
-    val targetType : FileTargetType? = null,
-    val fileSize: Long = 0
+    val file: MultipartFile
 ){
+    lateinit var targetId : String
+    lateinit var targetType : FileTargetType
 
+    lateinit var extension: FileExtension
     lateinit var fileName : String
+
     constructor(type: String, file: MultipartFile) : this(
         type = FileType.fromPrefix(type.uppercase()),
-        file = file,
-        fileSize = file.size
+        file = file
     )
     fun updateFileName(fileName: String){
         this.fileName = fileName

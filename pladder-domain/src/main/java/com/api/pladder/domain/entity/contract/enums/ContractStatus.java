@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @AllArgsConstructor
 public enum ContractStatus implements StatusProvider {
-    WAITING("신청대기"),APPLY("신청완료"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
+    WAITING("신청중"),APPLY("신청완료"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
     private String status;
 
 
