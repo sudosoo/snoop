@@ -1,16 +1,19 @@
 package com.api.pladder.domain.entity.evidence;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import com.api.pladder.domain.entity.file.File;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Entity(name = "pd_evidence")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Evidence {
@@ -19,15 +22,22 @@ public class Evidence {
     @Column(updatable = false, nullable = false)
     private UUID id;
     private UUID contractId;
-    //File ID
-    private String fileName;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "evidence")
+    private List<File> file = new ArrayList<>();
+
     private String content;
 
 
-    public Evidence(UUID contractId, String fileName, String content) {
+    public Evidence(UUID contractId, String content ,File file) {
         this.contractId = contractId;
-        this.fileName = fileName;
         this.content = content;
+        addFile(file);
+    }
+
+    private void addFile(File file) {
+        this.file.add(file);
+        file.appendEvidence(this);
     }
 
 }

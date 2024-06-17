@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.file;
 
 import com.api.pladder.core.exception.NotFoundException;
+import com.api.pladder.domain.entity.evidence.Evidence;
 import com.api.pladder.domain.entity.file.enums.FileExtension;
 import com.api.pladder.domain.entity.file.enums.FileTargetType;
 import com.api.pladder.domain.entity.file.enums.FileType;
@@ -25,6 +26,10 @@ public class File {
     private FileType type;
     private FileExtension extension;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "evidence_id")
+    private Evidence evidence;
+
     private File(String fileName, FileType type, UUID targetId, FileTargetType targetType,FileExtension extension) {
         this.fileName = fileName;
         this.type = type;
@@ -46,5 +51,8 @@ public class File {
         return FileExtension.extractExtension(stringExtension);
     }
 
+    public void appendEvidence(Evidence evidence) {
+        this.evidence = evidence;
+    }
 
 }
