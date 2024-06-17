@@ -20,7 +20,7 @@ class ImageS3Provider (
 ) {
     @Value("\${cloud.aws.s3.bucket}")
     private val bucketName: String? = null
-    fun uploadImage(fileName: String, file: MultipartFile) {
+    fun upload(fileName: String, file: MultipartFile) {
         try {
             val putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -36,7 +36,7 @@ class ImageS3Provider (
         }
     }
 
-    fun downloadImage(fileName: String): ByteArray {
+    fun download(fileName: String): ByteArray {
         val getObjectRequest = GetObjectRequest.builder()
             .bucket(bucketName)
             .key(fileName)
@@ -55,7 +55,7 @@ class ImageS3Provider (
         }
     }
 
-    fun deleteImage(fileName: String) {
+    fun delete(fileName: String) {
         val deleteObjectRequest = DeleteObjectRequest.builder()
             .bucket(bucketName)
             .key(fileName)

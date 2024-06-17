@@ -26,16 +26,14 @@ public class Evidence {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "evidence")
     private List<File> file = new ArrayList<>();
 
-    private String content;
+    private String title;
 
-
-    public Evidence(UUID contractId, String content ,File file) {
+    public Evidence(UUID contractId, String title) {
         this.contractId = contractId;
-        this.content = content;
-        addFile(file);
+        this.title = title;
     }
 
-    private void addFile(File file) {
+    public void addFile(File file) {
         this.file.add(file);
         file.appendEvidence(this);
     }

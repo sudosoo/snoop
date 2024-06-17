@@ -9,6 +9,7 @@ import com.api.pladder.application.service.file.reader.FileReader
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.s3.ImageS3Provider
+import com.api.pladder.domain.entity.file.File
 import com.api.pladder.domain.entity.file.enums.FileExtension
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
@@ -29,17 +30,16 @@ class FileService(
     private var maxFileSize: DataSize
 ){
     fun save(req: FileReq
-    ): FileResp {
+    ): File {
         fileValidation(req)
         val fileName = generateFileName(req)
-        req.updateFileName(fileName)
         val model = FileDtoMapper.toEntity(req)
 
         val result = manager.save(model)
         // save image-file
-        s3Provider.uploadImage(fileName = fileName, req.file)
+        s3Provider.upload(fileName = fileName, req.file)
 
-        return FileResp(result)
+        return result
     }
 
     private fun fileValidation(req: FileReq) {
@@ -58,23 +58,11 @@ class FileService(
     private fun generateFileName(request: FileReq) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
         val random = String.format("%02d", Random.nextInt(0, 100))
-        val extension = getExtensionFromMimeType(request.file.contentType!!)
+        val extension = getFileExtension(request.file.originalFilename)
         val filePrefix = getCategory(extension)
             return "${filePrefix}${request.type.prefix}${timestamp}${random}.${extension}"
     }
 
-    private fun getExtensionFromMimeType(mimeType: String): String {
-        return when (mimeType) {
-            "image/jpg" -> "jpg"
-            "image/jpeg" -> "jpeg"
-            "image/png" -> "png"
-            "image/gif" -> "gif"
-            "application/pdf" -> "pdf"
-            "audio/mpeg" -> "mp3"
-            "audio/mp4" -> "m4a"
-            else -> throw IllegalArgumentException("지원하지 않는 파일 타입 입니다: $mimeType")
-        }
-    }
 
     private fun getCategory(ext: String): String {
         return when (ext.lowercase(Locale.getDefault())) {
@@ -90,7 +78,7 @@ class FileService(
         if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
-        s3Provider.deleteImage(id)
+        s3Provider.delete(id)
         manager.deleteById(id)
     }
 
@@ -104,7 +92,7 @@ class FileService(
 
     fun getImage(companyId : UUID): FileTestResp {
         val imageObj = reader.findByTargetId(companyId)
-        val byteArray = s3Provider.downloadImage(imageObj.fileName)
+        val byteArray = s3Provider.download(imageObj.fileName)
         return FileTestResp(imageObj,byteArray)
     }
 
