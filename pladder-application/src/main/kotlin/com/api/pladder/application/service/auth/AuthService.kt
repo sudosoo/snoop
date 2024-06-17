@@ -42,9 +42,6 @@ class AuthService(
              // login
         val userResp = userService.findByEmail(req.email!!)
 
-        if (userResp.isActive != true)
-            throw InvalidRequestException("로그인 할수 없는 상태입니다. 관리자에게 문의하세요. (현재 상태:${userResp.isActive})")
-
             //TODO Spring security 기능 추가 필요
     //        val authorities = mutableListOf<GrantedAuthority>()
     //        when(req.userType){

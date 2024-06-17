@@ -30,7 +30,6 @@ public class Contract extends BaseEntity {
     private UUID contractId;
 
     private UUID customerId;
-
     private String clientName;
     private String clientPhone;
 

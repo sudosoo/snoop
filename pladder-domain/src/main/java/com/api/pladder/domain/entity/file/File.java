@@ -1,9 +1,9 @@
-package com.api.pladder.domain.entity.image;
+package com.api.pladder.domain.entity.file;
 
 import com.api.pladder.core.exception.NotFoundException;
-import com.api.pladder.domain.entity.image.enums.FileExtension;
-import com.api.pladder.domain.entity.image.enums.FileTargetType;
-import com.api.pladder.domain.entity.image.enums.FileType;
+import com.api.pladder.domain.entity.file.enums.FileExtension;
+import com.api.pladder.domain.entity.file.enums.FileTargetType;
+import com.api.pladder.domain.entity.file.enums.FileType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.api.pladder.domain.repository.image;
 
-import com.api.pladder.domain.entity.image.File;
+import com.api.pladder.domain.entity.file.File;
 import com.api.pladder.domain.repository.common.BaseRepository;
 
 import java.util.Optional;

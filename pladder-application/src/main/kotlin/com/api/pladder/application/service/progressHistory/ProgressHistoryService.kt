@@ -5,7 +5,7 @@ import com.api.pladder.application.dto.progressHistory.request.ProgressContentRe
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
 import com.api.pladder.application.dto.progressHistory.response.ProgressHistoryResp
 import com.api.pladder.application.service.contract.ContractService
-import com.api.pladder.application.service.image.FileService
+import com.api.pladder.application.service.file.FileService
 import com.api.pladder.application.service.progressHistory.manager.ProgressManager
 import com.api.pladder.application.service.progressHistory.reader.ProgressReader
 import org.springframework.data.domain.PageImpl

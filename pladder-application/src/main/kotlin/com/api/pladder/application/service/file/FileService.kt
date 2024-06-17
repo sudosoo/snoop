@@ -1,15 +1,15 @@
-package com.api.pladder.application.service.image
+package com.api.pladder.application.service.file
 
 import com.api.pladder.application.dto.file.mapper.FileDtoMapper
 import com.api.pladder.application.dto.file.request.FileReq
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.dto.file.response.FileTestResp
-import com.api.pladder.application.service.image.manager.FileManager
-import com.api.pladder.application.service.image.reader.FileReader
+import com.api.pladder.application.service.file.manager.FileManager
+import com.api.pladder.application.service.file.reader.FileReader
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.s3.ImageS3Provider
-import com.api.pladder.domain.entity.image.enums.FileExtension
+import com.api.pladder.domain.entity.file.enums.FileExtension
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value

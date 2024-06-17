@@ -1,8 +1,8 @@
 package com.api.pladder.application.dto.file.request
 
-import com.api.pladder.domain.entity.image.enums.FileExtension
-import com.api.pladder.domain.entity.image.enums.FileTargetType
-import com.api.pladder.domain.entity.image.enums.FileType
+import com.api.pladder.domain.entity.file.enums.FileExtension
+import com.api.pladder.domain.entity.file.enums.FileTargetType
+import com.api.pladder.domain.entity.file.enums.FileType
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.web.multipart.MultipartFile
 

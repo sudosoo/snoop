@@ -19,8 +19,10 @@ public class Evidence {
     @Column(updatable = false, nullable = false)
     private UUID id;
     private UUID contractId;
+    //File ID
     private String fileName;
     private String content;
+
 
     public Evidence(UUID contractId, String fileName, String content) {
         this.contractId = contractId;

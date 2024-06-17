@@ -1,4 +1,4 @@
-package com.api.pladder.domain.entity.image.enums;
+package com.api.pladder.domain.entity.file.enums;
 
 import com.api.pladder.core.enums.UserType;
 import com.api.pladder.core.exception.AccessDeniedException;

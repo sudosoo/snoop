@@ -29,7 +29,7 @@ public class Customer extends BaseEntity implements User {
     //private AuthChannel authChannel = AuthChannel.LOCAL;
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
 
-    private Customer(String nickName, String passwd) {
+     public Customer(String nickName, String passwd) {
         this.passwd = passwd;
         this.nickName = nickName;
     }

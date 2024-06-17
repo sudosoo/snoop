@@ -1,6 +1,6 @@
 package com.api.pladder.application.dto.file.response
 
-import com.api.pladder.domain.entity.image.File
+import com.api.pladder.domain.entity.file.File
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class FileTestResp(
