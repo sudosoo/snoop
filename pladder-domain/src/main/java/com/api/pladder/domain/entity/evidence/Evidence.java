@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.evidence;
 
 import com.api.pladder.domain.entity.file.File;
+import com.api.pladder.domain.entity.file.enums.FileType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,12 @@ public class Evidence {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "evidence")
     private List<File> file = new ArrayList<>();
 
-    private String title;
+    @Enumerated(EnumType.STRING)
+    private FileType type;
 
-    public Evidence(UUID contractId, String title) {
+    public Evidence(UUID contractId, FileType type) {
         this.contractId = contractId;
-        this.title = title;
+        this.type = type;
     }
 
     public void addFile(File file) {

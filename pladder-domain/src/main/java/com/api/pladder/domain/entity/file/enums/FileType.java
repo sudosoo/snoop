@@ -67,7 +67,8 @@ public enum FileType implements StatusProvider {
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
-            );
+            )
+    ;
 
     public final String prefix;
     public final String description;

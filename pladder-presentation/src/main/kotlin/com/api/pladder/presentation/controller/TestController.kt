@@ -3,7 +3,7 @@ package com.api.pladder.presentation.controller
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.file.request.FileReq
 import com.api.pladder.application.service.file.FileService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import org.springframework.http.*
 import org.springframework.transaction.annotation.Transactional

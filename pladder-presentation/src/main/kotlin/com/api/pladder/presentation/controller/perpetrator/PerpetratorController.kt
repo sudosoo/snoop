@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contractContent.perpetrator.RegisterPerpetratorReq
 import com.api.pladder.application.dto.contractContent.perpetrator.UpdatePerpetratorReq
 import com.api.pladder.application.service.contractContent.perpetrator.PerpetratorService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.perpetrator.ExplainDeletePerpetrator
 import com.api.pladder.presentation.anotation.perpetrator.ExplainRegisterAccomplice
 import com.api.pladder.presentation.anotation.perpetrator.ExplainRegisterPerpetrator

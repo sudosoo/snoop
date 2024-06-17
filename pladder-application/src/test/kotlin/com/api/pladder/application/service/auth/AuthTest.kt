@@ -12,7 +12,7 @@ import com.api.pladder.application.service.user.detective.DetectiveService
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.utils.jwt.JwtUtil
-import com.api.pladder.core.utils.provider.SecurityProvider
+import com.api.pladder.core.utils.securityProvider.SecurityProvider
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe

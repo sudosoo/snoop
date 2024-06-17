@@ -14,7 +14,7 @@ import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.InvalidRequestException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.jwt.JwtUtil
-import com.api.pladder.core.utils.provider.SecurityProvider
+import com.api.pladder.core.utils.securityProvider.SecurityProvider
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 

@@ -5,7 +5,7 @@ import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.request.WithdrawnUserReq
 import com.api.pladder.application.service.auth.AuthService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.user.ExplainRegisterUser
 import com.api.pladder.presentation.anotation.user.ExplainUpdatePasswdUser
 import com.api.pladder.presentation.common.ResponseEntityCreation

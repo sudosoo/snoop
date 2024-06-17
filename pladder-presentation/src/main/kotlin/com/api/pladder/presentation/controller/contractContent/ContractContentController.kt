@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contractContent.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contractContent.request.UpdateContractContentReq
 import com.api.pladder.application.service.contractContent.ContractContentService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
 import com.api.pladder.presentation.anotation.contractContent.ExplainUpdateContractContent
 import com.api.pladder.presentation.common.ResponseEntityCreation

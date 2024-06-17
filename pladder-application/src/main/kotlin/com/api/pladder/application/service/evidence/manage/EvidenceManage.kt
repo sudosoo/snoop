@@ -15,8 +15,8 @@ class EvidenceManage(
 
     override var jpaRepository: BaseRepository<Evidence, UUID> = repository
 
-    fun registerFile(evidence: Evidence , file : File){
+    fun registerFile(evidence: Evidence , file : File): Evidence{
         evidence.addFile(file)
-        save(evidence)
+        return save(evidence)
     }
 }

@@ -1,4 +1,4 @@
-package com.api.pladder.core.utils.provider
+package com.api.pladder.core.utils.securityProvider
 
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.exception.TokenException

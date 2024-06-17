@@ -8,9 +8,11 @@ import com.api.pladder.application.service.file.manager.FileManager
 import com.api.pladder.application.service.file.reader.FileReader
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
+import com.api.pladder.core.utils.file.FileUtils
 import com.api.pladder.core.utils.s3.ImageS3Provider
 import com.api.pladder.domain.entity.file.File
 import com.api.pladder.domain.entity.file.enums.FileExtension
+import com.api.pladder.domain.entity.file.enums.FileType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
@@ -25,6 +27,7 @@ class FileService(
     private var s3Provider: ImageS3Provider,
     private val reader: FileReader,
     private val manager : FileManager,
+    private val fileUtils: FileUtils,
 
     @Value("\${multipart.max-upload-size}")
     private var maxFileSize: DataSize
@@ -43,7 +46,7 @@ class FileService(
     }
 
     private fun fileValidation(req: FileReq) {
-        val fileExtension = getFileExtension(req.file.originalFilename)
+        val fileExtension = fileUtils.getExtension(req.file.originalFilename!!)
         if (!FileExtension.hasExtension(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
         } else if (req.file.size > maxFileSize.toBytes()) {
@@ -51,26 +54,19 @@ class FileService(
         }
     }
 
-    private fun getFileExtension(filename: String?): String {
-        return filename?.substringAfterLast('.', "") ?: ""
-    }
 
     private fun generateFileName(request: FileReq) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
         val random = String.format("%02d", Random.nextInt(0, 100))
-        val extension = getFileExtension(request.file.originalFilename)
-        val filePrefix = getCategory(extension)
+        val extension = fileUtils.getExtension(request.file.originalFilename!!)
+        val filePrefix = fileUtils.getCategory(extension)
             return "${filePrefix}${request.type.prefix}${timestamp}${random}.${extension}"
     }
 
 
-    private fun getCategory(ext: String): String {
-        return when (ext.lowercase(Locale.getDefault())) {
-            "jpg", "jpeg", "png", "gif" -> "IM"
-            "m4a", "mp3" -> "AU"
-            "pdf" -> "PF"
-            else -> throw java.lang.IllegalArgumentException("지원하지 않는 확장자 입니다.: $ext")
-        }
+    fun convertToType(type : String): FileType {
+        return FileType.fromPrefix(type)
+
     }
 
     fun deleteById(id: String, authUserObject: AuthUserObject) {

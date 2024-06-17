@@ -3,7 +3,7 @@ package com.api.pladder.presentation.controller.company
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.service.company.CompanyService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.company.ExplainRegisterCompany
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag

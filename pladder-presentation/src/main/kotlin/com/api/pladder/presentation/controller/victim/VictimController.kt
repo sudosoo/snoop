@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contractContent.victim.RegisterVictimReq
 import com.api.pladder.application.dto.contractContent.victim.UpdateVictimReq
 import com.api.pladder.application.service.contractContent.victim.VictimService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.victim.ExplainGetVictim
 import com.api.pladder.presentation.anotation.victim.ExplainRegisterVictim
 import com.api.pladder.presentation.anotation.victim.ExplainUpdateVictim

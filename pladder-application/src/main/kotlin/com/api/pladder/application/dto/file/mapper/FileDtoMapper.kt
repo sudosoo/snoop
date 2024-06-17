@@ -6,8 +6,5 @@ import java.util.*
 
 object FileDtoMapper {
 
-    fun toEntity(req : FileReq) : File {
-        return File.of(req.fileName,req.type, UUID.fromString(req.targetId),req.targetType,req.extension)
-    }
 
 }

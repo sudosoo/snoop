@@ -5,7 +5,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.progressHistory.request.ProgressContentRegisterReq
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
 import com.api.pladder.application.service.progressHistory.ProgressHistoryService
-import com.api.pladder.core.utils.provider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.progressHistory.ExplainDeleteProgressHistory
 import com.api.pladder.presentation.anotation.progressHistory.ExplainRegisterProgressHistory
 import com.api.pladder.presentation.anotation.progressHistory.ExplainUpdateProgressHistory
