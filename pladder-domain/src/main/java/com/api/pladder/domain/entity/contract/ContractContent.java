@@ -15,12 +15,11 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-@Entity(name="pd_contract_content")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity(name="pd_contract_content")
 public class ContractContent{
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID contractContentId;
     //계약 분야
     @Enumerated(EnumType.STRING)

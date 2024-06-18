@@ -4,7 +4,6 @@ import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contractContent.person.request.RegisterPersonReq
 import com.api.pladder.application.dto.contractContent.request.RegisterContractContentReq
-import com.api.pladder.application.dto.contractContent.victim.RegisterVictimReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.obj.AuthUserObject
@@ -186,22 +185,6 @@ object TestData {
         accompliceId = null
     )
 
-    /**
-     * victim
-     */
-    val victim1 = RegisterVictimReq(
-        contractId = "c0d4e8f5-1c2a-42d3-87e8-ace7d6e3a234",
-        name = "홍길동",
-        relationship = "형",
-        phoneNumber = "010-1234-5678"
-    )
-
-    val victim2 = RegisterVictimReq(
-        contractId = "b1a9e2d8-4f85-4c49-b1b8-fc9d7a6f2e23",
-        name = "김영희",
-        relationship = "동료",
-        phoneNumber = "010-2345-6789"
-    )
 
 
 }

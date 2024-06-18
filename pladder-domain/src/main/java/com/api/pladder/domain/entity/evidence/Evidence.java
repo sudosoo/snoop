@@ -1,6 +1,5 @@
 package com.api.pladder.domain.entity.evidence;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
@@ -12,13 +11,12 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Getter
-@Entity(name = "pd_evidence")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity(name = "pd_evidence")
 public class Evidence {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false)
     private UUID id;
     private UUID contractId;
     private String title;

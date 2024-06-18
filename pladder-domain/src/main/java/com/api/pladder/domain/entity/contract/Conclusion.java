@@ -1,6 +1,5 @@
 package com.api.pladder.domain.entity.contract;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class Conclusion{
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID conclusionId;
     private String description;
     private String file;

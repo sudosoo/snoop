@@ -18,7 +18,6 @@ import java.util.UUID;
 public class Customer extends BaseEntity implements User {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID customerId;
     @Column(unique = true)
     private String nickName;

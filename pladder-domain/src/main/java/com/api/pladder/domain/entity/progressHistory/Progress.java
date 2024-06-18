@@ -22,7 +22,6 @@ import java.util.UUID;
 public class Progress extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID progressId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

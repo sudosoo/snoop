@@ -22,7 +22,6 @@ import static jakarta.persistence.EnumType.STRING;
 public class Company extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false)
     private UUID companyId;
 
     @Column(unique = true)
@@ -36,7 +35,7 @@ public class Company extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Specialty.class)
-    @CollectionTable(name="Filed", joinColumns = @JoinColumn(name="company_id"))
+    @CollectionTable(name="Specialty", joinColumns = @JoinColumn(name="company_id"))
     private List<Specialty> specialization = new ArrayList<>();
 
     private String introduction;

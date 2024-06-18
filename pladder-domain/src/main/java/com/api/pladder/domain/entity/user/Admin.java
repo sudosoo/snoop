@@ -17,7 +17,6 @@ import java.util.UUID;
 public class Admin extends BaseEntity implements User{
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID adminId;
     @Column(unique = true)
     private String email;

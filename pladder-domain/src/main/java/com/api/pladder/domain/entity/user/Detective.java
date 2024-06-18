@@ -17,7 +17,6 @@ import java.util.UUID;
 public class Detective extends BaseEntity implements User{
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID detectiveId;
     @Column(unique = true)
     private String email;
@@ -29,7 +28,7 @@ public class Detective extends BaseEntity implements User{
     private DetectiveStatus status = DetectiveStatus.UNVERIFIED;
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
-    @CollectionTable(name="detective_career", joinColumns = @JoinColumn(name="detective_id"))
+    @CollectionTable(name="career", joinColumns = @JoinColumn(name="detective_id"))
     @MapKeyColumn(name="career_year")
     private Map<Integer,String> career  = null;
     //TODO 간편로그인 추후 예정

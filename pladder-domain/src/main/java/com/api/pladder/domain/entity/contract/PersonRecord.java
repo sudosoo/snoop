@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +20,6 @@ import java.util.UUID;
 public class PersonRecord {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID id;
     private UUID contractId;
     private String name;
@@ -40,7 +40,7 @@ public class PersonRecord {
     private PersonRecord leader;
 
     @OneToMany(mappedBy = "leader", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<PersonRecord> accomplice;
+    private List<PersonRecord> accomplice = new ArrayList<>();
 
     private PersonStatus status = PersonStatus.UNKNOWN;
 
