@@ -41,7 +41,6 @@ class ImageS3Provider (
             .bucket(bucketName)
             .key(fileName)
             .build()
-
         try {
             val responseBytes: ResponseBytes<*> = s3Client.getObjectAsBytes(getObjectRequest)
             return responseBytes.asByteArray()

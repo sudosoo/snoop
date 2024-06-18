@@ -1,25 +1,28 @@
-package com.api.pladder.application.dto.contractContent.perpetrator
+package com.api.pladder.application.dto.contractContent.person.request
 
 import com.api.pladder.domain.entity.contract.enums.Gender
+import com.api.pladder.domain.entity.contract.enums.PersonStatus
 import io.swagger.v3.oas.annotations.media.Schema
 
-class RegisterPerpetratorReq (
+class RegisterPersonReq (
     @Schema(description="계약서 ID")
-    val contractId : String,
+    var contractId : String? = null,
+    @Schema(description="상태")
+    var status : PersonStatus = PersonStatus.UNKNOWN,
     @Schema(description="이름")
-    val name : String,
+    var name : String? = null,
     @Schema(description="성별")
-    val gender : Gender,
+    var gender : Gender = Gender.UNKNOWN,
     @Schema(description="나이")
-    val age : Int,
+    var age : Int = 0,
     @Schema(description="관계")
     var relationship : String? = null,
     @Schema(description="직장 주소")
     var workplaceAddr : String? = null,
     @Schema(description="인상 착의")
-    val impression : String,
+    var impression : String? = null,
     @Schema(description="주거지")
     var residenceAddr : String? = null,
     @Schema(description="공범 Id")
-    var accompliceId : String? = null,
-)
+    var accompliceId : String? = null
+    )

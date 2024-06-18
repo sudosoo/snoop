@@ -2,7 +2,7 @@ package com.api.pladder.application.service
 
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contractContent.perpetrator.RegisterPerpetratorReq
+import com.api.pladder.application.dto.contractContent.person.request.RegisterPersonReq
 import com.api.pladder.application.dto.contractContent.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contractContent.victim.RegisterVictimReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
@@ -152,7 +152,7 @@ object TestData {
     /**
      * perpetrator
      */
-    val perpetrator = RegisterPerpetratorReq(
+    val perpetrator = RegisterPersonReq(
         contractId = "feeb066f-a118-4dfd-a141-eb8d6f31b8b1",
         name = "최수민",
         gender = Gender.FEMALE,
@@ -163,7 +163,7 @@ object TestData {
         residenceAddr = "인천시 부평구",
         accompliceId = null
     )
-    val perpetrator2 = RegisterPerpetratorReq(
+    val perpetrator2 = RegisterPersonReq(
         contractId = "feeb066f-a118-4dfd-a141-eb8d6f31b8b1",
         name = "박민수",
         gender = Gender.MALE,
@@ -174,7 +174,7 @@ object TestData {
         residenceAddr = "광주시 남구",
         accompliceId = null
     )
-    val perpetrator3 = RegisterPerpetratorReq(
+    val perpetrator3 = RegisterPersonReq(
         contractId = "CT100003",
         name = "이철수",
         gender = Gender.MALE,

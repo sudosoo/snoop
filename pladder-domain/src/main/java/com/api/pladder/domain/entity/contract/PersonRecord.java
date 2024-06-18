@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.contract;
 
 import com.api.pladder.domain.entity.contract.enums.Gender;
+import com.api.pladder.domain.entity.contract.enums.PersonStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,12 +15,12 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name="pd_perpetrator")
-public class Perpetrator {
+@Entity(name="pd_person_record")
+public class PersonRecord {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
-    private UUID perpetratorId;
+    private UUID id;
     private UUID contractId;
     private String name;
     @Enumerated(EnumType.STRING)
@@ -36,13 +37,16 @@ public class Perpetrator {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "leader_id")
-    private Perpetrator leader;
+    private PersonRecord leader;
 
     @OneToMany(mappedBy = "leader", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Perpetrator> accomplice;
+    private List<PersonRecord> accomplice;
 
-    public Perpetrator(UUID contractId, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr) {
+    private PersonStatus status = PersonStatus.UNKNOWN;
+
+    public PersonRecord(UUID contractId, PersonStatus status, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr ) {
         this.contractId = contractId;
+        this.status = status;
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -51,12 +55,9 @@ public class Perpetrator {
         this.impression = impression;
         this.residenceAddr = residenceAddr;
     }
-    public void appendAccomplice(Perpetrator accomplice){
+    public void appendAccomplice(PersonRecord accomplice){
+        this.leader = this;
         this.accomplice.add(accomplice);
-        accomplice.appendLeader(this);
-    }
-    public void appendLeader(Perpetrator leader){
-        this.leader = leader;
     }
 
     public void update(String name,
