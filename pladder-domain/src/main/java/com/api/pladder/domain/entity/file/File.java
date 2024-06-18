@@ -31,8 +31,8 @@ public class File {
         this.targetType = targetType;
     }
 
-    public static File evidenceFileOf(String id, FileType type, UUID targetId) {
-        return new File(id, type, targetId, FileTargetType.EVIDENCE);
+    public static File of(String id, FileType type, UUID targetId,FileTargetType targetType) {
+        return new File(id, type, targetId, targetType);
     }
 
     public FileExtension getExtension() throws NotFoundException {

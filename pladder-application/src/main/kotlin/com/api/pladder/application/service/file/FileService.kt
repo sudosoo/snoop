@@ -14,7 +14,6 @@ import com.api.pladder.domain.entity.file.enums.FileExtension
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
-import org.hibernate.tool.schema.TargetType
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.unit.DataSize
@@ -72,23 +71,15 @@ class FileService(
         manager.deleteById(id)
     }
 
-
-    fun findById(id: String, authUserObject: AuthUserObject): FileResp {
-        val model = reader.findById(id)
-        if (model.targetId != authUserObject.userId){
-            throw AccessDeniedException("해당 이미지를 조회할 권한이 없습니다.")
+    fun findByTargetIdAndTargetType(targetId: UUID, targetType: FileTargetType): List<FileResp> {
+        val files = reader.findByTargetIdAndType(targetId, targetType)
+        return files.map {
+            val byteArray = s3Provider.downloadByFileName(it.fileName)
+            FileResp(
+                fileName = it.fileName,
+                byteArray = byteArray
+            )
         }
-        return FileResp(model)
-    }
-
-    fun findByTargetIdAndTargetType(targetId: UUID, targetType: FileTargetType): List<ByteArray> {
-        val files = reader.findByTargetIdAndType(targetId,targetType)
-        return  files.map{ s3Provider.download(it.fileName)}
-    }
-
-
-    private fun downloadFileByFileName(fileName: String): ByteArray {
-        return s3Provider.download(fileName)
     }
 
 }

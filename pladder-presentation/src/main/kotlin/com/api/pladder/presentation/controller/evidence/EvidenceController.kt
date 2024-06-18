@@ -8,6 +8,7 @@ import com.api.pladder.presentation.anotation.evidence.ExplainRegisterEvidence
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -23,6 +24,14 @@ class EvidenceController (
     @PostMapping(value = [])
     @ExplainRegisterEvidence
     fun register(request : RegisterEvidenceReq) : ResponseEntity<BaseResp> {
-        return service.registerFile(request, getAuthReq())
+        return getRespEntity(service.register(request, getAuthReq()))
     }
+
+    @GetMapping(value = [])
+    @ExplainRegisterEvidence
+    fun getContents(evidenceId : String) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.getContents(evidenceId, getAuthReq()))
+    }
+
+
 }

@@ -44,10 +44,11 @@ class EvidenceService (
                 targetType= FileTargetType.EVIDENCE)
             fileService.save(fileReq)
         }
+
         return EvidenceResp(evidence)
     }
 
-    fun getFiles(evidenceId: String , authObj: AuthUserObject): EvidenceFileResp {
+    fun getContents(evidenceId: String, authObj: AuthUserObject): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
         contractService.validateOwner(evidence.contractId, authObj)
         val byteArrays = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE)

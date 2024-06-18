@@ -12,8 +12,4 @@ class FileManager(
 ) : JpaService<File, String> {
     override var jpaRepository: BaseRepository<File, String> = repository
 
-    fun findByTargetId(targetId: String): List<File> {
-        return repository.findByTargetId(targetId)
-    }
-
 }

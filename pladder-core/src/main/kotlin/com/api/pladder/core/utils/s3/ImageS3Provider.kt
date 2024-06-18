@@ -36,7 +36,7 @@ class ImageS3Provider (
         }
     }
 
-    fun download(fileName: String): ByteArray {
+    fun downloadByFileName(fileName: String): ByteArray {
         val getObjectRequest = GetObjectRequest.builder()
             .bucket(bucketName)
             .key(fileName)
