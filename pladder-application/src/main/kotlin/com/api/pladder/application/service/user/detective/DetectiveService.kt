@@ -9,8 +9,8 @@ import com.api.pladder.application.dto.user.detective.request.RegisterDetectiveC
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.detective.manager.DetectiveManager
 import com.api.pladder.application.service.user.detective.reader.DetectiveReader
+import com.api.pladder.core.obj.AuthUserObject
 import org.springframework.stereotype.Service
-import java.util.*
 
 
 @Service
@@ -40,8 +40,8 @@ class DetectiveService : UserService {
         return UserResp(manager.updateInfo(requestUserId, req))
     }
 
-    fun registerCareer(detectiveId : String, req: List<RegisterDetectiveCareerReq>): UserResp {
-        val model = reader.findById(UUID.fromString(detectiveId))
+    fun registerCareer(authObj:AuthUserObject, req: List<RegisterDetectiveCareerReq>): UserResp {
+        val model = reader.findById(authObj.userId!!)
         req.forEach { DetectiveDtoMapper.updateCareer(model, it) }
         manager.save(model)
         return UserResp(model)

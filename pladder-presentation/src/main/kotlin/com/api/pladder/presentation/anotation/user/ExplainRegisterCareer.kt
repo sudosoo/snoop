@@ -5,9 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
-
 @Operation(
-    summary = "(IUS005) 회원 프로필 변경",
+    summary = "(IDE001) 탐정 경력 추가",
 )
 @ApiResponse(
     responseCode = "200",
@@ -21,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainUpdateProfileUser()
+annotation class ExplainRegisterCareer()

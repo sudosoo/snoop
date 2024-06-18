@@ -1,4 +1,4 @@
-package com.api.pladder.presentation.anotation.user
+package com.api.pladder.presentation.anotation.auth
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 
 @Operation(
-    summary = "(IUS001) 회원 가입",
+    summary = "(IUS003) 회원 비밀번호 변경",
 )
 @ApiResponse(
     responseCode = "200",
@@ -21,4 +21,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainRegisterUser()
+annotation class ExplainUpdatePasswdUser()
