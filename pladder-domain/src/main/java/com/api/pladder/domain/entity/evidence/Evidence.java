@@ -1,16 +1,14 @@
 package com.api.pladder.domain.entity.evidence;
 
-import com.api.pladder.domain.entity.file.File;
-import com.api.pladder.domain.entity.file.enums.FileType;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -23,21 +21,10 @@ public class Evidence {
     @Column(updatable = false, nullable = false)
     private UUID id;
     private UUID contractId;
+    private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "evidence")
-    private List<File> file = new ArrayList<>();
-
-    @Enumerated(EnumType.STRING)
-    private FileType type;
-
-    public Evidence(UUID contractId, FileType type) {
+    public Evidence(UUID contractId) {
         this.contractId = contractId;
-        this.type = type;
-    }
-
-    public void addFile(File file) {
-        this.file.add(file);
-        file.appendEvidence(this);
     }
 
 }

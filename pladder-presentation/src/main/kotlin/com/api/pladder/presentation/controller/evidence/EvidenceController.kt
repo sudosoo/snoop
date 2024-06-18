@@ -23,7 +23,6 @@ class EvidenceController (
     @PostMapping(value = [])
     @ExplainRegisterEvidence
     fun register(request : RegisterEvidenceReq) : ResponseEntity<BaseResp> {
-
-        return service.registerFile(request)
+        return service.registerFile(request, getAuthReq())
     }
 }

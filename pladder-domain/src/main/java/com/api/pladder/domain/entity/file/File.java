@@ -1,7 +1,6 @@
 package com.api.pladder.domain.entity.file;
 
 import com.api.pladder.core.exception.NotFoundException;
-import com.api.pladder.domain.entity.evidence.Evidence;
 import com.api.pladder.domain.entity.file.enums.FileExtension;
 import com.api.pladder.domain.entity.file.enums.FileTargetType;
 import com.api.pladder.domain.entity.file.enums.FileType;
@@ -23,23 +22,17 @@ public class File {
     @Enumerated(EnumType.STRING)
     private FileTargetType targetType;
     @Enumerated(EnumType.STRING)
-    private FileType type;
-    private FileExtension extension;
+    private FileType fileType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "evidence_id")
-    private Evidence evidence;
-
-    private File(String fileName, FileType type, UUID targetId, FileTargetType targetType,FileExtension extension) {
+    private File(String fileName, FileType type, UUID targetId, FileTargetType targetType) {
         this.fileName = fileName;
-        this.type = type;
+        this.fileType = type;
         this.targetId = targetId;
         this.targetType = targetType;
-        this.extension = extension;
     }
 
-    public static File of(String id, FileType type, UUID targetId, FileTargetType targetType,FileExtension extension) {
-        return new File(id, type, targetId,targetType,extension);
+    public static File evidenceFileOf(String id, FileType type, UUID targetId) {
+        return new File(id, type, targetId, FileTargetType.EVIDENCE);
     }
 
     public FileExtension getExtension() throws NotFoundException {
@@ -51,8 +44,5 @@ public class File {
         return FileExtension.extractExtension(stringExtension);
     }
 
-    public void appendEvidence(Evidence evidence) {
-        this.evidence = evidence;
-    }
 
 }

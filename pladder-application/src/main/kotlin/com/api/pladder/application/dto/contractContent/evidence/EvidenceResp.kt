@@ -4,5 +4,5 @@ import com.api.pladder.domain.entity.evidence.Evidence
 
 class EvidenceResp(evidence : Evidence){
     val contractId = evidence.contractId
-    val title = evidence.title
+    val title = evidence.id
 }

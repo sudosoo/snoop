@@ -1,12 +1,13 @@
 package com.api.pladder.domain.repository.image;
 
 import com.api.pladder.domain.entity.file.File;
+import com.api.pladder.domain.entity.file.enums.FileTargetType;
 import com.api.pladder.domain.repository.common.BaseRepository;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 public interface FileRepository extends BaseRepository<File, String> {
 
-    Optional<File> findByTargetId(UUID companyId);
+    List<File> findByTargetIdAndTargetType(UUID targetId, FileTargetType type);
 }
