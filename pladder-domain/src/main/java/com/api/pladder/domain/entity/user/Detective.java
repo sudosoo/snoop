@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,28 +30,30 @@ public class Detective extends BaseEntity implements User{
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
     @CollectionTable(name="career", joinColumns = @JoinColumn(name="detective_id"))
-    @MapKeyColumn(name="career_year")
-    private Map<Integer,String> career  = null;
+    @MapKeyColumn(name="career_period")
+    @Column(name = "career_description", length = 1000)
+    private Map<String,String> career  = new HashMap<>();
+
+    private int totalCareer = 0;
     //TODO 간편로그인 추후 예정
     //private AuthChannel authChannel = AuthChannel.LOCAL;
-    public Detective(String email, String passwd, String phoneNumber) {
+    private Detective(String email, String passwd, String phoneNumber) {
         this.email = email;
         this.passwd = passwd;
         this.phoneNumber = phoneNumber;
     }
-    public Detective createTestEntity(UUID id,String email, String passwd, String phoneNumber){
-        return new Detective(id,email,passwd,phoneNumber);
-    }
 
-    public Detective(UUID detectiveId, String email, String passwd, String phoneNumber) {
+    private Detective(UUID detectiveId, String email, String passwd, String phoneNumber) {
         this.detectiveId = detectiveId;
         this.email = email;
         this.passwd = passwd;
         this.phoneNumber = phoneNumber;
     }
-
     public static Detective testEntity(UUID id,String email, String passwd, String phoneNumber){
         return new Detective(id,email,passwd,phoneNumber);
+    }
+    public static Detective of(String email, String passwd, String phoneNumber){
+        return new Detective(email,passwd,phoneNumber);
     }
 
     public void updateInfo(String companyId){
@@ -65,8 +68,8 @@ public class Detective extends BaseEntity implements User{
         this.companyId = companyId;
     }
 
-    public int totalCareer() {
-        return career.keySet().stream().mapToInt(Integer::intValue).sum();
+    public void updateTotalCareer(int career){
+        this.totalCareer = career;
     }
 
 }

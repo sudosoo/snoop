@@ -54,10 +54,6 @@ public class Customer extends BaseEntity implements User {
         this.nickName = nickName;
         this.passwd = passwd;
     }
-
-    public Customer createTestEntity(UUID id, String nickName, String passwd){
-        return new Customer(id,nickName,passwd);
-    }
 }
 
 

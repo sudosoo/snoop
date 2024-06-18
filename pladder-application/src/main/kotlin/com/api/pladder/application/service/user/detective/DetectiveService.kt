@@ -4,10 +4,14 @@ import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
+import com.api.pladder.application.dto.user.detective.mapper.DetectiveDtoMapper
+import com.api.pladder.application.dto.user.detective.request.RegisterDetectiveCareerReq
 import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.detective.manager.DetectiveManager
 import com.api.pladder.application.service.user.detective.reader.DetectiveReader
 import org.springframework.stereotype.Service
+import java.util.*
+
 
 @Service
 class DetectiveService : UserService {
@@ -36,7 +40,11 @@ class DetectiveService : UserService {
         return UserResp(manager.updateInfo(requestUserId, req))
     }
 
-
-
+    fun registerCareer(detectiveId : String, req: List<RegisterDetectiveCareerReq>): UserResp {
+        val model = reader.findById(UUID.fromString(detectiveId))
+        req.forEach { DetectiveDtoMapper.updateCareer(model, it) }
+        manager.save(model)
+        return UserResp(model)
+    }
 
 }
