@@ -88,5 +88,8 @@ public class Contract extends BaseEntity {
         this.startPeriod = LocalDate.parse(startPeriod);
         this.endPeriod = LocalDate.parse(endPeriod);
     }
+    public void accept() {
+        this.status = ContractStatus.APPLY;
+    }
 
 }

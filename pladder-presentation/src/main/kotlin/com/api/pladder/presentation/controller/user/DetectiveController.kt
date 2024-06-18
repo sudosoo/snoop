@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RestController
 class DetectiveController (
     val service : DetectiveService
 ) : AuthDataProvider, ResponseEntityCreation {
-
     @ExplainRegisterDetectiveCareer
     @PutMapping(value = ["/registerCareer"])
     fun registerCareer(@RequestBody request : List<RegisterDetectiveCareerReq>) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.registerCareer(getAuthReq(),request))
+        return getRespEntity(service.registerCareer(
+            request = request,
+            authObj = getAuthReq()))
     }
 
 }

@@ -35,14 +35,13 @@ class DetectiveService : UserService {
         return UserResp(manager.updatePasswd(req))
     }
 
-
     fun updateInfo(requestUserId : String, req: UpdateInfoUserReq): UserResp {
         return UserResp(manager.updateInfo(requestUserId, req))
     }
 
-    fun registerCareer(authObj:AuthUserObject, req: List<RegisterDetectiveCareerReq>): UserResp {
+    fun registerCareer(request: List<RegisterDetectiveCareerReq>,authObj:AuthUserObject ): UserResp {
         val model = reader.findById(authObj.userId!!)
-        req.forEach { DetectiveDtoMapper.updateCareer(model, it) }
+        request.forEach { DetectiveDtoMapper.updateCareer(model, it) }
         manager.save(model)
         return UserResp(model)
     }

@@ -3,7 +3,7 @@ package com.api.pladder.application.service.contract
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
 import com.api.pladder.application.dto.contract.response.GetContractListResp
-import com.api.pladder.application.dto.contractContent.response.FindStatusContractResp
+import com.api.pladder.application.dto.contractContent.response.GetStatusCountContractResp
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
@@ -31,9 +31,9 @@ class ContractService (
         manager.register(req,company,customer)
     }
 
-    fun findStatus(req : AuthUserObject) : FindStatusContractResp {
+    fun findStatus(req : AuthUserObject) : GetStatusCountContractResp {
         val contracts = reader.findAllById(req.userId!!)
-        return FindStatusContractResp().toResp(contracts)
+        return GetStatusCountContractResp().toResp(contracts)
     }
     fun getContractList(req : AuthUserObject): List<GetContractListResp> {
         val company = companyService.reader.getInstanceByDetectiveId(req.userId!!)
@@ -47,10 +47,14 @@ class ContractService (
             throw AccessDeniedException("해당 계약에 대한 접근 권한이 없습니다.")
         }
         return ContractDetailResp(contract)
-
     }
 
     fun findById(contractId : UUID) : Contract = reader.findById(contractId)
 
+    fun accept(contractId : String) {
+        val contract = reader.findById(UUID.fromString(contractId))
+        contract.accept()
+        manager.save(contract)
+    }
 
 }

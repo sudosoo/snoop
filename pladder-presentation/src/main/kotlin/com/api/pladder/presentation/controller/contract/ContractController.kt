@@ -9,10 +9,7 @@ import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @Tag(name = "계약서", description = "계약서 관련 API")
@@ -44,7 +41,11 @@ class ContractController (
         return getRespEntity(service.getContractDetail(getAuthReq(),contractId))
     }
 
-
+    @ExplainGetContract
+    @PatchMapping(value = ["/accept"])
+    fun accept(contractId : String) : ResponseEntity<BaseResp>{
+        return getRespEntity(service.accept(contractId))
+    }
 
 
 
