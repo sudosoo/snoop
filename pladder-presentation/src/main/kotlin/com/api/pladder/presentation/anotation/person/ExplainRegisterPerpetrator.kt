@@ -1,4 +1,4 @@
-package com.api.pladder.presentation.anotation.victim
+package com.api.pladder.presentation.anotation.person
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(IVT001) 피해자 저장",
+    summary = "(IPP001) 용의자 정보 저장",
 )
 @ApiResponse(
     responseCode = "200",
@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainRegisterVictim()
+annotation class ExplainRegisterPerpetrator()

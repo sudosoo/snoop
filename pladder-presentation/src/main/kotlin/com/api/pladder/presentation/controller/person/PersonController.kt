@@ -5,9 +5,10 @@ import com.api.pladder.application.dto.contractContent.person.request.RegisterPe
 import com.api.pladder.application.dto.contractContent.person.request.UpdatePersonReq
 import com.api.pladder.application.service.contractContent.personRecords.PersonService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
-import com.api.pladder.presentation.anotation.perpetrator.ExplainDeletePerpetrator
-import com.api.pladder.presentation.anotation.perpetrator.ExplainRegisterAccomplice
-import com.api.pladder.presentation.anotation.perpetrator.ExplainRegisterPerpetrator
+import com.api.pladder.presentation.anotation.person.ExplainDeletePerson
+import com.api.pladder.presentation.anotation.person.ExplainRegisterAccomplice
+import com.api.pladder.presentation.anotation.person.ExplainRegisterPerpetrator
+import com.api.pladder.presentation.anotation.person.ExplainUpdatePerson
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,7 @@ import java.util.*
 
 @RestController
 @Tag(name = "가해자", description = "가해자 관련 API")
-@RequestMapping("/api/detective/perpetrator")
+@RequestMapping("/api/detective/person")
 class PersonController(
     val service : PersonService
 ): AuthDataProvider, ResponseEntityCreation {
@@ -30,20 +31,20 @@ class PersonController(
 
     @PutMapping(value = ["/accomplice"])
     @ExplainRegisterAccomplice
-    fun appendAccomplice(perpetratorId: UUID,request : RegisterPersonReq) : ResponseEntity<BaseResp> {
+    fun appendAccomplice(@RequestParam perpetratorId: UUID,@RequestBody request : RegisterPersonReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.appendAccomplice(perpetratorId,request))
     }
 
     @PutMapping(value = ["/update"])
-    @ExplainRegisterAccomplice
+    @ExplainUpdatePerson
     fun update(request : UpdatePersonReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.update(request))
     }
 
     @DeleteMapping()
-    @ExplainDeletePerpetrator
-    fun delete(perpetratorId: UUID) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.delete(perpetratorId))
+    @ExplainDeletePerson
+    fun delete(personId: UUID) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.delete(personId))
     }
 
 

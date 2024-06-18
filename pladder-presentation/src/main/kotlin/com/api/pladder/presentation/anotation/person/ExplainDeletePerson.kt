@@ -1,4 +1,4 @@
-package com.api.pladder.presentation.anotation.perpetrator
+package com.api.pladder.presentation.anotation.person
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(IPP002) 가해자 정보 조회",
+    summary = "(IPS004) 피해자 / 가해자 정보 삭제",
 )
 @ApiResponse(
     responseCode = "200",
@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainGetPerpetrator()
+annotation class ExplainDeletePerson()
