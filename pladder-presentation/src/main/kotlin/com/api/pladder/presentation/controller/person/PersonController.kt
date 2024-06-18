@@ -7,7 +7,7 @@ import com.api.pladder.application.service.contractContent.personRecords.PersonS
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.person.ExplainDeletePerson
 import com.api.pladder.presentation.anotation.person.ExplainRegisterAccomplice
-import com.api.pladder.presentation.anotation.person.ExplainRegisterPerpetrator
+import com.api.pladder.presentation.anotation.person.ExplainRegisterPerson
 import com.api.pladder.presentation.anotation.person.ExplainUpdatePerson
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -24,7 +24,7 @@ class PersonController(
 ): AuthDataProvider, ResponseEntityCreation {
 
     @PostMapping(value = [])
-    @ExplainRegisterPerpetrator
+    @ExplainRegisterPerson
     fun register(request : RegisterPersonReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request))
     }

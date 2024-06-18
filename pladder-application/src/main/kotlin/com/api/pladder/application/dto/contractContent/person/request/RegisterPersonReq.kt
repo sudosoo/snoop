@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 class RegisterPersonReq (
     @Schema(description="계약서 ID")
     var contractId : String? = null,
-    @Schema(description="상태")
+    @Schema(description="상태", example="VICTIM, PERPETRATOR, WITNESS, UNKNOWN")
     var status : PersonStatus = PersonStatus.UNKNOWN,
     @Schema(description="이름")
     var name : String? = null,
