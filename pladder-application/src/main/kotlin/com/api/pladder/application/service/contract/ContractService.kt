@@ -52,11 +52,5 @@ class ContractService (
 
     fun findById(contractId : UUID) : Contract = reader.findById(contractId)
 
-    fun validateOwner(contractId: UUID, authObj: AuthUserObject) {
-        val contract = reader.findById(contractId)
-        if (contract.company.detectiveId != authObj.userId){
-            throw AccessDeniedException("올바르지 않은 접근입니다.")
-        }
-    }
 
 }

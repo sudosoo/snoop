@@ -98,28 +98,25 @@ object TestData {
      */
 
     val contract = RegisterContractReq(
-        clientId="feeb066f-a118-4dfd-a141-eb8d6f31b8b1",
         companyId= "CP100001",
-        advanceDeposit= "500,000",
-        pee= "5,000,000",
+        advanceDeposit= 500000,
+        pee= 5000000,
         purpose= "고소",
         requestSolution= "고소에 필요한 증거를 수집해 주세요.",
         description= "얼굴이 보이게 잘 찍어주세요."
     )
     val contract2 = RegisterContractReq(
-        clientId = "c0d4e8f5-1c2a-42d3-87e8-ace7d6e3a234",
         companyId = "CP100002",
-        advanceDeposit = "300,000",
-        pee = "3,000,000",
+        advanceDeposit = 300000,
+        pee = 3000000,
         purpose = "재산 분쟁",
         requestSolution = "재산 분쟁 관련 증거를 수집해 주세요.",
         description = "문서가 잘 보이게 촬영해 주세요."
     )
     val contract3 = RegisterContractReq(
-        clientId = "b1a9e2d8-4f85-4c49-b1b8-fc9d7a6f2e23",
         companyId = "CP100003",
-        advanceDeposit = "700,000",
-        pee = "7,000,000",
+        advanceDeposit = 700000,
+        pee = 7000000,
         purpose = "사기",
         requestSolution = "사기 관련 증거를 수집해 주세요.",
         description = "대화 내용이 잘 들리게 녹음해 주세요."

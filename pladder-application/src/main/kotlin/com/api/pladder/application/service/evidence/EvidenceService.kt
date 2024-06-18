@@ -5,14 +5,10 @@ import com.api.pladder.application.dto.contractContent.evidence.EvidenceResp
 import com.api.pladder.application.dto.contractContent.evidence.RegisterEvidenceReq
 import com.api.pladder.application.dto.contractContent.mapper.EvidenceDtoMapper
 import com.api.pladder.application.dto.file.request.FileReq
-import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.application.service.evidence.manage.EvidenceManage
 import com.api.pladder.application.service.evidence.reader.EvidenceReader
 import com.api.pladder.application.service.file.FileService
-import com.api.pladder.core.enums.UserType
-import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
-import com.api.pladder.core.utils.file.FileUtils
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
 import org.springframework.stereotype.Service
@@ -25,13 +21,8 @@ class EvidenceService (
     val manage : EvidenceManage,
     val reader : EvidenceReader,
     val fileService: FileService,
-    val fileUtils: FileUtils,
-    val contractService: ContractService
 ){
     fun register(req: RegisterEvidenceReq, authObj: AuthUserObject): EvidenceResp {
-        if (authObj.userType == UserType.CUSTOMER) {
-            throw AccessDeniedException("탐정만 등록 가능합니다.")
-        }
         val entity = EvidenceDtoMapper.toEntity(req)
         val evidence = manage.save(entity)
 
@@ -50,11 +41,13 @@ class EvidenceService (
 
     fun getContents(evidenceId: String, authObj: AuthUserObject): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
-        contractService.validateOwner(evidence.contractId, authObj)
-        val byteArrays = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE)
+        val files = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE)
 
-        return EvidenceFileResp(evidence, byteArrays)
+        return EvidenceFileResp(evidence, files)
     }
 
+    fun delete(evidenceId: String, authObj: AuthUserObject){
+        return manage.deleteById(UUID.fromString(evidenceId))
+    }
 
 }
