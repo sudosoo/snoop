@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public enum ContractStatus implements StatusProvider {
     /*
-    * 신청서 작성 - 신청 중
-    * 신청서 승인 - 신청 완료
+    * 신청서 작성 - 신청 중 - 고객이 작성 ? 탐정이 작성 ?
+    * 신청서 승인 - 신청 완료 - 탐정이 승인 수임료 선금 정해서 계약 완료
     * 입금 완료 - 진행중
     * 조사 완료 - 완료
     * 취소 - 취소/환불
