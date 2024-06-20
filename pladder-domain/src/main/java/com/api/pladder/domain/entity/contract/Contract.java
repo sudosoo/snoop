@@ -1,6 +1,5 @@
 package com.api.pladder.domain.entity.contract;
 
-import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,14 +34,9 @@ public class Contract extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="company_id")
     private Company company;
-
-    //활동상황
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
-    private List<Progress> progress = new ArrayList<>();
     //분야
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
-
     //선금
     private int advanceDeposit;
     //수임료
@@ -52,12 +45,12 @@ public class Contract extends BaseEntity {
     private String purpose;
     //조사결과
     private UUID conclusionId;
-    //시작일
-    private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
-    //계약종료일
-    private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
     //해결 포맷 (사진 , 문서 , 동영상)
     private String description;
+
+    //계약 후 계약서 내용
+    @Embedded
+    private ContractContent contractContent;
 
     //신청서 작성 시간
     @Column(updatable = false, nullable = false)
@@ -67,13 +60,12 @@ public class Contract extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Specialty contractField = Specialty.NONE;
 
+    //활동상황
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
+    private List<Progress> progress = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
-    //사건장소
-    private String incidentLocation;
-    //사건시간
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
     public void addProgress(Progress history ){
         this.progress.add(history);
@@ -95,17 +87,19 @@ public class Contract extends BaseEntity {
         company.getContracts().add(this);
     }
 
-    public void updatePeriod(String startPeriod, String endPeriod) {
-        this.startPeriod = LocalDate.parse(startPeriod);
-        this.endPeriod = LocalDate.parse(endPeriod);
+    private void updateContent(String startPeriod, String endPeriod, String incidentLocation, String incidentTime , String description) {
+        this.contractContent = new ContractContent(LocalDate.parse(startPeriod), LocalDate.parse(endPeriod), incidentLocation, LocalDateTime.parse(incidentTime),description);
     }
+
+    private void updateDescription(String Content){
+        this.contractContent.updateDescription(Content);
+    }
+
     public void accept() {
         this.status = ContractStatus.APPLY;
     }
 
-    public void contentUpdate(Specialty contractField, String incidentLocation, String incidentTime){
+    public void contentUpdate(Specialty contractField){
         this.contractField = contractField;
-        this.incidentLocation = incidentLocation;
-        this.incidentTime = LocalDateTime.parse(incidentTime);
-    }
+        }
 }
