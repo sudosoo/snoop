@@ -37,20 +37,20 @@ public class Contract extends BaseEntity {
     @JoinColumn(name="company_id")
     private Company company;
 
+    //활동상황
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
     private List<Progress> progress = new ArrayList<>();
     //분야
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
-    //계약서 상세 내용
-    private UUID contractContentId;
+
     //선금
     private int advanceDeposit;
     //수임료
     private int pee;
     //목적 ( 고소 , 신고)
     private String purpose;
-    //조사결과 (사진 , 문서 , 동영상)
+    //조사결과
     private UUID conclusionId;
     //시작일
     private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
@@ -58,18 +58,17 @@ public class Contract extends BaseEntity {
     private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
     //해결 포맷 (사진 , 문서 , 동영상)
     private String description;
-    //신청서 작성일
+
+    //신청서 작성 시간
+    @Column(updatable = false, nullable = false)
     private LocalDateTime applyDate = LocalDateTime.now();
+
     //분야 (사고 , 범죄 , 사생활)
     @Enumerated(EnumType.STRING)
     private Specialty contractField = Specialty.NONE;
 
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
-    //가해자
-    private UUID perpetratorId;
-    //피해자
-    private UUID victimId;
     //사건장소
     private String incidentLocation;
     //사건시간

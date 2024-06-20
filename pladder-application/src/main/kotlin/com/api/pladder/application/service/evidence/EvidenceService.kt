@@ -11,6 +11,7 @@ import com.api.pladder.application.service.file.FileService
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -39,9 +40,9 @@ class EvidenceService (
         return EvidenceResp(evidence)
     }
 
-    fun getContents(evidenceId: String, authObj: AuthUserObject): EvidenceFileResp {
+    fun getContents(evidenceId: String, authObj: AuthUserObject,pageRequest: PageRequest): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
-        val files = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE)
+        val files = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE,pageRequest)
 
         return EvidenceFileResp(evidence, files)
     }

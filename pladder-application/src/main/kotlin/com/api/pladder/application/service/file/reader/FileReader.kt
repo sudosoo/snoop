@@ -5,6 +5,8 @@ import com.api.pladder.domain.entity.file.File
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.image.FileRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -14,8 +16,8 @@ class FileReader (
 ) : JpaService<File, String> {
     override var jpaRepository: BaseRepository<File, String> = repository
 
-    fun findByTargetIdAndType(targetId: UUID,targetType: FileTargetType): List<File> {
-        return repository.findByTargetIdAndTargetType(targetId,targetType)
+    fun findByTargetIdAndType(targetId: UUID,targetType: FileTargetType, pageRequest: PageRequest): Page<File> {
+        return repository.findByTargetIdAndTargetType(targetId,targetType,pageRequest)
         }
 
 }

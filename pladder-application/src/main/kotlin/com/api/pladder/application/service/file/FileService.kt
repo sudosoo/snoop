@@ -15,6 +15,7 @@ import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.util.unit.DataSize
 import java.time.LocalDateTime
@@ -71,9 +72,13 @@ class FileService(
         manager.deleteById(id)
     }
 
-    fun findByTargetIdAndTargetType(targetId: UUID, targetType: FileTargetType): List<FileResp> {
-        val files = reader.findByTargetIdAndType(targetId, targetType)
-        return files.map {
+    fun findByTargetIdAndTargetType(
+        targetId: UUID,
+        targetType: FileTargetType,
+        pageRequest: PageRequest
+    ): List<FileResp> {
+        val files = reader.findByTargetIdAndType(targetId, targetType,pageRequest)
+        return files.content.map {
             val byteArray = s3Provider.downloadByFileName(it.fileName)
             FileResp(
                 fileName = it.fileName,

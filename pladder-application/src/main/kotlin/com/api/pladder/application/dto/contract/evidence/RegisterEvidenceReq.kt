@@ -12,6 +12,7 @@ class RegisterEvidenceReq (
                 "EO = 증거 오디오"
     )
     var type : String,
+    @Schema(description = "증거 자료 제목")
     val title :String,
     @Schema(description = "첨부파일")
     val file : MutableList<MultipartFile>

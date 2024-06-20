@@ -23,7 +23,7 @@ class CompanyService (
         manager.register(req,authObj.userId!!)
     }
 
-    fun getCompanyList(pageReq: PageRequest) : Page<Company> {
+    fun getList(pageReq: PageRequest) : Page<Company> {
         return reader.findAllPagination(pageReq)
     }
 
