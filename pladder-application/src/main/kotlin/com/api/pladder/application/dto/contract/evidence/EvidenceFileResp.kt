@@ -1,4 +1,4 @@
-package com.api.pladder.application.dto.contractContent.evidence
+package com.api.pladder.application.dto.contract.evidence
 
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.domain.entity.evidence.Evidence

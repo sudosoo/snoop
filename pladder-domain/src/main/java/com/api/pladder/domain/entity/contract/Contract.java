@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +27,6 @@ import java.util.UUID;
 public class Contract extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    @Column(updatable = false, nullable = false,columnDefinition = "BINARY(16)")
     private UUID contractId;
 
     private UUID customerId;
@@ -60,9 +60,21 @@ public class Contract extends BaseEntity {
     private String description;
     //신청서 작성일
     private LocalDateTime applyDate = LocalDateTime.now();
+    //분야 (사고 , 범죄 , 사생활)
+    @Enumerated(EnumType.STRING)
+    private Specialty contractField = Specialty.NONE;
 
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
+    //가해자
+    private UUID perpetratorId;
+    //피해자
+    private UUID victimId;
+    //사건장소
+    private String incidentLocation;
+    //사건시간
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
     public void addProgress(Progress history ){
         this.progress.add(history);
@@ -92,4 +104,9 @@ public class Contract extends BaseEntity {
         this.status = ContractStatus.APPLY;
     }
 
+    public void contentUpdate(Specialty contractField, String incidentLocation, String incidentTime){
+        this.contractField = contractField;
+        this.incidentLocation = incidentLocation;
+        this.incidentTime = LocalDateTime.parse(incidentTime);
+    }
 }

@@ -1,9 +1,10 @@
 package com.api.pladder.application.service.contract
 
+import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
+import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
-import com.api.pladder.application.dto.contract.response.GetContractListResp
-import com.api.pladder.application.dto.contractContent.response.GetStatusCountContractResp
+import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
@@ -12,6 +13,7 @@ import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.domain.entity.contract.Contract
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -31,15 +33,23 @@ class ContractService (
         manager.register(req,company,customer)
     }
 
-    fun findStatus(req : AuthUserObject) : GetStatusCountContractResp {
-        val contracts = reader.findAllById(req.userId!!)
-        return GetStatusCountContractResp().toResp(contracts)
+
+    fun updateContent(req : UpdateContractContentReq){
+        val contract = reader.findById(UUID.fromString(req.contractId))
+        ContractDtoMapper.updateContent(contract,req)
+
     }
-    fun getContractList(req : AuthUserObject): List<GetContractListResp> {
+
+    fun countStatus(req : AuthUserObject) : CountContractStatusResp {
+        val contracts = reader.findAllById(req.userId!!)
+        return CountContractStatusResp().toResp(contracts)
+    }
+    fun getContractList(req : AuthUserObject,pageReq : PageRequest): List<ContractDetailResp> {
         val company = companyService.reader.getInstanceByDetectiveId(req.userId!!)
         val contracts: List<Contract> = reader.findWaitingContractByCompany(company)
-        return contracts.map { GetContractListResp(it) }
+        return contracts.map { ContractDetailResp(it) }
     }
+
 
     fun getContractDetail(req : AuthUserObject ,contractId : String): ContractDetailResp {
         val contract = reader.findById(UUID.fromString(contractId))

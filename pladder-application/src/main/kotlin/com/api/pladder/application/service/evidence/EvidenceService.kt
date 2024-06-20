@@ -1,9 +1,9 @@
 package com.api.pladder.application.service.evidence
 
-import com.api.pladder.application.dto.contractContent.evidence.EvidenceFileResp
-import com.api.pladder.application.dto.contractContent.evidence.EvidenceResp
-import com.api.pladder.application.dto.contractContent.evidence.RegisterEvidenceReq
-import com.api.pladder.application.dto.contractContent.mapper.EvidenceDtoMapper
+import com.api.pladder.application.dto.contract.evidence.EvidenceFileResp
+import com.api.pladder.application.dto.contract.evidence.EvidenceResp
+import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
+import com.api.pladder.application.dto.contract.mapper.EvidenceDtoMapper
 import com.api.pladder.application.dto.file.request.FileReq
 import com.api.pladder.application.service.evidence.manage.EvidenceManage
 import com.api.pladder.application.service.evidence.reader.EvidenceReader

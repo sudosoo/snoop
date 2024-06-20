@@ -1,4 +1,4 @@
-package com.api.pladder.application.dto.contractContent.person.request
+package com.api.pladder.application.dto.contract.person.request
 
 import com.api.pladder.domain.entity.contract.enums.Gender
 import com.api.pladder.domain.entity.contract.enums.PersonStatus

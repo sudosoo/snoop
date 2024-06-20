@@ -1,7 +1,7 @@
 package com.api.pladder.presentation.controller.evidence
 
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.contractContent.evidence.RegisterEvidenceReq
+import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
 import com.api.pladder.application.service.evidence.EvidenceService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.evidence.ExplainRegisterEvidence

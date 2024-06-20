@@ -1,9 +1,9 @@
 package com.api.pladder.presentation.controller.person
 
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.contractContent.person.request.RegisterPersonReq
-import com.api.pladder.application.dto.contractContent.person.request.UpdatePersonReq
-import com.api.pladder.application.service.contractContent.personRecords.PersonService
+import com.api.pladder.application.dto.contract.person.request.RegisterPersonReq
+import com.api.pladder.application.dto.contract.person.request.UpdatePersonReq
+import com.api.pladder.application.service.contract.person.PersonService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.person.ExplainDeletePerson
 import com.api.pladder.presentation.anotation.person.ExplainRegisterAccomplice
@@ -43,7 +43,7 @@ class PersonController(
 
     @DeleteMapping()
     @ExplainDeletePerson
-    fun delete(personId: UUID) : ResponseEntity<BaseResp> {
+    fun delete(personId: String) : ResponseEntity<BaseResp> {
         return getRespEntity(service.delete(personId))
     }
 

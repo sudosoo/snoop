@@ -1,4 +1,4 @@
-package com.api.pladder.application.dto.contractContent.evidence
+package com.api.pladder.application.dto.contract.evidence
 
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.web.multipart.MultipartFile

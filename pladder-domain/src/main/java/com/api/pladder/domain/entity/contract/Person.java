@@ -16,8 +16,9 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name="pd_person_record")
-public class PersonRecord {
+@Entity(name = "pd_person")
+@Table(indexes = {@Index(name = "idx_person_id_status", columnList = "id, status")})
+public class Person {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID id;
@@ -37,14 +38,15 @@ public class PersonRecord {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "leader_id")
-    private PersonRecord leader;
+    private Person leader;
 
-    @OneToMany(mappedBy = "leader", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<PersonRecord> accomplice = new ArrayList<>();
+    @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
+    private List<Person> accomplice = new ArrayList<>();
+
 
     private PersonStatus status = PersonStatus.UNKNOWN;
 
-    public PersonRecord(UUID contractId, PersonStatus status, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr ) {
+    public Person(UUID contractId, PersonStatus status, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr ) {
         this.contractId = contractId;
         this.status = status;
         this.name = name;
@@ -55,7 +57,7 @@ public class PersonRecord {
         this.impression = impression;
         this.residenceAddr = residenceAddr;
     }
-    public void appendAccomplice(PersonRecord accomplice){
+    public void appendAccomplice(Person accomplice){
         this.leader = this;
         this.accomplice.add(accomplice);
     }

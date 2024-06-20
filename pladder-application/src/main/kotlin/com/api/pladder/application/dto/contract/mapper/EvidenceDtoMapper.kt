@@ -1,6 +1,6 @@
-package com.api.pladder.application.dto.contractContent.mapper
+package com.api.pladder.application.dto.contract.mapper
 
-import com.api.pladder.application.dto.contractContent.evidence.RegisterEvidenceReq
+import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
 import com.api.pladder.domain.entity.evidence.Evidence
 import java.util.*
 
