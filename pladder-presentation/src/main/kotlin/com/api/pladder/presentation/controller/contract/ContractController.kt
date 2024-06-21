@@ -2,12 +2,11 @@ package com.api.pladder.presentation.controller.contract
 
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contract.request.ApplyContractReq
+import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
-import com.api.pladder.presentation.anotation.contract.ExplainGetContract
-import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
-import com.api.pladder.presentation.anotation.contractContent.ExplainApplyContract
+import com.api.pladder.presentation.anotation.contract.*
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.PageRequest
@@ -27,19 +26,13 @@ class ContractController (
         return getRespEntity(service.register(request, getAuthReq()))
     }
 
-    @ExplainApplyContract
-    @PutMapping(value = ["/apply"])
-    fun apply(request: ApplyContractReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.apply(request))
-    }
-
     @ExplainGetContract
     @GetMapping(value = ["/status"])
     fun findStatus() : ResponseEntity<BaseResp>{
         return getRespEntity(service.countStatus(getAuthReq()))
     }
 
-    @ExplainGetContract
+    @ExplainGetContractList
     @GetMapping(value = ["/getList"])
     fun getList(
         @RequestParam(defaultValue = "0") page : Int,
@@ -54,11 +47,19 @@ class ContractController (
         return getRespEntity(service.getContractDetail(getAuthReq(),contractId))
     }
 
-    @ExplainGetContract
-    @PatchMapping(value = ["/accept"])
-    fun accept(contractId : String) : ResponseEntity<BaseResp>{
-        return getRespEntity(service.accept(contractId))
+    @ExplainApplyContract
+    @PutMapping(value = ["/apply"])
+    fun apply(request: ApplyContractReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.apply(request))
     }
+
+
+    @ExplainUpdateContractContent
+    @PutMapping(value = ["/updateContent"])
+    fun updateContent(req : RegisterContractContentReq) : ResponseEntity<BaseResp>{
+        return getRespEntity(service.updateContent(req))
+    }
+
 
 
 

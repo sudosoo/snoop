@@ -1,4 +1,4 @@
-package com.api.pladder.presentation.anotation.contractContent
+package com.api.pladder.presentation.anotation.contract
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(IPP002) 계약서 상세 내용 조회",
+    summary = "(ICC001) 계약서 상세 내용 저장",
 )
 @ApiResponse(
     responseCode = "200",
@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainGetContractContent()
+annotation class ExplainRegisterContractContent()

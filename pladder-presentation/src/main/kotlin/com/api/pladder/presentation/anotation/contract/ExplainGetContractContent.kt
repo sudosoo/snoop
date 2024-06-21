@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(ICN001) 신청서 등록"
+    summary = "(IPP002) 계약서 상세 내용 조회",
 )
 @ApiResponse(
     responseCode = "200",
@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainRegisterContract()
+annotation class ExplainGetContractContent()
