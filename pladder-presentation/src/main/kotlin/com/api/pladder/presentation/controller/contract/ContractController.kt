@@ -2,7 +2,7 @@ package com.api.pladder.presentation.controller.contract
 
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
+import com.api.pladder.application.dto.contract.request.ApplyContractContentReq
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.contract.ExplainGetContract
@@ -29,7 +29,7 @@ class ContractController (
 
     @ExplainUpdateContractContent
     @PutMapping(value = ["/update"])
-    fun updateContent(request: UpdateContractContentReq) : ResponseEntity<BaseResp> {
+    fun updateContent(request: ApplyContractContentReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.updateContent(request))
     }
 

@@ -1,27 +1,33 @@
 package com.api.pladder.application.dto.contract.mapper
 
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
+import com.api.pladder.application.dto.contract.request.ApplyContractContentReq
 import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.entity.contract.Contract
 import com.api.pladder.domain.entity.user.Customer
+import java.time.LocalDate
 
 object ContractDtoMapper {
-    fun toEntity(req : RegisterContractReq, company: Company ,customer: Customer) : Contract {
+    fun toEntity(company: Company, customer: Customer, req : RegisterContractReq) : Contract {
         return Contract(
-            customer.customerId,
             company,
-            req.advanceDeposit,
-            req.pee,
+            customer.customerId,
+            customer.nickName,
+            customer.phoneNumber,
+            req.specialty,
             req.purpose,
             req.requestSolution,
-            customer.nickName,
-            customer.phoneNumber
+            req.description
         )
     }
 
-    fun updateContent(contract: Contract , request : UpdateContractContentReq){
-        contract.contentUpdate(request.contractField,request.incidentLocation,request.incidentTime)
+    fun updateContent(contract: Contract, request : ApplyContractContentReq){
+        contract.apply(
+            request.advanceDeposit,
+            request.pee,
+            LocalDate.parse(request.startPeriod),
+            LocalDate.parse(request.endPeriod))
+
     }
 
 }

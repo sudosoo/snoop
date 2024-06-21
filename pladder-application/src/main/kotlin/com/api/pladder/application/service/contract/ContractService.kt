@@ -2,7 +2,7 @@ package com.api.pladder.application.service.contract
 
 import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
+import com.api.pladder.application.dto.contract.request.ApplyContractContentReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.service.company.CompanyService
@@ -34,7 +34,7 @@ class ContractService (
     }
 
 
-    fun updateContent(req : UpdateContractContentReq){
+    fun updateContent(req : ApplyContractContentReq){
         val contract = reader.findById(UUID.fromString(req.contractId))
         ContractDtoMapper.updateContent(contract,req)
 

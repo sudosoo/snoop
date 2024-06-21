@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.contract;
 
+import com.api.pladder.core.utils.date.DateUtil;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.contract.enums.ContractStatus;
@@ -28,37 +29,41 @@ public class Contract extends BaseEntity {
     private UUID contractId;
 
     private UUID customerId;
-    private String clientName;
-    private String clientPhone;
+    private String customerName;
+    private String customerPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="company_id")
     private Company company;
+
     //분야
     @Enumerated(EnumType.STRING)
-    private Specialty specialty;
+    private Specialty specialty = Specialty.NONE;
     //선금
     private int advanceDeposit;
     //수임료
     private int pee;
     //목적 ( 고소 , 신고)
     private String purpose;
-    //조사결과
-    private UUID conclusionId;
+
     //해결 포맷 (사진 , 문서 , 동영상)
+    private String solutionFormat;
+    //계약 내용 ex) 7세 아동 실종 사건
     private String description;
 
-    //계약 후 계약서 내용
+    //시작일
+    private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
+    //계약종료일
+    private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
+
+
+    //계약 후 계약서 정보
     @Embedded
     private ContractContent contractContent;
 
     //신청서 작성 시간
     @Column(updatable = false, nullable = false)
     private LocalDateTime applyDate = LocalDateTime.now();
-
-    //분야 (사고 , 범죄 , 사생활)
-    @Enumerated(EnumType.STRING)
-    private Specialty contractField = Specialty.NONE;
 
     //활동상황
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contract")
@@ -67,39 +72,50 @@ public class Contract extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
 
-    public void addProgress(Progress history ){
-        this.progress.add(history);
-    }
+    //조사결과
+    private UUID conclusionId;
 
-    public Contract(UUID customerId, Company company, int advanceDeposit, int pee, String purpose, String description, String clientName, String clientPhone) {
-        this.customerId = customerId;
-        this.advanceDeposit = advanceDeposit;
-        this.pee = pee;
-        this.purpose = purpose;
-        this.description = description;
-        this.clientName = clientName;
-        this.clientPhone = clientPhone;
+
+    public Contract(Company company,UUID customerId, String customerName, String customerPhone, Specialty specialty, String purpose, String solutionFormat, String description) {
         addCompany(company);
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerPhone = customerPhone;
+        this.specialty = specialty;
+        this.purpose = purpose;
+        this.solutionFormat = solutionFormat;
+        this.description = description;
     }
 
-    public void addCompany(Company company) {
+    private void addCompany(Company company) {
         this.company = company;
         company.getContracts().add(this);
     }
 
-    private void updateContent(String startPeriod, String endPeriod, String incidentLocation, String incidentTime , String description) {
-        this.contractContent = new ContractContent(LocalDate.parse(startPeriod), LocalDate.parse(endPeriod), incidentLocation, LocalDateTime.parse(incidentTime),description);
+    public void addProgress(Progress history ){
+        this.progress.add(history);
     }
 
-    private void updateDescription(String Content){
-        this.contractContent.updateDescription(Content);
+    public void updateContent() {
+        this.status = ContractStatus.CANCELED;
     }
 
-    public void accept() {
+
+    public void updateDescription(String description){
+        this.description = description;
+    }
+
+    public void apply(int pee , int advanceDeposit, LocalDate startPeriod , LocalDate endPeriod) {
+        this.pee = pee;
+        this.advanceDeposit = advanceDeposit;
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
         this.status = ContractStatus.APPLY;
     }
 
-    public void contentUpdate(Specialty contractField){
-        this.contractField = contractField;
-        }
+    public void updateOngoing() {
+        this.status = ContractStatus.ONGOING;
+    }
+
+
 }

@@ -10,13 +10,13 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public enum ContractStatus implements StatusProvider {
     /*
-    * 신청서 작성 - 신청 중 - 고객이 작성 ? 탐정이 작성 ?
+    * 신청서 작성 - 고객이 작성
     * 신청서 승인 - 신청 완료 - 탐정이 승인 수임료 선금 정해서 계약 완료
     * 입금 완료 - 진행중
     * 조사 완료 - 완료
     * 취소 - 취소/환불
     * */
-    WAITING("신청중"),APPLY("신청완료"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
+    WAITING("신청서"),APPLY("신청완료"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
     private String status;
 
     @NotNull
