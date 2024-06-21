@@ -96,8 +96,8 @@ public class Contract extends BaseEntity {
         this.progress.add(history);
     }
 
-    public void updateContent() {
-        this.status = ContractStatus.CANCELED;
+    public void updateContent(ContractContent contractContent){
+        this.contractContent = contractContent;
     }
 
 

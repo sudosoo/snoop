@@ -1,8 +1,10 @@
 package com.api.pladder.application.dto.contract.request
 
 import io.swagger.v3.oas.annotations.media.Schema
+import org.springframework.format.annotation.DateTimeFormat
+import java.time.LocalDate
 
-class ApplyContractContentReq (
+class ApplyContractReq (
     @Schema(description="계약서 ID")
     val contractId :String,
     @Schema(description="선금", example = "500,000")
@@ -10,8 +12,9 @@ class ApplyContractContentReq (
     @Schema(description="수임료", example = "5,000,000")
     var pee : Int = 0,
     @Schema(description="조사 시작일 yyyy-MM-dd")
-    var startPeriod: String? = null,
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    var startPeriod: LocalDate? = null,
     @Schema(description="조사 종료일 yyyy-MM-dd")
-    var endPeriod : String ?= null
-){
-}
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    var endPeriod : LocalDate ?= null
+)

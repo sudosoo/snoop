@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainUpdateContractContent()
+annotation class ExplainApplyContract()

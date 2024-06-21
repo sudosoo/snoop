@@ -1,8 +1,9 @@
 package com.api.pladder.application.service.contract
 
 import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
+import com.api.pladder.application.dto.contract.request.ApplyContractReq
+import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.ApplyContractContentReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.service.company.CompanyService
@@ -34,10 +35,10 @@ class ContractService (
     }
 
 
-    fun updateContent(req : ApplyContractContentReq){
+    fun apply(req : ApplyContractReq){
         val contract = reader.findById(UUID.fromString(req.contractId))
-        ContractDtoMapper.updateContent(contract,req)
-
+        ContractDtoMapper.apply(contract,req)
+        manager.save(contract)
     }
 
     fun countStatus(req : AuthUserObject) : CountContractStatusResp {
@@ -61,10 +62,12 @@ class ContractService (
 
     fun findById(contractId : UUID) : Contract = reader.findById(contractId)
 
-    fun accept(contractId : String) {
-        val contract = reader.findById(UUID.fromString(contractId))
-        contract.accept()
-        manager.save(contract)
+    fun updateContent(req : RegisterContractContentReq){
+        manager.updateContent(req)
+    }
+
+fun delete(contractId : UUID){
+        manager.deleteById(contractId)
     }
 
 }

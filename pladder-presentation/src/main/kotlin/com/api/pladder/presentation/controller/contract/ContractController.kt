@@ -1,13 +1,13 @@
 package com.api.pladder.presentation.controller.contract
 
 import com.api.pladder.application.dto.common.BaseResp
+import com.api.pladder.application.dto.contract.request.ApplyContractReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.ApplyContractContentReq
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.contract.ExplainGetContract
 import com.api.pladder.presentation.anotation.contract.ExplainRegisterContract
-import com.api.pladder.presentation.anotation.contractContent.ExplainUpdateContractContent
+import com.api.pladder.presentation.anotation.contractContent.ExplainApplyContract
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.PageRequest
@@ -27,10 +27,10 @@ class ContractController (
         return getRespEntity(service.register(request, getAuthReq()))
     }
 
-    @ExplainUpdateContractContent
-    @PutMapping(value = ["/update"])
-    fun updateContent(request: ApplyContractContentReq) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.updateContent(request))
+    @ExplainApplyContract
+    @PutMapping(value = ["/apply"])
+    fun apply(request: ApplyContractReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.apply(request))
     }
 
     @ExplainGetContract
@@ -38,6 +38,7 @@ class ContractController (
     fun findStatus() : ResponseEntity<BaseResp>{
         return getRespEntity(service.countStatus(getAuthReq()))
     }
+
     @ExplainGetContract
     @GetMapping(value = ["/getList"])
     fun getList(

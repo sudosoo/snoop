@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,7 +19,7 @@ public class ContractContent {
     private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
 
-    public ContractContent(LocalDate startPeriod, LocalDate endPeriod, String incidentLocation, LocalDateTime incidentTime,String description) {
+    public ContractContent(String incidentLocation, LocalDateTime incidentTime) {
         this.incidentLocation = incidentLocation;
         this.incidentTime = incidentTime;
     }
