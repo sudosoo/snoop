@@ -21,23 +21,23 @@ class PersonService(
 ): JpaService<Person, UUID> {
     override var jpaRepository: BaseRepository<Person, UUID> = repository
 
-    fun register(req : RegisterPersonReq) : PersonResp {
-        val person = PersonDtoMapper.toEntity(req)
+    fun register(request : RegisterPersonReq) : PersonResp {
+        val person = PersonDtoMapper.toEntity(request)
         return PersonResp(repository.save(person))
     }
 
-    fun appendAccomplice(personId: UUID, req: RegisterPersonReq): PersonResp {
+    fun appendAccomplice(personId: UUID, request: RegisterPersonReq): PersonResp {
         val perpetrator = repository.findByIdAndStatus(personId,PersonStatus.PERPETRATOR)
             .orElseThrow{ NotFoundException("존재하지 않는 가해자ID 입니다 : ${personId}")
             }
-        val accomplice = PersonDtoMapper.toEntity(req)
+        val accomplice = PersonDtoMapper.toEntity(request)
         perpetrator.appendAccomplice(accomplice)
         return PersonResp(save(accomplice))
     }
 
-    fun update(req : UpdatePersonReq) : PersonResp {
-        val model = findById(UUID.fromString(req.personId))
-        PersonDtoMapper.update(model,req)
+    fun update(request : UpdatePersonReq) : PersonResp {
+        val model = findById(UUID.fromString(request.personId))
+        PersonDtoMapper.update(model,request)
         return PersonResp(save(model))
     }
 

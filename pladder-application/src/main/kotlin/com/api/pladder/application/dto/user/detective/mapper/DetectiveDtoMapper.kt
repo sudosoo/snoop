@@ -10,18 +10,18 @@ import java.time.format.DateTimeFormatter
 
 object DetectiveDtoMapper {
 
-    fun toEntity(req : RegisterUserReq) : Detective {
-        return Detective.of(req.email, req.passwd, req.phoneNumber)
+    fun toEntity(request : RegisterUserReq) : Detective {
+        return Detective.of(request.email, request.passwd, request.phoneNumber)
     }
-    fun updateInfo(detective: Detective, req: UpdateInfoUserReq) {
-        return detective.updateInfo(req.phoneNumber)
+    fun updateInfo(detective: Detective, request: UpdateInfoUserReq) {
+        return detective.updateInfo(request.phoneNumber)
     }
 
-    fun updateCareer(detective: Detective,req: RegisterDetectiveCareerReq) {
-        detective.career[req.period] = req.description
+    fun updateCareer(detective: Detective,request: RegisterDetectiveCareerReq) {
+        detective.career[request.period] = request.description
 
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM")
-        val period = req.period
+        val period = request.period
         val dates = period.split(" ~ ")
         if (dates.size != 2) {
             throw IllegalArgumentException("잘못된 날짜 형식 입니다 :$period")

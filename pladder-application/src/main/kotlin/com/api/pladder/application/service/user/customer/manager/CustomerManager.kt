@@ -18,21 +18,21 @@ class CustomerManager(
 ): JpaService<Customer, UUID> {
     override var jpaRepository: BaseRepository<Customer, UUID> = customerRepository
 
-    fun register(req : RegisterUserReq) :Customer {
-        val customer = CustomerDtoMapper.toEntity(req)
+    fun register(request : RegisterUserReq) :Customer {
+        val customer = CustomerDtoMapper.toEntity(request)
         return save(customer)
     }
 
-    fun updateInfo(requestUserId :String, req: UpdateInfoUserReq): Customer {
+    fun updateInfo(requestUserId :String, request: UpdateInfoUserReq): Customer {
         val customer = findById(UUID.fromString(requestUserId))
-        updateInfo(customer,req)
+        updateInfo(customer,request)
         return save(customer)
     }
 
-    fun updatePasswd(req: UpdatePasswdUserReq): Customer {
-        val customer = customerRepository.findByNickNameAndPasswd(req.nickName,req.passwd)
+    fun updatePasswd(request: UpdatePasswdUserReq): Customer {
+        val customer = customerRepository.findByNickNameAndPasswd(request.nickName,request.passwd)
             .orElseThrow({throw Exception("존재하지 않는 회원 입니다")})
-        customer.updatePasswd(req.reqUpdatePasswd)
+        customer.updatePasswd(request.reqUpdatePasswd)
         return save(customer)
     }
 

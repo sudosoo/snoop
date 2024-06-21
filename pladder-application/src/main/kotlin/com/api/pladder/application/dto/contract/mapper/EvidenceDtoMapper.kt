@@ -5,8 +5,8 @@ import com.api.pladder.domain.entity.evidence.Evidence
 import java.util.*
 
 object EvidenceDtoMapper {
-    fun toEntity(req : RegisterEvidenceReq) : Evidence{
-        return Evidence(UUID.fromString(req.contractId))}
+    fun toEntity(request : RegisterEvidenceReq) : Evidence{
+        return Evidence(UUID.fromString(request.contractId))}
 
 
 }

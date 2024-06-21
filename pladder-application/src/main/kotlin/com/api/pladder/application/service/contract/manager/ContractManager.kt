@@ -19,20 +19,20 @@ class ContractManager (
 ): JpaService<Contract, UUID> {
     override var jpaRepository: BaseRepository<Contract, UUID> = repository
 
-    fun register(req: RegisterContractReq, company: Company ,customer: Customer) {
-        val contract = ContractDtoMapper.toEntity(company ,customer, req)
+    fun register(request: RegisterContractReq, company: Company ,customer: Customer) {
+        val contract = ContractDtoMapper.toEntity(company ,customer, request)
         save(contract)
     }
 
-    fun apply(req: ApplyContractReq){
-        val contract = findById(UUID.fromString(req.contractId))
-        ContractDtoMapper.apply(contract, req)
+    fun apply(request: ApplyContractReq){
+        val contract = findById(UUID.fromString(request.contractId))
+        ContractDtoMapper.apply(contract, request)
         save(contract)
     }
 
-    fun updateContent(req : RegisterContractContentReq){
-        val contract = findById(UUID.fromString(req.contractId))
-        ContractDtoMapper.updateContent(contract, req)
+    fun updateContent(request : RegisterContractContentReq){
+        val contract = findById(UUID.fromString(request.contractId))
+        ContractDtoMapper.updateContent(contract, request)
         save(contract)
     }
 

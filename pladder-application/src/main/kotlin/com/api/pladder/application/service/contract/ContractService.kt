@@ -25,36 +25,36 @@ class ContractService (
     private val companyService: CompanyService,
     private val customerService: CustomerService
 ) {
-    fun register(req : RegisterContractReq , authObj : AuthUserObject){
+    fun register(request : RegisterContractReq , authObj : AuthUserObject){
         if (authObj.userType == UserType.DETECTIVE){
             throw AccessDeniedException("해당 계약을 등록할 권한이 없습니다.")
         }
-        val company = companyService.reader.getInstance(req.companyId)
+        val company = companyService.reader.getInstance(request.companyId)
         val customer = customerService.reader.findById(authObj.userId!!)
-        manager.register(req,company,customer)
+        manager.register(request,company,customer)
     }
 
 
-    fun apply(req : ApplyContractReq){
-        val contract = reader.findById(UUID.fromString(req.contractId))
-        ContractDtoMapper.apply(contract,req)
+    fun apply(request : ApplyContractReq){
+        val contract = reader.findById(UUID.fromString(request.contractId))
+        ContractDtoMapper.apply(contract,request)
         manager.save(contract)
     }
 
-    fun countStatus(req : AuthUserObject) : CountContractStatusResp {
-        val contracts = reader.findAllById(req.userId!!)
+    fun countStatus(request : AuthUserObject) : CountContractStatusResp {
+        val contracts = reader.findAllById(request.userId!!)
         return CountContractStatusResp().toResp(contracts)
     }
-    fun getContractList(req : AuthUserObject,pageReq : PageRequest): List<ContractDetailResp> {
-        val company = companyService.reader.getInstanceByDetectiveId(req.userId!!)
+    fun getContractList(request : AuthUserObject,pageReq : PageRequest): List<ContractDetailResp> {
+        val company = companyService.reader.getInstanceByDetectiveId(request.userId!!)
         val contracts: List<Contract> = reader.findWaitingContractByCompany(company)
         return contracts.map { ContractDetailResp(it) }
     }
 
 
-    fun getContractDetail(req : AuthUserObject ,contractId : String): ContractDetailResp {
+    fun getContractDetail(request : AuthUserObject ,contractId : String): ContractDetailResp {
         val contract = reader.findById(UUID.fromString(contractId))
-        if (contract.company.detectiveId != req.userId && req.userType != UserType.ADMIN){
+        if (contract.company.detectiveId != request.userId && request.userType != UserType.ADMIN){
             throw AccessDeniedException("해당 계약에 대한 접근 권한이 없습니다.")
         }
         return ContractDetailResp(contract)
@@ -62,8 +62,8 @@ class ContractService (
 
     fun findById(contractId : UUID) : Contract = reader.findById(contractId)
 
-    fun updateContent(req : RegisterContractContentReq){
-        manager.updateContent(req)
+    fun updateContent(request : RegisterContractContentReq){
+        manager.updateContent(request)
     }
 
 fun delete(contractId : UUID){

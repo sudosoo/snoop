@@ -7,22 +7,22 @@ import com.api.pladder.domain.entity.contract.Person
 import java.util.*
 
 object PersonDtoMapper {
-    fun toEntity(req: RegisterPersonReq): Person {
+    fun toEntity(request: RegisterPersonReq): Person {
         return Person(
-            UUID.fromString(req.contractId),
-            req.status,
-            req.name,
-            req.gender,
-            req.age,
-            req.relationship,
-            req.workplaceAddr,
-            req.impression,
-            req.residenceAddr,
+            UUID.fromString(request.contractId),
+            request.status,
+            request.name,
+            request.gender,
+            request.age,
+            request.relationship,
+            request.workplaceAddr,
+            request.impression,
+            request.residenceAddr,
 
             )
     }
-    fun update(person: Person, req: UpdatePersonReq) {
-        return EntityUpdateUtil.updateEntity(person, req)
+    fun update(person: Person, request: UpdatePersonReq) {
+        return EntityUpdateUtil.updateEntity(person, request)
     }
 
 }

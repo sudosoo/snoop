@@ -20,4 +20,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainUpdateCompany()
+annotation class ExplainUpdateCompanyInfo()

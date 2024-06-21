@@ -27,29 +27,29 @@ class AuthService(
     private val adminService: AdminService,
 ) {
 
-    fun signUp(req: RegisterUserReq): UserResp{
-        val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
-        req.updateConvertPasswd(convertPasswd)
-        val userService = getUserService(req.userType)
-        return userService.register(req)
+    fun signUp(request: RegisterUserReq): UserResp{
+        val convertPasswd= securityProvider.passwdBCryptConvert(request.passwd!!)
+        request.updateConvertPasswd(convertPasswd)
+        val userService = getUserService(request.userType)
+        return userService.register(request)
     }
 
-    fun signIn(req: SignInUserReq,servletResp: HttpServletResponse) : UserResp {
-        val convertPasswd= securityProvider.passwdBCryptConvert(req.passwd!!)
-        req.updateConvertPasswd(convertPasswd)
+    fun signIn(request: SignInUserReq,servletResp: HttpServletResponse) : UserResp {
+        val convertPasswd= securityProvider.passwdBCryptConvert(request.passwd!!)
+        request.updateConvertPasswd(convertPasswd)
 
-        val userService = getUserService(req.userType)
+        val userService = getUserService(request.userType)
              // login
-        val userResp = userService.findByEmail(req.email!!)
+        val userResp = userService.findByEmail(request.email!!)
 
             //TODO Spring security 기능 추가 필요
     //        val authorities = mutableListOf<GrantedAuthority>()
-    //        when(req.userType){
+    //        when(request.userType){
     //            ADMIN -> authorities.add(SimpleGrantedAuthority("ADMIN"))
     //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
     //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
     //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
-        val authObj = AuthUserObject(userResp.userId, req.userType)
+        val authObj = AuthUserObject(userResp.userId, request.userType)
         val accessToken: String = jwtUtil.generate(authObj)
         //TODO 토큰 어디에 넣을건지 쿠키?
         //servletResp.addCookie(cookie)
@@ -57,12 +57,12 @@ class AuthService(
         return userResp
     }
 
-    fun updatePasswd(req: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
-        val convertReqPasswd = securityProvider.passwdBCryptConvert(req.passwd)
-        req.updateConvertPasswd(convertReqPasswd)
+    fun updatePasswd(request: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
+        val convertReqPasswd = securityProvider.passwdBCryptConvert(request.passwd)
+        request.updateConvertPasswd(convertReqPasswd)
 
         val userService = getUserService(authObj.userType)
-        return userService.updatePasswd(req)
+        return userService.updatePasswd(request)
     }
 
     fun signOut(){
@@ -70,7 +70,7 @@ class AuthService(
         // TODO : delete token
     }
 
-    fun withdrawn(req : WithdrawnUserReq,authObj: AuthUserObject) {
+    fun withdrawn(request : WithdrawnUserReq,authObj: AuthUserObject) {
         val userService = getUserService(authObj.userType)
         userService.withdrawn((authObj.userId).toString())
     }

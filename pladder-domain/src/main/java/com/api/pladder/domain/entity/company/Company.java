@@ -61,11 +61,12 @@ public class Company extends BaseEntity {
         this.detectiveId = detectiveId;
     }
 
-    public void update(String companyName, String address, String phoneNumber) {
-        this.companyName = companyName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    public void updateInfo(String introduction, List<Specialty> specialization) {
+        this.introduction = introduction;
+        this.specialization.clear();
+        this.specialization.addAll(specialization);
     }
+
     public void updateConfirmStatus(ConfirmStatus confirmStatus) {
         this.confirmStatus = confirmStatus;
     }

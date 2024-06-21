@@ -56,8 +56,8 @@ class ContractController (
 
     @ExplainUpdateContractContent
     @PutMapping(value = ["/updateContent"])
-    fun updateContent(req : RegisterContractContentReq) : ResponseEntity<BaseResp>{
-        return getRespEntity(service.updateContent(req))
+    fun updateContent(request : RegisterContractContentReq) : ResponseEntity<BaseResp>{
+        return getRespEntity(service.updateContent(request))
     }
 
 

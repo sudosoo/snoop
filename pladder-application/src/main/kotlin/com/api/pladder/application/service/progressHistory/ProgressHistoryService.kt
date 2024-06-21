@@ -21,9 +21,9 @@ class ProgressHistoryService (
     private val fileService: FileService,
 ){
 
-    fun register(req : ProgressContentRegisterReq) {
-        val contract = contractService.findById(UUID.fromString(req.contractId))
-        val progressHistory = manager.register(req.content)
+    fun register(request : ProgressContentRegisterReq) {
+        val contract = contractService.findById(UUID.fromString(request.contractId))
+        val progressHistory = manager.register(request.content)
         progressHistory.addContract(contract)
     }
 
@@ -36,9 +36,9 @@ class ProgressHistoryService (
             histories.size.toLong())
     }
 
-    fun updateContent(req : ProgressHistoryUpdateReq){
-        val progress = reader.findById(UUID.fromString(req.contractId))
-        progress.updateContent(req.content)
+    fun updateContent(request : ProgressHistoryUpdateReq){
+        val progress = reader.findById(UUID.fromString(request.contractId))
+        progress.updateContent(request.content)
         manager.saveEntity(progress)
     }
 

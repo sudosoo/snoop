@@ -9,16 +9,16 @@ import com.api.pladder.domain.entity.contract.ContractContent
 import com.api.pladder.domain.entity.user.Customer
 
 object ContractDtoMapper {
-    fun toEntity(company: Company, customer: Customer, req : RegisterContractReq) : Contract {
+    fun toEntity(company: Company, customer: Customer, request : RegisterContractReq) : Contract {
         return Contract(
             company,
             customer.customerId,
             customer.nickName,
             customer.phoneNumber,
-            req.specialty,
-            req.purpose,
-            req.requestSolution,
-            req.description
+            request.specialty,
+            request.purpose,
+            request.requestSolution,
+            request.description
         )
     }
 

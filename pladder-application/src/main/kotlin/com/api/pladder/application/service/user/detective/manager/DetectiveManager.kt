@@ -19,22 +19,22 @@ class DetectiveManager(
 
     override var jpaRepository: BaseRepository<Detective, UUID> = repository
 
-    fun register(req : RegisterUserReq): Detective {
-        val detective = DetectiveDtoMapper.toEntity(req)
+    fun register(request : RegisterUserReq): Detective {
+        val detective = DetectiveDtoMapper.toEntity(request)
         return save(detective)
     }
-    fun updatePasswd(req: UpdatePasswdUserReq): Detective {
-        val detective = repository.findByEmailAndPasswd(req.email,req.passwd).orElseThrow{ throw NotFoundException("Detective not found") }
-        detective.updatePasswd(req.reqUpdatePasswd)
+    fun updatePasswd(request: UpdatePasswdUserReq): Detective {
+        val detective = repository.findByEmailAndPasswd(request.email,request.passwd).orElseThrow{ throw NotFoundException("Detective not found") }
+        detective.updatePasswd(request.reqUpdatePasswd)
         return save(detective)
     }
     fun setCompany(companyId: String) {
         //TODO
     }
 
-    fun updateInfo(requestUserId :String, req: UpdateInfoUserReq): Detective {
+    fun updateInfo(requestUserId :String, request: UpdateInfoUserReq): Detective {
         val detective = findById(UUID.fromString(requestUserId))
-        DetectiveDtoMapper.updateInfo(detective, req)
+        DetectiveDtoMapper.updateInfo(detective, request)
         return save(detective)
     }
 

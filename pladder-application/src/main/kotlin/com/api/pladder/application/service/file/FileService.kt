@@ -32,26 +32,26 @@ class FileService(
     @Value("\${multipart.max-upload-size}")
     private var maxFileSize: DataSize
 ){
-    fun save(req: FileReq
+    fun save(request: FileReq
     ): File {
-        validation(req)
-        val fileName = generateFileName(req)
-        req.fileName = fileName
-        val model = FileDtoMapper.toEntity(req)
+        validation(request)
+        val fileName = generateFileName(request)
+        request.fileName = fileName
+        val model = FileDtoMapper.toEntity(request)
 
         val result = manager.save(model)
         // save image-file
-        s3Provider.upload(fileName = fileName, req.file)
+        s3Provider.upload(fileName = fileName, request.file)
 
         return result
     }
 
-    private fun validation(req: FileReq) {
-        val fileExtension = fileUtils.getExtension(req.file.originalFilename!!)
+    private fun validation(request: FileReq) {
+        val fileExtension = fileUtils.getExtension(request.file.originalFilename!!)
         if (!FileExtension.hasExtension(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
-        } else if (req.file.size > maxFileSize.toBytes()) {
-            throw IllegalArgumentException("File size exceeds the maximum size: ${req.file.size}")
+        } else if (request.file.size > maxFileSize.toBytes()) {
+            throw IllegalArgumentException("File size exceeds the maximum size: ${request.file.size}")
         }
     }
 

@@ -23,12 +23,12 @@ class EvidenceService (
     val reader : EvidenceReader,
     val fileService: FileService,
 ){
-    fun register(req: RegisterEvidenceReq, authObj: AuthUserObject): EvidenceResp {
-        val entity = EvidenceDtoMapper.toEntity(req)
+    fun register(request: RegisterEvidenceReq, authObj: AuthUserObject): EvidenceResp {
+        val entity = EvidenceDtoMapper.toEntity(request)
         val evidence = manage.save(entity)
 
-        req.file.forEach { file ->
-            val type = FileType.fromPrefix(req.type)
+        request.file.forEach { file ->
+            val type = FileType.fromPrefix(request.type)
             val fileReq = FileReq(
                 type=type,
                 file=file,

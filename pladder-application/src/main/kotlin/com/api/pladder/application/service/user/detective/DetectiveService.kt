@@ -27,16 +27,16 @@ class DetectiveService : UserService {
         manager.withdrawn(userId)
     }
 
-    override fun register(req: RegisterUserReq): UserResp {
-        return UserResp(manager.register(req))
+    override fun register(request: RegisterUserReq): UserResp {
+        return UserResp(manager.register(request))
     }
 
-    override fun updatePasswd(req: UpdatePasswdUserReq): UserResp {
-        return UserResp(manager.updatePasswd(req))
+    override fun updatePasswd(request: UpdatePasswdUserReq): UserResp {
+        return UserResp(manager.updatePasswd(request))
     }
 
-    fun updateInfo(requestUserId : String, req: UpdateInfoUserReq): UserResp {
-        return UserResp(manager.updateInfo(requestUserId, req))
+    fun updateInfo(requestUserId : String, request: UpdateInfoUserReq): UserResp {
+        return UserResp(manager.updateInfo(requestUserId, request))
     }
 
     fun registerCareer(request: List<RegisterDetectiveCareerReq>,authObj:AuthUserObject ): UserResp {
