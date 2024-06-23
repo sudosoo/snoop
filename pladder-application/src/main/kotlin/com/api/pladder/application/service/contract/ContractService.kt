@@ -4,16 +4,21 @@ import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
 import com.api.pladder.application.dto.contract.request.ApplyContractReq
 import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
+import com.api.pladder.application.dto.contract.request.RegisterSignReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
+import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
+import com.api.pladder.application.service.file.FileService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.domain.entity.contract.Contract
+import com.api.pladder.domain.entity.file.enums.FileTargetType
+import com.api.pladder.domain.entity.file.enums.FileType
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
@@ -23,7 +28,8 @@ class ContractService (
     private val manager: ContractManager,
     private val reader: ContractReader,
     private val companyService: CompanyService,
-    private val customerService: CustomerService
+    private val customerService: CustomerService,
+    private val fileService: FileService
 ) {
     fun register(request : RegisterContractReq , authObj : AuthUserObject){
         if (authObj.userType == UserType.DETECTIVE){
@@ -66,8 +72,18 @@ class ContractService (
         manager.updateContent(request)
     }
 
-fun delete(contractId : UUID){
-        manager.deleteById(contractId)
+    fun delete(contractId : UUID){
+            manager.deleteById(contractId)
+    }
+    fun uploadSign(request: RegisterSignReq,authObj: AuthUserObject){
+        val contract = reader.findById(UUID.fromString(request.contractId))
+        fileService.save(FileRequest(
+            type = FileType.SIGN,
+            file = request.image,
+            targetId = contract.contractId,
+            targetType = FileTargetType.CONTRACT,
+            writerId = authObj.userId!!
+        ))
     }
 
 }

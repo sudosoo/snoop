@@ -4,7 +4,7 @@ import com.api.pladder.application.dto.contract.evidence.EvidenceFileResp
 import com.api.pladder.application.dto.contract.evidence.EvidenceResp
 import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
 import com.api.pladder.application.dto.contract.mapper.EvidenceDtoMapper
-import com.api.pladder.application.dto.file.request.FileReq
+import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.service.evidence.manage.EvidenceManage
 import com.api.pladder.application.service.evidence.reader.EvidenceReader
 import com.api.pladder.application.service.file.FileService
@@ -29,12 +29,12 @@ class EvidenceService (
 
         request.file.forEach { file ->
             val type = FileType.fromPrefix(request.type)
-            val fileReq = FileReq(
+            val fileRequest = FileRequest(
                 type=type,
                 file=file,
                 targetId=evidence.id,
                 targetType= FileTargetType.EVIDENCE)
-            fileService.save(fileReq)
+            fileService.save(fileRequest)
         }
 
         return EvidenceResp(evidence)

@@ -23,16 +23,18 @@ public class File {
     private FileTargetType targetType;
     @Enumerated(EnumType.STRING)
     private FileType fileType;
+    private UUID writerId;
 
-    private File(String fileName, FileType type, UUID targetId, FileTargetType targetType) {
+    private File(String fileName, FileType type, UUID targetId, FileTargetType targetType,UUID writerId) {
         this.fileName = fileName;
         this.fileType = type;
         this.targetId = targetId;
         this.targetType = targetType;
+        this.writerId = writerId;
     }
 
-    public static File of(String id, FileType type, UUID targetId,FileTargetType targetType) {
-        return new File(id, type, targetId, targetType);
+    public static File of(String id, FileType type, UUID targetId,FileTargetType targetType,UUID writerId) {
+        return new File(id, type, targetId, targetType,writerId);
     }
 
     public FileExtension getExtension() throws NotFoundException {

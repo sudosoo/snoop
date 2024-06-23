@@ -1,7 +1,7 @@
 package com.api.pladder.application.service.file
 
 import com.api.pladder.application.dto.file.mapper.FileDtoMapper
-import com.api.pladder.application.dto.file.request.FileReq
+import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.file.manager.FileManager
 import com.api.pladder.application.service.file.reader.FileReader
@@ -32,7 +32,7 @@ class FileService(
     @Value("\${multipart.max-upload-size}")
     private var maxFileSize: DataSize
 ){
-    fun save(request: FileReq
+    fun save(request: FileRequest
     ): File {
         validation(request)
         val fileName = generateFileName(request)
@@ -46,7 +46,7 @@ class FileService(
         return result
     }
 
-    private fun validation(request: FileReq) {
+    private fun validation(request: FileRequest) {
         val fileExtension = fileUtils.getExtension(request.file.originalFilename!!)
         if (!FileExtension.hasExtension(fileExtension.lowercase())) {
             throw IllegalArgumentException("Unsupported file extension: $fileExtension")
@@ -55,7 +55,7 @@ class FileService(
         }
     }
 
-    private fun generateFileName(request: FileReq) : String{
+    private fun generateFileName(request: FileRequest) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
         val random = String.format("%02d", Random.nextInt(0, 100))
         val extension = fileUtils.getExtension(request.file.originalFilename!!)

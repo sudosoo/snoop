@@ -19,8 +19,6 @@ data class RegisterUserReq (
     fun updateConvertPasswd(convertPass:String) {
         this.passwd = convertPass
     }
-
-
 }
 
 

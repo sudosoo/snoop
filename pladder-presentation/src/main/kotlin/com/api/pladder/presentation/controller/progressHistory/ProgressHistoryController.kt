@@ -39,7 +39,7 @@ class ProgressHistoryController (
         return getRespEntity(service.updateContent(request))
     }
 
-    @GetMapping(value = ["/detective/progress","/customer/progress"])
+    @GetMapping(value = ["/open/progress"])
     fun getHistories(contractId : String,
                      @RequestParam(defaultValue = "0") page : Int,
                      ) : ResponseEntity<BaseListRespV2>{
@@ -47,8 +47,8 @@ class ProgressHistoryController (
     }
 
     @ExplainDeleteProgressHistory
-    @DeleteMapping(value = ["/detective/progress/{progressId}"])
-    fun delete(@PathVariable progressId : String) : ResponseEntity<BaseResp>{
+    @DeleteMapping(value = ["/detective/progress"])
+    fun delete(@RequestParam progressId : String) : ResponseEntity<BaseResp>{
         return getRespEntity(service.delete(progressId))
     }
 

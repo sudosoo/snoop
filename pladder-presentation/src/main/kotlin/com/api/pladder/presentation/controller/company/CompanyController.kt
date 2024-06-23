@@ -33,7 +33,6 @@ class CompanyController(
                 authObj = getAuthReq()))
     }
 
-
     @ExplainGetCompanyList
     @PostMapping(value = ["/open/company"])
     fun getList(@RequestParam(defaultValue = "0") page : Int,
