@@ -11,7 +11,7 @@ data class RegisterUserReq (
     @Schema(description="핸드폰번호")
     var phoneNumber: String? = null,
     @Schema(description="닉네임")
-    val nickName: String? = null,
+    val nickname: String? = null,
     @Schema(description = "User type (DETECTIVE, CUSTOMER, ADMIN)")
     val userType: UserType
 

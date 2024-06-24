@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DetectiveRepository extends BaseRepository<Detective, UUID> {
-    Optional<Detective> findByEmailAndPasswd(String email,String passwd);
+    Optional<Detective> findByEmail(String email);
 }

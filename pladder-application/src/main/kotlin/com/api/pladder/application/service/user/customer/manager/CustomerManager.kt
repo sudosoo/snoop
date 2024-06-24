@@ -1,11 +1,11 @@
 package com.api.pladder.application.service.user.customer.manager
 
+import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper
 import com.api.pladder.application.dto.user.customer.mapper.CustomerDtoMapper.updateInfo
-import com.api.pladder.application.common.jpa.JpaService
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.user.CustomerRepository
@@ -23,15 +23,14 @@ class CustomerManager(
         return save(customer)
     }
 
-    fun updateInfo(requestUserId :String, request: UpdateInfoUserReq): Customer {
-        val customer = findById(UUID.fromString(requestUserId))
+    fun updateInfo(requestUserId :UUID, request: UpdateInfoUserReq): Customer {
+        val customer = findById(requestUserId)
         updateInfo(customer,request)
         return save(customer)
     }
 
-    fun updatePasswd(request: UpdatePasswdUserReq): Customer {
-        val customer = customerRepository.findByNickNameAndPasswd(request.nickName,request.passwd)
-            .orElseThrow({throw Exception("존재하지 않는 회원 입니다")})
+    fun updatePasswd(requestId :UUID , request: UpdatePasswdUserReq): Customer {
+        val customer = findById(requestId)
         customer.updatePasswd(request.reqUpdatePasswd)
         return save(customer)
     }
@@ -52,8 +51,8 @@ class CustomerManager(
         return str.toString()
     }
 
-    fun withdrawn(reqId: String) {
-        deleteById(UUID.fromString(reqId))
+    fun withdrawn(reqId: UUID) {
+        deleteById(reqId)
     }
 
 }

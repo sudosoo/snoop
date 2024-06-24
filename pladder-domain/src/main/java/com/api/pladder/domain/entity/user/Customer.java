@@ -20,7 +20,7 @@ public class Customer extends BaseEntity implements User {
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID customerId;
     @Column(unique = true)
-    private String nickName;
+    private String nickname;
     private String passwd;
     private String phoneNumber;
     //TODO 간편로그인 추후 예정
@@ -28,9 +28,9 @@ public class Customer extends BaseEntity implements User {
     //private AuthChannel authChannel = AuthChannel.LOCAL;
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
 
-     public Customer(String nickName, String passwd) {
+     public Customer(String nickname, String passwd) {
         this.passwd = passwd;
-        this.nickName = nickName;
+        this.nickname = nickname;
     }
 
     public void updateInfo(String phoneNumber) {
@@ -46,12 +46,12 @@ public class Customer extends BaseEntity implements User {
         this.status = CustomerStatus.CERTIFIED;
     }
 
-    public static Customer testEntity(UUID id , String nickName, String passwd){
-        return new Customer(id , nickName, passwd);
+    public static Customer testEntity(UUID id , String nickname, String passwd){
+        return new Customer(id , nickname, passwd);
     }
-    private Customer(UUID customerId, String nickName, String passwd) {
+    private Customer(UUID customerId, String nickname, String passwd) {
         this.customerId = customerId;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.passwd = passwd;
     }
 }

@@ -11,6 +11,7 @@ import com.api.pladder.application.service.user.detective.manager.DetectiveManag
 import com.api.pladder.application.service.user.detective.reader.DetectiveReader
 import com.api.pladder.core.obj.AuthUserObject
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 @Service
@@ -23,16 +24,20 @@ class DetectiveService : UserService {
         return UserResp(reader.findByEmail(email))
     }
 
-    override fun withdrawn(userId: String) {
-        manager.withdrawn(userId)
+    override fun withdrawn(userId: UUID) {
+        manager.deleteById(userId)
     }
 
     override fun register(request: RegisterUserReq): UserResp {
         return UserResp(manager.register(request))
     }
 
-    override fun updatePasswd(request: UpdatePasswdUserReq): UserResp {
-        return UserResp(manager.updatePasswd(request))
+    override fun updatePasswd(userId: UUID, request: UpdatePasswdUserReq): UserResp {
+        return UserResp(manager.updatePasswd(userId ,request))
+    }
+
+    override fun validUser(userId: UUID, passwd: String): Boolean {
+        return reader.findById(userId).passwd == passwd
     }
 
     fun updateInfo(requestUserId : String, request: UpdateInfoUserReq): UserResp {

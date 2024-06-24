@@ -3,7 +3,6 @@ package com.api.pladder.application.service.auth
 import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
-import com.api.pladder.application.dto.user.common.request.WithdrawnUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.common.UserService
@@ -58,11 +57,16 @@ class AuthService(
     }
 
     fun updatePasswd(request: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {
-        val convertReqPasswd = securityProvider.passwdBCryptConvert(request.passwd)
-        request.updateConvertPasswd(convertReqPasswd)
-
+        val convertReqPasswd = securityProvider.passwdBCryptConvert(request.reqUpdatePasswd)
+        request.updateConvertEncodingPasswd(convertReqPasswd)
         val userService = getUserService(authObj.userType)
-        return userService.updatePasswd(request)
+        return userService.updatePasswd(authObj.userId!!, request)
+    }
+
+    fun validUser(passwd: String, authObj: AuthUserObject) {
+        val convertReqPasswd = securityProvider.passwdBCryptConvert(passwd)
+        val userService = getUserService(authObj.userType)
+        userService.validUser(authObj.userId!!,convertReqPasswd)
     }
 
     fun signOut(){
@@ -70,9 +74,9 @@ class AuthService(
         // TODO : delete token
     }
 
-    fun withdrawn(request : WithdrawnUserReq,authObj: AuthUserObject) {
+    fun withdrawn(authObj: AuthUserObject) {
         val userService = getUserService(authObj.userType)
-        userService.withdrawn((authObj.userId).toString())
+        userService.withdrawn(authObj.userId!!)
     }
 
     private fun getUserService(userType: UserType): UserService {

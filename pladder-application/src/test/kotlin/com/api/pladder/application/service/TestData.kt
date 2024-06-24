@@ -24,13 +24,13 @@ object TestData {
     )
 
     val customerSignup = RegisterUserReq(
-        nickName = "안녕",
+        nickname = "안녕",
         passwd = "abc1q2w3e",
         userType = UserType.CUSTOMER
     )
 
     val adminSignup = RegisterUserReq(
-        nickName = "안녕",
+        nickname = "안녕",
         passwd = "abc1q2w3e",
         userType = UserType.ADMIN
     )

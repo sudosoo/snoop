@@ -13,7 +13,7 @@ object ContractDtoMapper {
         return Contract(
             company,
             customer.customerId,
-            customer.nickName,
+            customer.nickname,
             customer.phoneNumber,
             request.specialty,
             request.purpose,

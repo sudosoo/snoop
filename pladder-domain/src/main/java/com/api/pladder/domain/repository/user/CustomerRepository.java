@@ -7,5 +7,4 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerRepository extends BaseRepository<Customer, UUID> {
-    Optional<Customer> findByNickNameAndPasswd(String nickName,String passwd);
 }

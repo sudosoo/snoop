@@ -3,11 +3,12 @@ package com.api.pladder.presentation.controller.auth
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
-import com.api.pladder.application.dto.user.common.request.WithdrawnUserReq
 import com.api.pladder.application.service.auth.AuthService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.auth.ExplainRegisterUser
 import com.api.pladder.presentation.anotation.auth.ExplainUpdatePasswdUser
+import com.api.pladder.presentation.anotation.auth.ExplainValidUser
+import com.api.pladder.presentation.anotation.auth.ExplainWithdrawnUser
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -32,13 +33,16 @@ class AuthController (
         return getRespEntity(service.updatePasswd(request,getAuthReq()))
     }
 
+    @ExplainWithdrawnUser
     @DeleteMapping(value = ["/detective/user","/customer/user"])
-    fun withdrawn(request : WithdrawnUserReq){
-        service.withdrawn(request,getAuthReq())
+    fun withdrawn(){
+        service.withdrawn(getAuthReq())
     }
 
-    @GetMapping(value = ["/detective/user","/customer/user"])
-    fun findSimpleProfile(){
+    @ExplainValidUser
+    @GetMapping(value = ["/detective/confirm","/customer/confirm"])
+    fun confirmPasswd(@RequestParam passwd : String){
+        service.validUser(passwd, getAuthReq())
     }
 
 

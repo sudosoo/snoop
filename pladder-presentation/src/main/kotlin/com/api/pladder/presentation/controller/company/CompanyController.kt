@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@Tag(name = "Company", description = "회사 관련 API")
+@Tag(name = "탐정 사무소", description = "탐정 사무소 관련 API")
 @RequestMapping("/api")
 class CompanyController(
     val service: CompanyService
