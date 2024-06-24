@@ -8,9 +8,8 @@ dependencies {
     //h2
     runtimeOnly 'com.h2database:h2'
 
-
     //postgresql
-    //implementation 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     // slf4j & logback
     implementation 'org.slf4j:jcl-over-slf4j'

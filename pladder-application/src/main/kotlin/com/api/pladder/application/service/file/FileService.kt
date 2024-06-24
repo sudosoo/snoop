@@ -13,12 +13,15 @@ import com.api.pladder.core.utils.s3.ImageS3Provider
 import com.api.pladder.domain.entity.file.File
 import com.api.pladder.domain.entity.file.enums.FileExtension
 import com.api.pladder.domain.entity.file.enums.FileTargetType
+import com.api.pladder.domain.entity.file.enums.FileType
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimeConvert.convertToString
 import com.sudosoo.takeItEasy.application.common.DateTime.DateTimePattern
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.util.unit.DataSize
+import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDateTime
 import java.util.*
 
@@ -32,6 +35,7 @@ class FileService(
     @Value("\${multipart.max-upload-size}")
     private var maxFileSize: DataSize
 ){
+    @Transactional
     fun save(request: FileRequest
     ): File {
         validation(request)
@@ -68,6 +72,7 @@ class FileService(
         return "${filePrefix}${userRole}${request.type.prefix}${timestamp}.${extension}"
     }
 
+    @Transactional
     fun deleteById(id: String, authUserObject: AuthUserObject) {
         val model = reader.findById(id)
         if ((authUserObject.userType == UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
@@ -76,7 +81,7 @@ class FileService(
         s3Provider.delete(id)
         manager.deleteById(id)
     }
-
+    @Transactional(readOnly = true)
     fun findByTargetIdAndTargetType(
         targetId: UUID,
         targetType: FileTargetType,
@@ -92,6 +97,18 @@ class FileService(
                 userType = userType.toString(),
             )
         }
+    }
+
+    fun test(files: List<MultipartFile>){
+        val req = FileRequest(
+            type = FileType.PROFILE,
+            file = files[0],
+            targetId = UUID.randomUUID(),
+            targetType = FileTargetType.CONTRACT,
+            writerId = UUID.randomUUID(),
+            userType = UserType.CUSTOMER
+        )
+        save(req)
     }
 
 }

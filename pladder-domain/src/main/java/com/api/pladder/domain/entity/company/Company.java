@@ -35,7 +35,7 @@ public class Company extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Specialty.class)
-    @CollectionTable(name="Specialty", joinColumns = @JoinColumn(name="company_id"))
+    @CollectionTable(name="company_specialty", joinColumns = @JoinColumn(name="company_id"))
     private List<Specialty> specialization = new ArrayList<>();
 
     private String introduction;

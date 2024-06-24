@@ -113,7 +113,6 @@ subprojects {
 		// Assertion library
 		testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
 
-
 		// Mockk
 		testImplementation("io.mockk:mockk:1.13.5")
 

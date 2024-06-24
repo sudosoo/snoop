@@ -29,7 +29,7 @@ public class Detective extends BaseEntity implements User{
     private DetectiveStatus status = DetectiveStatus.UNVERIFIED;
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
     @ElementCollection
-    @CollectionTable(name="career", joinColumns = @JoinColumn(name="detective_id"))
+    @CollectionTable(name="detective_career", joinColumns = @JoinColumn(name="detective_id"))
     @MapKeyColumn(name="career_period")
     @Column(name = "career_description", length = 1000)
     private Map<String,String> career  = new HashMap<>();
