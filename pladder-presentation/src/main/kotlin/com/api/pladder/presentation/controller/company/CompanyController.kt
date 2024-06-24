@@ -12,10 +12,7 @@ import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -34,7 +31,7 @@ class CompanyController(
     }
 
     @ExplainGetCompanyList
-    @PostMapping(value = ["/open/company"])
+    @GetMapping(value = ["/open/company"])
     fun getList(@RequestParam(defaultValue = "0") page : Int,
                 @RequestParam(defaultValue = "10") size : Int,
     ){
@@ -42,7 +39,7 @@ class CompanyController(
     }
 
     @ExplainUpdateCompanyInfo
-    @PostMapping(value = ["/detective/company"])
+    @PutMapping(value = ["/detective/company"])
     fun updateInfo(request: UpdateCompanyInfoReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.updateInfo(

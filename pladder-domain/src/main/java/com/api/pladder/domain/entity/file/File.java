@@ -18,11 +18,15 @@ public class File {
     @Id
     @Column(updatable = false, nullable = false)
     private String fileName;
-    private UUID targetId;
+
     @Enumerated(EnumType.STRING)
     private FileTargetType targetType;
+
+    private UUID targetId;
+
     @Enumerated(EnumType.STRING)
     private FileType fileType;
+
     private UUID writerId;
 
     private File(String fileName, FileType type, UUID targetId, FileTargetType targetType,UUID writerId) {

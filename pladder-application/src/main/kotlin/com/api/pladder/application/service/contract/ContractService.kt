@@ -6,6 +6,7 @@ import com.api.pladder.application.dto.contract.request.RegisterContractContentR
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.request.RegisterSignReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
+import com.api.pladder.application.dto.contract.response.ContractSignResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.service.company.CompanyService
@@ -49,7 +50,7 @@ class ContractService (
 
     fun countStatus(request : AuthUserObject) : CountContractStatusResp {
         val contracts = reader.findAllById(request.userId!!)
-        return CountContractStatusResp().toResp(contracts)
+        return CountContractStatusResp(contracts)
     }
     fun getContractList(request : AuthUserObject,pageReq : PageRequest): List<ContractDetailResp> {
         val company = companyService.reader.getInstanceByDetectiveId(request.userId!!)
@@ -75,15 +76,25 @@ class ContractService (
     fun delete(contractId : UUID){
             manager.deleteById(contractId)
     }
-    fun uploadSign(request: RegisterSignReq,authObj: AuthUserObject){
+    fun uploadSign(request: RegisterSignReq, authObj: AuthUserObject){
         val contract = reader.findById(UUID.fromString(request.contractId))
         fileService.save(FileRequest(
             type = FileType.SIGN,
             file = request.image,
             targetId = contract.contractId,
             targetType = FileTargetType.CONTRACT,
-            writerId = authObj.userId!!
+            writerId = authObj.userId!!,
+            userType = authObj.userType
         ))
+    }
+
+    fun getSign(contractId: String): ContractSignResp {
+        val signs = fileService.findByTargetIdAndTargetType(
+            UUID.fromString(contractId),
+            FileTargetType.CONTRACT,
+            PageRequest.of(0,10)
+        )
+        return ContractSignResp(contractId,signs)
     }
 
 }

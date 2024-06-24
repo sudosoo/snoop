@@ -8,6 +8,6 @@ class RegisterSignReq (
     @Schema(description="계약서 ID")
     val contractId :String,
     @Schema(description="사인 이미지")
-    val image: MultipartFile,
+    val image: MultipartFile
 )
 

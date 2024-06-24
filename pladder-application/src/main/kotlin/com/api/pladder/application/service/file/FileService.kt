@@ -5,6 +5,7 @@ import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.file.manager.FileManager
 import com.api.pladder.application.service.file.reader.FileReader
+import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.file.FileUtils
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service
 import org.springframework.util.unit.DataSize
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.random.Random
 
 @Service
 class FileService(
@@ -40,7 +40,6 @@ class FileService(
         val model = FileDtoMapper.toEntity(request)
 
         val result = manager.save(model)
-        // save image-file
         s3Provider.upload(fileName = fileName, request.file)
 
         return result
@@ -57,15 +56,21 @@ class FileService(
 
     private fun generateFileName(request: FileRequest) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
-        val random = String.format("%02d", Random.nextInt(0, 100))
+        val userRole = when (request.userType) {
+            UserType.CUSTOMER -> "CU"
+            UserType.DETECTIVE -> "DE"
+            UserType.ADMIN -> "SU"
+            else -> throw IllegalArgumentException("Unsupported user type: ${request.userType}")
+        }
         val extension = fileUtils.getExtension(request.file.originalFilename!!)
         val filePrefix = fileUtils.getCategory(extension)
-            return "${filePrefix}${request.type.prefix}${timestamp}${random}.${extension}"
+
+        return "${filePrefix}${userRole}${request.type.prefix}${timestamp}.${extension}"
     }
 
     fun deleteById(id: String, authUserObject: AuthUserObject) {
         val model = reader.findById(id)
-        if ((authUserObject.userType == com.api.pladder.core.enums.UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
+        if ((authUserObject.userType == UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
             throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
         }
         s3Provider.delete(id)
@@ -77,12 +82,14 @@ class FileService(
         targetType: FileTargetType,
         pageRequest: PageRequest
     ): List<FileResp> {
-        val files = reader.findByTargetIdAndType(targetId, targetType,pageRequest)
+        val files = reader.findByTargetIdAndType(targetId, targetType, pageRequest)
         return files.content.map {
             val byteArray = s3Provider.downloadByFileName(it.fileName)
+            val userType = fileUtils.getUserTypeFromFileName(it.fileName)
             FileResp(
                 fileName = it.fileName,
-                byteArray = byteArray
+                byteArray = byteArray,
+                userType = userType.toString(),
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.api.pladder.application.dto.file.request
 
+import com.api.pladder.core.enums.UserType
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
 import io.swagger.v3.oas.annotations.media.Schema
@@ -16,13 +17,14 @@ class FileRequest(
                 "BU - 사업자 등록증" +
                 "EI - 증거 사진" +
                 "EO - 증거 오디오"+
-                "SN - 사인이미지")
+                "SN - 서명 이미지")
     val type : FileType,
     @Schema(description = "파일" , example = "첨부 파일")
     val file: MultipartFile,
     val targetId : UUID,
     val targetType : FileTargetType,
-    val writerId: UUID
+    val writerId: UUID,
+    val userType: UserType,
 ){
 
     lateinit var fileName : String

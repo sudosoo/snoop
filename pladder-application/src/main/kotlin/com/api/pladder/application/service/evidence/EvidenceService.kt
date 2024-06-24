@@ -33,7 +33,8 @@ class EvidenceService (
                 type=type,
                 file=file,
                 targetId=evidence.id,
-                targetType= FileTargetType.EVIDENCE)
+                targetType= FileTargetType.EVIDENCE,
+                writerId=authObj.userId!!)
             fileService.save(fileRequest)
         }
 

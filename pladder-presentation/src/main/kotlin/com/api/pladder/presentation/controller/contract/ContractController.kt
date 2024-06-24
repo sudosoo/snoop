@@ -44,7 +44,7 @@ class ContractController (
 
     @ExplainGetContract
     @GetMapping(value = ["/detective/contract/getDetail"])
-    fun getDetail(contractId : String) : ResponseEntity<BaseResp>{
+    fun getDetail(@RequestParam contractId : String) : ResponseEntity<BaseResp>{
         return getRespEntity(service.getContractDetail(getAuthReq(),contractId))
     }
 
@@ -61,10 +61,16 @@ class ContractController (
         return getRespEntity(service.updateContent(request))
     }
 
-    @ExplainUpdateContractContent
-    @PutMapping(value = ["/open/contract/uploadSign"])
-    fun uploadSign(request : RegisterSignReq) : ResponseEntity<BaseResp>{
-        return getRespEntity(service.uploadSign(request, getAuthReq()))
+    @ExplainUploadContractSign
+    @PutMapping(value = ["/customer/contract/sign","/detective/contract/sign"])
+    fun uploadSign(request: RegisterSignReq) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.uploadSign(request,getAuthReq()))
+    }
+
+    @ExplainGetContractSign
+    @GetMapping(value = ["/customer/contract/sign","/detective/contract/sign"])
+    fun getSign(@RequestParam contractId: String) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.getSign(contractId))
     }
 
 
