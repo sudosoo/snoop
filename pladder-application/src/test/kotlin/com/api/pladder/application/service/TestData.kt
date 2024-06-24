@@ -1,9 +1,9 @@
 package com.api.pladder.application.service
 
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
-import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.person.request.RegisterPersonReq
 import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
+import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.obj.AuthUserObject
@@ -11,6 +11,7 @@ import com.api.pladder.domain.entity.contract.enums.Gender
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.entity.user.enums.Specialty
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -72,7 +73,7 @@ object TestData {
      * company
      */
     val companyReq = RegisterCompanyReq(
-        companyName = "PLADDER",
+        name = "PLADDER",
         phoneNumber = "010-0000-0000",
         addr = "서울시 강남구 서초동",
         specialization = listOf(
@@ -82,7 +83,7 @@ object TestData {
         introduction = "안녕하세요 실종 전문 탐정 플래더 입니다."
     )
     val companyReq2 = RegisterCompanyReq(
-        companyName = "PLADDER2",
+        name = "PLADDER2",
         phoneNumber = "010-1234-5664",
         addr = "서울시 강남구 방배동",
         specialization = listOf(
@@ -98,25 +99,22 @@ object TestData {
 
     val contract = RegisterContractReq(
         companyId= "CP100001",
-        advanceDeposit= 500000,
-        pee= 5000000,
+        specialty = Specialty.AFFAIR,
         purpose= "고소",
         requestSolution= "고소에 필요한 증거를 수집해 주세요.",
         description= "얼굴이 보이게 잘 찍어주세요."
     )
     val contract2 = RegisterContractReq(
         companyId = "CP100002",
-        advanceDeposit = 300000,
-        pee = 3000000,
-        purpose = "재산 분쟁",
+        specialty = Specialty.AFFAIR,
+        purpose = "신고",
         requestSolution = "재산 분쟁 관련 증거를 수집해 주세요.",
         description = "문서가 잘 보이게 촬영해 주세요."
     )
     val contract3 = RegisterContractReq(
         companyId = "CP100003",
-        advanceDeposit = 700000,
-        pee = 7000000,
-        purpose = "사기",
+        specialty = Specialty.FRAUD,
+        purpose = "고소",
         requestSolution = "사기 관련 증거를 수집해 주세요.",
         description = "대화 내용이 잘 들리게 녹음해 주세요."
     )
@@ -126,26 +124,20 @@ object TestData {
      */
     val contractContent1 = RegisterContractContentReq(
         contractId = "CT100001",
-        content = "이 계약서는 고소 사건에 대한 것입니다.",
-        contractField = Specialty.AFFAIR,
         incidentLocation = "서울시 강남구",
-        incidentTime = "2024-06-01 14:00:00"
+        incidentTime = LocalDateTime.parse("2024-06-01 14:00")
     )
 
 
     val contractContent2 = RegisterContractContentReq(
         contractId = "CT100002",
-        content = "이 계약서는 재산 분쟁 사건에 대한 것입니다.",
-        contractField = Specialty.INDUSTRY,
         incidentLocation = "부산시 해운대구",
-        incidentTime = "2024-06-02 15:30:00"
+        incidentTime = LocalDateTime.parse("2024-06-02 15:30")
     )
     val contractContent3 = RegisterContractContentReq(
         contractId = "CT100003",
-        content = "이 계약서는 사기 사건에 대한 것입니다.",
-        contractField = Specialty.FRAUD,
         incidentLocation = "대전시 서구",
-        incidentTime = "2024-06-03 10:00:00"
+        incidentTime = LocalDateTime.parse("2024-06-03 10:00")
     )
 
     /**

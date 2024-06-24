@@ -9,7 +9,7 @@ class RegisterContractContentReq (
     var contractId :String,
     @Schema(description="사건 장소")
     var incidentLocation: String? = null,
-    @Schema(description="사건 시간")
+    @Schema(description="사건 시간", example = "2021-08-01 12:00")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     var incidentTime : LocalDateTime ?= null
 )
