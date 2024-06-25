@@ -43,7 +43,7 @@ class ProgressHistoryController (
     fun getHistories(contractId : String,
                      @RequestParam(defaultValue = "0") page : Int,
                      ) : ResponseEntity<BaseListRespV2>{
-        return getListRespEntity(service.getHistories(contractId, PageRequest.of(page, PAGE_SIZE),getAuthReq()))
+        return getListRespEntity(service.getHistories(contractId, PageRequest.of(page, PAGE_SIZE)))
     }
 
     @ExplainDeleteProgressHistory
