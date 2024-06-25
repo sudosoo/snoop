@@ -4,15 +4,13 @@ import com.api.pladder.core.enums.UserType
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class RegisterUserReq (
-    @Schema(description="가입 이메일" , example = "aaa@naver.com")
-    val email:String? = null,
-    @Schema(description="가입 패스워드" , example = "password")
+    @Schema(description="가입 ID" , example = "탐정 ID : 이메일 , 회원 ID : 닉네임")
+    var id:String? = null,
+    @Schema(description="비밀번호" , example = "1q2w3e4r")
     var passwd:String? = null,
     @Schema(description="핸드폰번호", example = "010-0000-0000")
     var phoneNumber: String? = null,
-    @Schema(description="닉네임" , example = "뽀삐")
-    val nickname: String? = null,
-    @Schema(description = "유저 권한" , example = "User type DETECTIVE, CUSTOMER, ADMIN")
+    @Schema(description = "유저 권한" , example = "User type DETECTIVE, CUSTOMER")
     val userType: UserType
 
 ) {

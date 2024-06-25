@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
 object DetectiveDtoMapper {
 
     fun toEntity(request : RegisterUserReq) : Detective {
-        return Detective.of(request.email, request.passwd, request.phoneNumber)
+        return Detective.of(request.id, request.passwd, request.phoneNumber)
     }
     fun updateInfo(detective: Detective, request: UpdateInfoUserReq) {
         return detective.updateInfo(request.phoneNumber)

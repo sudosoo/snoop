@@ -33,14 +33,13 @@ class ProgressHistoryController (
         return getRespEntity(service.register(request))
     }
 
-
     @ExplainUpdateProgressHistory
     @PutMapping(value = ["/detective/progress"])
     fun updateContent(request : ProgressHistoryUpdateReq) : ResponseEntity<BaseResp>{
         return getRespEntity(service.updateContent(request))
     }
 
-    @GetMapping(value = ["/open/progress"])
+    @GetMapping(value = ["/detective/progress","/customer/progress"])
     fun getHistories(contractId : String,
                      @RequestParam(defaultValue = "0") page : Int,
                      ) : ResponseEntity<BaseListRespV2>{

@@ -55,7 +55,7 @@ class AuthService(
         //TODO 토큰 어디에 넣을건지 쿠키?
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
-        return userResp()
+        return userResp
     }
 
     fun updatePasswd(request: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {

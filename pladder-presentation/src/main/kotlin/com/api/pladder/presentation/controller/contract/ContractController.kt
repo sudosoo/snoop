@@ -23,7 +23,7 @@ class ContractController (
 ) : ResponseEntityCreation, AuthDataProvider {
 
     @ExplainRegisterContract
-    @PostMapping(value = ["/detective/contract"])
+    @PostMapping(value = ["/customer/contract"])
     fun register(request: RegisterContractReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request, getAuthReq()))
     }

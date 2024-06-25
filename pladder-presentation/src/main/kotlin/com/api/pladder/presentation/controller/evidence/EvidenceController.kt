@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.*
 
 @Tag(name = "증거 목록", description ="증거 목록 첨부 관련 API")
 @RestController
-@RequestMapping("/api/detective/evidence")
+@RequestMapping("/api")
 class EvidenceController (
     val service : EvidenceService
 ) : AuthDataProvider, ResponseEntityCreation {
 
-    @PostMapping(value = [])
+    @PostMapping(value = ["/detective/evidence"])
     @ExplainRegisterEvidence
     fun register(request : RegisterEvidenceReq) : ResponseEntity<BaseResp> {
         return getRespEntity(service.register(request, getAuthReq()))
     }
 
-    @GetMapping(value = [])
+    @GetMapping(value = ["/detective/evidence","/customer/evidence"])
     @ExplainGetEvidenceContents
     fun getContents(
         evidenceId : String,
         @RequestParam(defaultValue = "0") page : Int,
                     ) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.getContents(evidenceId, getAuthReq(),PageRequest.of(page, PAGE_SIZE)))
+        return getRespEntity(service.getContents(evidenceId,PageRequest.of(page, PAGE_SIZE)))
     }
 
 

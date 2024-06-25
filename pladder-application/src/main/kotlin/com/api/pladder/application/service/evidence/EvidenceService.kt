@@ -42,7 +42,7 @@ class EvidenceService (
         return EvidenceResp(evidence)
     }
 
-    fun getContents(evidenceId: String, authObj: AuthUserObject,pageRequest: PageRequest): EvidenceFileResp {
+    fun getContents(evidenceId: String, pageRequest: PageRequest): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
         val files = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE,pageRequest)
 
