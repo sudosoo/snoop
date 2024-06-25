@@ -104,6 +104,7 @@ class FileService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun getProfileImage(targetId: UUID, targetType: FileTargetType): FileResp {
         val file = reader.findByTargetIdAndTargetTypeAndFileType(targetId, targetType ,FileType.PROFILE)
             .orElseThrow { throw NoSuchElementException("File not found") }

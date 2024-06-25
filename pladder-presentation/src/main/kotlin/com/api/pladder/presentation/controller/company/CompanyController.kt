@@ -1,9 +1,9 @@
 package com.api.pladder.presentation.controller.company
 
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.company.request.UpdateCompanyProfileImageReq
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
+import com.api.pladder.application.dto.company.request.UpdateCompanyProfileImageReq
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
@@ -49,12 +49,21 @@ class CompanyController(
     }
 
     @ExplainRegisterProfileImage
-    @PostMapping(value = ["/detective/profileImage"])
-    fun registerImage(request: UpdateCompanyProfileImageReq): ResponseEntity<BaseResp> {
+    @PutMapping(value = ["/detective/profileImage"])
+    fun updateProfileImage(request: UpdateCompanyProfileImageReq): ResponseEntity<BaseResp> {
         return getRespEntity(
-            service.registerProfileImage(
-                request = request))
+            service.updateProfileImage(
+                request = request,
+                authObj = getAuthReq()))
     }
 
+    @ExplainRegisterProfileImage
+    @GetMapping(value = ["/detective/profileImage"])
+    fun getProfileImage(@RequestParam companyId: String): ResponseEntity<BaseResp> {
+        return getRespEntity(
+            service.getProfileImage(
+                companyId = companyId,
+                authObj = getAuthReq()))
+    }
 
 }

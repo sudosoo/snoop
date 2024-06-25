@@ -35,7 +35,7 @@ class CompanyService (
         manager.updateInfo(request)
     }
 
-    fun registerProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject){
+    fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject){
         val fileRequest = FileRequest(
             type = FileType.PROFILE,
             file = request.image,
