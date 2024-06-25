@@ -40,13 +40,6 @@ public enum FileType implements StatusProvider {
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     ),
-    COMPANY_LOGO(
-            "CL",
-            "회사로고",
-            Arrays.asList(UserType.DETECTIVE),
-            Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
-            Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
-    ),
     PROFILE(
             "PR",
             "프로필사진",

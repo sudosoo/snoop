@@ -6,9 +6,9 @@ import com.api.pladder.application.dto.contract.request.RegisterContractContentR
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.request.RegisterSignReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
-import com.api.pladder.application.dto.contract.response.ContractSignResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.dto.file.request.FileRequest
+import com.api.pladder.application.dto.file.response.SignResp
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.application.service.contract.manager.ContractManager
 import com.api.pladder.application.service.contract.reader.ContractReader
@@ -17,6 +17,7 @@ import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
+import com.api.pladder.core.utils.file.FileUtils
 import com.api.pladder.domain.entity.contract.Contract
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
@@ -30,7 +31,8 @@ class ContractService (
     private val reader: ContractReader,
     private val companyService: CompanyService,
     private val customerService: CustomerService,
-    private val fileService: FileService
+    private val fileService: FileService,
+    private val fileUtils : FileUtils
 ) {
     fun register(request : RegisterContractReq , authObj : AuthUserObject){
         if (authObj.userType == UserType.DETECTIVE){
@@ -73,9 +75,10 @@ class ContractService (
         manager.updateContent(request)
     }
 
-    fun delete(contractId : UUID){
-            manager.deleteById(contractId)
+    fun delete(contractId : String){
+        manager.deleteById(UUID.fromString(contractId))
     }
+
     fun uploadSign(request: RegisterSignReq, authObj: AuthUserObject){
         val contract = reader.findById(UUID.fromString(request.contractId))
         fileService.save(FileRequest(
@@ -88,13 +91,17 @@ class ContractService (
         ))
     }
 
-    fun getSign(contractId: String): ContractSignResp {
-        val signs = fileService.findByTargetIdAndTargetType(
+    fun getSign(contractId: String): List<SignResp> {
+        val fileResps = fileService.getPagedFileRespByTargetIdAndTargetType(
             UUID.fromString(contractId),
             FileTargetType.CONTRACT,
             PageRequest.of(0,10)
         )
-        return ContractSignResp(contractId,signs)
+
+        return fileResps.map{
+            val userType = fileUtils.getUserTypeFromFileName(it.fileName)
+            SignResp(it,userType.toString())
+        }
     }
 
 }

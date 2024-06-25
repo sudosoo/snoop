@@ -4,7 +4,6 @@ import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
-import com.api.pladder.application.dto.user.common.response.UserResp
 import com.api.pladder.application.service.auth.AuthService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.presentation.anotation.auth.*
@@ -29,8 +28,8 @@ class AuthController (
 
     @ExplainSignIn
     @GetMapping(value = ["/detective/signIn","/customer/signIn"])
-    fun signIn(request : SignInUserReq, servletResp: HttpServletResponse) : UserResp {
-        return service.signIn(request, servletResp)
+    fun signIn(request : SignInUserReq, servletResp: HttpServletResponse) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.signIn(request, servletResp))
     }
 
     @ExplainUpdatePasswdUser
@@ -41,14 +40,14 @@ class AuthController (
 
     @ExplainWithdrawnUser
     @DeleteMapping(value = ["/detective/user","/customer/user"])
-    fun withdrawn(){
-        service.withdrawn(getAuthReq())
+    fun withdrawn() : ResponseEntity<BaseResp>{
+        return getRespEntity(service.withdrawn(getAuthReq()))
     }
 
     @ExplainValidUser
     @GetMapping(value = ["/detective/confirm","/customer/confirm"])
-    fun confirmPasswd(@RequestParam passwd : String){
-        service.validUser(passwd, getAuthReq())
+    fun confirmPasswd(@RequestParam passwd : String) :  ResponseEntity<BaseResp>{
+        return getRespEntity(service.validUser(passwd, getAuthReq()))
     }
 
 

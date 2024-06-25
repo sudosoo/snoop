@@ -10,7 +10,6 @@ import java.util.*
 class FileRequest(
     @Schema(description = "이미지 종류" ,
         example = "PR - 프로필 , " +
-                "CL - 회사로고 , " +
                 "ID - 신분증 , " +
                 "LR - 지자체 신고증 , " +
                 "DL - 탐정 면허증 , " +

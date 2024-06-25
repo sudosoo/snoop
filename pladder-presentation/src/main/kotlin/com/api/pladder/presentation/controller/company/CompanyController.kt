@@ -1,6 +1,7 @@
 package com.api.pladder.presentation.controller.company
 
 import com.api.pladder.application.dto.common.BaseResp
+import com.api.pladder.application.dto.company.request.UpdateCompanyProfileImageReq
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
 import com.api.pladder.application.service.company.CompanyService
@@ -8,6 +9,7 @@ import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
 import com.api.pladder.presentation.anotation.company.ExplainGetCompanyList
 import com.api.pladder.presentation.anotation.company.ExplainRegisterCompany
+import com.api.pladder.presentation.anotation.company.ExplainRegisterProfileImage
 import com.api.pladder.presentation.anotation.company.ExplainUpdateCompanyInfo
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -45,5 +47,14 @@ class CompanyController(
             service.updateInfo(
                 request = request))
     }
+
+    @ExplainRegisterProfileImage
+    @PostMapping(value = ["/detective/profileImage"])
+    fun registerImage(request: UpdateCompanyProfileImageReq): ResponseEntity<BaseResp> {
+        return getRespEntity(
+            service.registerProfileImage(
+                request = request))
+    }
+
 
 }

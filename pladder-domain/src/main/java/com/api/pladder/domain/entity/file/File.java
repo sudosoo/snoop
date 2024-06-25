@@ -14,15 +14,18 @@ import java.util.UUID;
 @Getter
 @Entity(name = "pd_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(indexes = {
+        @Index(name = "idx_target_type_id_file_type", columnList = "targetType, targetId, fileType")
+})
 public class File {
     @Id
     @Column(updatable = false, nullable = false)
     private String fileName;
 
+    private UUID targetId;
+
     @Enumerated(EnumType.STRING)
     private FileTargetType targetType;
-
-    private UUID targetId;
 
     @Enumerated(EnumType.STRING)
     private FileType fileType;

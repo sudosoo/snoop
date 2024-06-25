@@ -44,7 +44,7 @@ class EvidenceService (
 
     fun getContents(evidenceId: String, pageRequest: PageRequest): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
-        val files = fileService.findByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE,pageRequest)
+        val files = fileService.getPagedFileRespByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE,pageRequest)
 
         return EvidenceFileResp(evidence, files)
     }

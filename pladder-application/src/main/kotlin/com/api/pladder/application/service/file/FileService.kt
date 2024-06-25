@@ -6,8 +6,6 @@ import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.file.manager.FileManager
 import com.api.pladder.application.service.file.reader.FileReader
 import com.api.pladder.core.enums.UserType
-import com.api.pladder.core.exception.AccessDeniedException
-import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.core.utils.file.FileUtils
 import com.api.pladder.core.utils.s3.ImageS3Provider
 import com.api.pladder.domain.entity.file.File
@@ -39,7 +37,7 @@ class FileService(
     fun save(request: FileRequest
     ): File {
         validation(request)
-        val fileName = generateFileName(request)
+        val fileName = generateName(request)
         request.fileName = fileName
         val model = FileDtoMapper.toEntity(request)
 
@@ -58,7 +56,7 @@ class FileService(
         }
     }
 
-    private fun generateFileName(request: FileRequest) : String{
+    private fun generateName(request: FileRequest) : String{
         val timestamp = convertToString(LocalDateTime.now(), DateTimePattern.COMPACT)
         val userRole = when (request.userType) {
             UserType.CUSTOMER -> "CU"
@@ -73,30 +71,48 @@ class FileService(
     }
 
     @Transactional
-    fun deleteById(id: String, authUserObject: AuthUserObject) {
-        val model = reader.findById(id)
-        if ((authUserObject.userType == UserType.CUSTOMER) && (model.targetId != authUserObject.userId)){
-            throw AccessDeniedException("해당 이미지를 삭제할 권한이 없습니다.")
-        }
-        s3Provider.delete(id)
-        manager.deleteById(id)
+    fun deleteById(fileName: String) {
+        s3Provider.delete(fileName)
+        manager.deleteById(fileName)
     }
+
     @Transactional(readOnly = true)
-    fun findByTargetIdAndTargetType(
+    fun getPagedFileRespByTargetIdAndTargetType(
         targetId: UUID,
         targetType: FileTargetType,
         pageRequest: PageRequest
     ): List<FileResp> {
-        val files = reader.findByTargetIdAndType(targetId, targetType, pageRequest)
+        val files = reader.findByTargetIdAndTargetType(targetId, targetType, pageRequest)
         return files.content.map {
             val byteArray = s3Provider.downloadByFileName(it.fileName)
-            val userType = fileUtils.getUserTypeFromFileName(it.fileName)
             FileResp(
                 fileName = it.fileName,
                 byteArray = byteArray,
-                userType = userType.toString(),
             )
         }
+    }
+
+    @Transactional
+    fun updateProfileImage(request: FileRequest) {
+        reader.findByTargetIdAndTargetTypeAndFileType(request.targetId, request.targetType, request.type).ifPresentOrElse(
+            //있으면 삭제 후 새로운 이미지 저장
+            { image ->
+                deleteById(image.fileName)
+                save(request)
+            },
+            { save(request) }
+        )
+    }
+
+    fun getProfileImage(targetId: UUID, targetType: FileTargetType): FileResp {
+        val file = reader.findByTargetIdAndTargetTypeAndFileType(targetId, targetType ,FileType.PROFILE)
+            .orElseThrow { throw NoSuchElementException("File not found") }
+        val byteArray = s3Provider.downloadByFileName(file.fileName)
+
+        return FileResp(
+            fileName = file.fileName,
+            byteArray = byteArray,
+        )
     }
 
     fun test(files: List<MultipartFile>){

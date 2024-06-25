@@ -54,11 +54,16 @@ class ContractController (
         return getRespEntity(service.apply(request))
     }
 
-
     @ExplainUpdateContractContent
     @PutMapping(value = ["/detective/contract/updateContent"])
     fun updateContent(request : RegisterContractContentReq) : ResponseEntity<BaseResp>{
         return getRespEntity(service.updateContent(request))
+    }
+
+    @ExplainUpdateContractContent
+    @DeleteMapping(value = ["/detective/contract/delete"])
+    fun delete(@RequestParam contractId : String) : ResponseEntity<BaseResp>{
+        return getRespEntity(service.delete(contractId))
     }
 
     @ExplainUploadContractSign

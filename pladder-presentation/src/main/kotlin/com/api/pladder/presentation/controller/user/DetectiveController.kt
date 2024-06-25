@@ -27,12 +27,5 @@ class DetectiveController (
             authObj = getAuthReq()))
     }
 
-    @ExplainRegisterDetectiveCareer
-    @PostMapping(value = ["/profile"])
-    fun registerProfile(@RequestBody request : List<RegisterDetectiveCareerReq>) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.registerCareer(
-            request = request,
-            authObj = getAuthReq()))
-    }
 
 }

@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class FileUtils {
+class
+FileUtils {
     fun getExtension(fileName: String): String {
         return fileName.substring(fileName.lastIndexOf(".") + 1)
     }
