@@ -14,7 +14,7 @@ class AdminService :UserService {
         throw AccessDeniedException("관리자는 사용할 수 없는 기능 입니다.")
     }
 
-    override fun findByEmail(email: String): UserResp {
+    override fun signInFromId(email: String): UserResp {
         throw AccessDeniedException("관리자는 사용할 수 없는 기능 입니다.")
     }
 

@@ -7,7 +7,7 @@ import java.util.*
 
 interface UserService{
     fun register(request: RegisterUserReq): UserResp
-    fun findByEmail(email: String): UserResp
+    fun signInFromId(id: String): UserResp
     fun withdrawn(userId: UUID)
     fun updatePasswd(userId: UUID, request: UpdatePasswdUserReq): UserResp
     fun validUser(userId: UUID, passwd:String) :Boolean

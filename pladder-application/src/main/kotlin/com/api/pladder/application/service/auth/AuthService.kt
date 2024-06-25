@@ -33,27 +33,29 @@ class AuthService(
         return userService.register(request)
     }
 
-    fun signIn(request: SignInUserReq,servletResp: HttpServletResponse) : UserResp {
+    fun signIn(request: SignInUserReq, servletResp: HttpServletResponse) : UserResp {
         val convertPasswd= securityProvider.passwdBCryptConvert(request.passwd!!)
         request.updateConvertPasswd(convertPasswd)
 
         val userService = getUserService(request.userType)
-             // login
-        val userResp = userService.findByEmail(request.email!!)
+        // login
 
-            //TODO Spring security 기능 추가 필요
-    //        val authorities = mutableListOf<GrantedAuthority>()
-    //        when(request.userType){
-    //            ADMIN -> authorities.add(SimpleGrantedAuthority("ADMIN"))
-    //            BOSS -> authorities.add(SimpleGrantedAuthority("BOSS"))
-    //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
-    //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
+        val userResp = userService.signInFromId(request.id)
         val authObj = AuthUserObject(userResp.userId, request.userType)
-        val accessToken: String = jwtUtil.generate(authObj)
+
+
+        //TODO Spring security 기능 추가 필요
+        //        val authorities = mutableListOf<GrantedAuthority>()
+        //        when(request.userType){
+        //            ADMIN -> authorities.add(SimpleGrantedAuthority("ADMIN"))
+        //            DETECTIVE -> authorities.add(SimpleGrantedAuthority("BOSS"))
+        //            CUSTOMER -> authorities.add(SimpleGrantedAuthority("CUSTOMER"))
+        //            UNKNOWN -> authorities.add(SimpleGrantedAuthority("OPEN")) }
+        val accessToken = jwtUtil.generate(authObj)
         //TODO 토큰 어디에 넣을건지 쿠키?
         //servletResp.addCookie(cookie)
         servletResp.addHeader(AUTHORIZATION, accessToken)
-        return userResp
+        return userResp()
     }
 
     fun updatePasswd(request: UpdatePasswdUserReq, authObj:AuthUserObject) : UserResp {

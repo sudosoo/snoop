@@ -7,6 +7,7 @@ import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.request.RegisterSignReq
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
 import com.api.pladder.presentation.anotation.contract.*
 import com.api.pladder.presentation.common.ResponseEntityCreation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -36,10 +37,9 @@ class ContractController (
     @ExplainGetContractList
     @GetMapping(value = ["/detective/contract/getList"])
     fun getList(
-        @RequestParam(defaultValue = "0") page : Int,
-        @RequestParam(defaultValue = "10") size : Int,
+        @RequestParam(defaultValue = "0") page : Int
     ) : ResponseEntity<BaseResp>{
-        return getRespEntity(service.getContractList(getAuthReq(), PageRequest.of(page, size)))
+        return getRespEntity(service.getContractList(getAuthReq(), PageRequest.of(page, PAGE_SIZE)))
     }
 
     @ExplainGetContract

@@ -15,8 +15,8 @@ class CustomerService(
     val manager: CustomerManager,
     val reader: CustomerReader
 ) : UserService {
-    override fun findByEmail(email: String): UserResp {
-        return UserResp(reader.findByEmail(email))
+    override fun signInFromId(nickname: String): UserResp {
+        return UserResp(reader.findByNickname(nickname))
     }
 
     override fun withdrawn(userId: UUID) {
@@ -39,5 +39,8 @@ class CustomerService(
         return reader.findById(userId).passwd == passwd
     }
 
+    fun findByNickname(nickname: String): UserResp {
+        return UserResp(reader.findByNickname(nickname))
+    }
 
 }

@@ -20,8 +20,8 @@ class DetectiveService : UserService {
     private lateinit var manager: DetectiveManager
     private lateinit var reader: DetectiveReader
 
-    override fun findByEmail(email: String): UserResp {
-        return UserResp(reader.findByEmail(email))
+    override fun signInFromId(id: String): UserResp {
+        return UserResp(reader.findByEmail(id))
     }
 
     override fun withdrawn(userId: UUID) {

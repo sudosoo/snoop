@@ -5,6 +5,7 @@ import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
 import com.api.pladder.application.service.company.CompanyService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
 import com.api.pladder.presentation.anotation.company.ExplainGetCompanyList
 import com.api.pladder.presentation.anotation.company.ExplainRegisterCompany
 import com.api.pladder.presentation.anotation.company.ExplainUpdateCompanyInfo
@@ -33,9 +34,8 @@ class CompanyController(
     @ExplainGetCompanyList
     @GetMapping(value = ["/open/company"])
     fun getList(@RequestParam(defaultValue = "0") page : Int,
-                @RequestParam(defaultValue = "10") size : Int,
     ){
-        service.getList(PageRequest.of(page, size))
+        service.getList(PageRequest.of(page, PAGE_SIZE))
     }
 
     @ExplainUpdateCompanyInfo

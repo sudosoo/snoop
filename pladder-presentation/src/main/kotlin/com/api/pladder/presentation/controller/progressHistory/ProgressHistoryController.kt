@@ -6,6 +6,7 @@ import com.api.pladder.application.dto.progressHistory.request.ProgressContentRe
 import com.api.pladder.application.dto.progressHistory.request.ProgressHistoryUpdateReq
 import com.api.pladder.application.service.progressHistory.ProgressHistoryService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
 import com.api.pladder.presentation.anotation.progressHistory.ExplainDeleteProgressHistory
 import com.api.pladder.presentation.anotation.progressHistory.ExplainRegisterProgressHistory
 import com.api.pladder.presentation.anotation.progressHistory.ExplainUpdateProgressHistory
@@ -22,7 +23,7 @@ class ProgressHistoryController (
     val service : ProgressHistoryService
 ) : AuthDataProvider, ResponseEntityCreation {
 
-    val PAGE_SIZE = 10
+
     @ExplainRegisterProgressHistory
     @PostMapping(value = ["/detective/progress"])
     fun register(

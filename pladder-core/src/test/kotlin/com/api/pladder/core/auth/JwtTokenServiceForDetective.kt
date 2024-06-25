@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
+@SpringBootTest(classes = [JwtTokenServiceForDetective::class])
 @ActiveProfiles("local")
 class JwtTokenServiceForDetective(
     @Value("\${jwt.secret}")

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "탐정전용", description ="탐정전용API")
+@Tag(name = "탐정전용", description ="탐정 전용 API")
 @RestController
 @RequestMapping("/api/detective")
 class DetectiveController (

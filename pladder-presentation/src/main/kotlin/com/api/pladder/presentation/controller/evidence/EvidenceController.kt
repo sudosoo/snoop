@@ -4,6 +4,7 @@ import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
 import com.api.pladder.application.service.evidence.EvidenceService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
+import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
 import com.api.pladder.presentation.anotation.evidence.ExplainGetEvidenceContents
 import com.api.pladder.presentation.anotation.evidence.ExplainRegisterEvidence
 import com.api.pladder.presentation.common.ResponseEntityCreation
@@ -19,7 +20,6 @@ class EvidenceController (
     val service : EvidenceService
 ) : AuthDataProvider, ResponseEntityCreation {
 
-
     @PostMapping(value = [])
     @ExplainRegisterEvidence
     fun register(request : RegisterEvidenceReq) : ResponseEntity<BaseResp> {
@@ -31,9 +31,8 @@ class EvidenceController (
     fun getContents(
         evidenceId : String,
         @RequestParam(defaultValue = "0") page : Int,
-        @RequestParam(defaultValue = "10") size : Int,
                     ) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.getContents(evidenceId, getAuthReq(),PageRequest.of(page, size)))
+        return getRespEntity(service.getContents(evidenceId, getAuthReq(),PageRequest.of(page, PAGE_SIZE)))
     }
 
 

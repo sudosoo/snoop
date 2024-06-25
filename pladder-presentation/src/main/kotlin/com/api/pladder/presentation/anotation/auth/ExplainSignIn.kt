@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 
 @Operation(
-    summary = "(IUS007) 회원 유효성 검증",
-    description = "비밀번호를 입력하여 로그인 한 회원인지 한번 더 확인합니다./회원탈퇴 , 비밀번호 변경시 사용됩니다."
+    summary = "(IUS007) 사용자 로그인",
+    description = "탐정 ID 는 이메일 , 회원 ID 는 닉네임을 넣어야 합니다."
 )
 @ApiResponse(
     responseCode = "200",
@@ -22,4 +22,4 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 }
                 """)])]
 )
-annotation class ExplainValidUser()
+annotation class ExplainSignIn()

@@ -14,8 +14,10 @@ class CustomerReader(
 
     override var jpaRepository: BaseRepository<Customer, UUID> = repository
 
-    fun findByEmail(email: String): Customer {
-        return findByEmail(email)
+    fun findByNickname(nickname: String): Customer {
+        return repository.findByNickname(nickname)
+            .orElseThrow { throw NoSuchElementException("해당 닉네임을 가진 유저가 없습니다.") }
     }
+
 
 }
