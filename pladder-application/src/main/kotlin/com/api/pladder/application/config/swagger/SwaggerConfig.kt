@@ -30,7 +30,6 @@ class SwaggerConfig {
             .group("open-resource")
             .pathsToMatch("/api/open/**")
             .build()
-
     @Bean
     fun bossResourceApi(): GroupedOpenApi =
         GroupedOpenApi.builder()

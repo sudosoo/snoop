@@ -5,13 +5,18 @@ import com.api.pladder.core.utils.jwt.JwtUtil
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
 @ActiveProfiles("local")
-class JwtTokenServiceForCustomer : BehaviorSpec({
-    val service = JwtUtil()
+class JwtTokenServiceForCustomer(
+    @Value("\${jwt.secret}")
+    private val secret: String
+) : BehaviorSpec({
+    val service = JwtUtil(secret = secret )
+
 
     Given("Customer token 테스트") {
         When("토큰 생성 요청을 하면") {
