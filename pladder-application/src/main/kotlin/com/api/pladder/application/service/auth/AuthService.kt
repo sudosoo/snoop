@@ -38,11 +38,10 @@ class AuthService(
         request.updateConvertPasswd(convertPasswd)
 
         val userService = getUserService(request.userType)
+
         // login
-
-        val userResp = userService.signInFromId(request.id)
+        val userResp = userService.signInFromReq(request)
         val authObj = AuthUserObject(userResp.userId, request.userType)
-
 
         //TODO Spring security 기능 추가 필요
         //        val authorities = mutableListOf<GrantedAuthority>()

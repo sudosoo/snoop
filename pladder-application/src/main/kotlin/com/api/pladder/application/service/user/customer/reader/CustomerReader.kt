@@ -10,12 +10,12 @@ import java.util.*
 @Component
 class CustomerReader(
     private val repository: CustomerRepository
-): JpaService<Customer, UUID> {
+) : JpaService<Customer, UUID> {
 
     override var jpaRepository: BaseRepository<Customer, UUID> = repository
 
-    fun findByNickname(nickname: String): Customer {
-        return repository.findByNickname(nickname)
+    fun findByNicknameAndPasswd(nickname: String, passwd: String): Customer {
+        return repository.findByNicknameAndPasswd(nickname, passwd)
             .orElseThrow { throw NoSuchElementException("해당 닉네임을 가진 유저가 없습니다.") }
     }
 

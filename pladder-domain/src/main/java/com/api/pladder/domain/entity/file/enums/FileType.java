@@ -64,7 +64,7 @@ public enum FileType{
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
-            );
+            ),
     ;
 
     public final String prefix;
@@ -90,8 +90,18 @@ public enum FileType{
 
     public void checkSelectPermission(UserType userType) throws AccessDeniedException {
         if (!selectPermissions.contains(userType)) {
-            throw new AccessDeniedException("해당 파일을 조회할 권한이 없습니다.");
+            throw new AccessDeniedException("해당 파일을 조회 할 권한이 없습니다.");
         }
     }
 
+    public void checkCreatePermission(UserType userType) throws AccessDeniedException {
+        if (!createPermissions.contains(userType)) {
+            throw new AccessDeniedException("해당 파일을 생성 할 권한이 없습니다.");
+        }
+    }
+    public void checkDeletePermission(UserType userType) throws AccessDeniedException {
+        if (!deletePermissions.contains(userType)) {
+            throw new AccessDeniedException("해당 파일을 삭제 할 권한이 없습니다.");
+        }
+    }
 }

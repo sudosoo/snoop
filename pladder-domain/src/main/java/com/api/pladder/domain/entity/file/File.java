@@ -34,7 +34,7 @@ public class File extends BaseEntity {
 
     private UUID writerId;
 
-    private File(String fileName, FileType type, UUID targetId, FileTargetType targetType,UUID writerId) {
+    public File(String fileName, FileType type, UUID targetId, FileTargetType targetType,UUID writerId) {
         this.fileName = fileName;
         this.fileType = type;
         this.targetId = targetId;
@@ -42,9 +42,6 @@ public class File extends BaseEntity {
         this.writerId = writerId;
     }
 
-    public static File of(String id, FileType type, UUID targetId,FileTargetType targetType,UUID writerId) {
-        return new File(id, type, targetId, targetType,writerId);
-    }
 
     public FileExtension getExtension() throws NotFoundException {
         int dot = this.fileName.lastIndexOf('.');

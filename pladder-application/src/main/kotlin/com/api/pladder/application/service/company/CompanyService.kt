@@ -23,8 +23,8 @@ class CompanyService (
     val reader : CompanyReader,
     val fileService: FileService
 ){
-    fun register(request: RegisterCompanyReq, authObj: AuthUserObject) {
-        manager.register(request,authObj.userId!!)
+    fun register(request: RegisterCompanyReq) {
+        manager.register(request)
     }
 
     fun getList(pageReq: PageRequest) : Page<Company> {
@@ -47,11 +47,11 @@ class CompanyService (
             targetType = FileTargetType.COMPANY,
             writerId = authObj.userId!!,
             userType = authObj.userType)
-        fileService.updateProfileImage(fileRequest)
+        fileService.updateOrCreateProfileImage(fileRequest)
     }
 
     fun getProfileImage(companyId:String, authObj: AuthUserObject) : FileResp {
-        return fileService.getProfileImage(UUID.fromString(companyId), FileTargetType.COMPANY)
+        return fileService.getProfileImage(UUID.fromString(companyId), FileTargetType.COMPANY,authObj.userType)
     }
     
     

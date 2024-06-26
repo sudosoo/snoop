@@ -42,6 +42,8 @@ class FileService(
         val model = FileDtoMapper.toEntity(request)
 
         val result = manager.save(model)
+
+        result.fileType.checkCreatePermission(request.userType)
         s3Provider.upload(fileName = fileName, request.file)
 
         return result
@@ -71,7 +73,10 @@ class FileService(
     }
 
     @Transactional
-    fun deleteById(fileName: String) {
+    fun deleteById(fileName: String, requestUserType: UserType) {
+        val file = reader.findById(fileName)
+        file.fileType.checkDeletePermission(requestUserType)
+
         s3Provider.delete(fileName)
         manager.deleteById(fileName)
     }
@@ -80,10 +85,13 @@ class FileService(
     fun getPagedFileRespByTargetIdAndTargetType(
         targetId: UUID,
         targetType: FileTargetType,
-        pageRequest: PageRequest
+        pageRequest: PageRequest,
+        userType: UserType
     ): List<FileResp> {
         val files = reader.findByTargetIdAndTargetType(targetId, targetType, pageRequest)
+
         return files.content.map {
+            it.fileType.checkSelectPermission(userType)
             val byteArray = s3Provider.download(it.fileName)
             FileResp(
                 fileName = it.fileName,
@@ -93,11 +101,11 @@ class FileService(
     }
 
     @Transactional
-    fun updateProfileImage(request: FileRequest) {
+    fun updateOrCreateProfileImage(request: FileRequest) {
         reader.findByTargetIdAndTargetTypeAndFileType(request.targetId, request.targetType, request.type).ifPresentOrElse(
             //있으면 삭제 후 새로운 이미지 저장
             { image ->
-                deleteById(image.fileName)
+                deleteById(image.fileName,request.userType)
                 save(request)
             },
             { save(request) }
@@ -105,9 +113,12 @@ class FileService(
     }
 
     @Transactional(readOnly = true)
-    fun getProfileImage(targetId: UUID, targetType: FileTargetType): FileResp {
+    fun getProfileImage(targetId: UUID, targetType: FileTargetType, userType: UserType): FileResp {
         val file = reader.findByTargetIdAndTargetTypeAndFileType(targetId, targetType ,FileType.PROFILE)
-            .orElseThrow { throw NoSuchElementException("File not found") }
+            .orElseThrow { throw NoSuchElementException("File not found")}
+
+        file.fileType.checkSelectPermission(userType)
+
         val byteArray = s3Provider.download(file.fileName)
 
         return FileResp(

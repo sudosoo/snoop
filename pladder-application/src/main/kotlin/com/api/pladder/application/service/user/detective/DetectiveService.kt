@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.user.detective
 
+import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
@@ -20,8 +21,8 @@ class DetectiveService : UserService {
     private lateinit var manager: DetectiveManager
     private lateinit var reader: DetectiveReader
 
-    override fun signInFromId(id: String): UserResp {
-        return UserResp(reader.findByEmail(id))
+    override fun signInFromReq(request: SignInUserReq): UserResp {
+        return UserResp(reader.findByEmailAndPasswd(request.id,request.passwd))
     }
 
     override fun withdrawn(userId: UUID) {

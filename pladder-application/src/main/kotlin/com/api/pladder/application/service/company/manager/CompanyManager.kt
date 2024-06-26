@@ -16,8 +16,8 @@ class CompanyManager (
 ): JpaService<Company, UUID> {
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 
-    fun register(request: RegisterCompanyReq, detectiveId: UUID): Company {
-        val company = CompanyDtoMapper.toEntity(request,detectiveId)
+    fun register(request: RegisterCompanyReq): Company {
+        val company = CompanyDtoMapper.toEntity(request)
         return save(company)
     }
 

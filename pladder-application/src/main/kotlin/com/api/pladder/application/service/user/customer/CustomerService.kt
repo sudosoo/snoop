@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.user.customer
 
+import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdateInfoUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
@@ -15,8 +16,8 @@ class CustomerService(
     val manager: CustomerManager,
     val reader: CustomerReader
 ) : UserService {
-    override fun signInFromId(id: String): UserResp {
-        return UserResp(reader.findByNickname(id))
+    override fun signInFromReq(request: SignInUserReq): UserResp {
+        return UserResp(reader.findByNicknameAndPasswd(request.id,request.passwd))
     }
 
     override fun withdrawn(userId: UUID) {
@@ -39,8 +40,5 @@ class CustomerService(
         return reader.findById(userId).passwd == passwd
     }
 
-    fun findByNickname(nickname: String): UserResp {
-        return UserResp(reader.findByNickname(nickname))
-    }
 
 }

@@ -100,11 +100,12 @@ class ContractService(
         )
     }
 
-    fun getSign(contractId: String): List<SignResp> {
+    fun getSign(contractId: String, authObj: AuthUserObject): List<SignResp> {
         val fileResps = fileService.getPagedFileRespByTargetIdAndTargetType(
             UUID.fromString(contractId),
             FileTargetType.CONTRACT,
-            PageRequest.of(0, 10)
+            PageRequest.of(0, 10),
+            authObj.userType
         )
 
         return fileResps.map {

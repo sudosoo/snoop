@@ -26,8 +26,6 @@ public class Company extends BaseEntity {
     @Column(unique = true)
     private String companyName;
 
-    private UUID detectiveId;
-
     private String phoneNumber;
 
     private String address;
@@ -49,14 +47,13 @@ public class Company extends BaseEntity {
                    String address,
                    String phoneNumber ,
                    String introduction,
-                   List<Specialty> specialization,
-                   UUID detectiveId) throws InvalidRequestException {
+                   List<Specialty> specialization
+    ) throws InvalidRequestException {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
         this.specialization.addAll(specialization);
-        this.detectiveId = detectiveId;
         this.confirmStatus = ConfirmStatus.CONFIRMED;
     }
 
