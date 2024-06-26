@@ -20,7 +20,6 @@ public class ContractContent {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime incidentTime = DateUtil.INSTANCE.getDEFAULT_DATE_TIME();
 
-
     public ContractContent(String incidentLocation, LocalDateTime incidentTime) {
         this.incidentLocation = incidentLocation;
         this.incidentTime = incidentTime;

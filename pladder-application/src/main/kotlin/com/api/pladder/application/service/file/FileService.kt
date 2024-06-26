@@ -86,12 +86,10 @@ class FileService(
         targetId: UUID,
         targetType: FileTargetType,
         pageRequest: PageRequest,
-        userType: UserType
     ): List<FileResp> {
         val files = reader.findByTargetIdAndTargetType(targetId, targetType, pageRequest)
 
         return files.content.map {
-            it.fileType.checkSelectPermission(userType)
             val byteArray = s3Provider.download(it.fileName)
             FileResp(
                 fileName = it.fileName,

@@ -7,6 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AdminRepository extends BaseRepository<Admin, UUID> {
-    Optional<Admin> findByEmail(String email);
 
 }

@@ -11,6 +11,7 @@ import com.api.pladder.application.service.user.common.UserService
 import com.api.pladder.application.service.user.detective.manager.DetectiveManager
 import com.api.pladder.application.service.user.detective.reader.DetectiveReader
 import com.api.pladder.core.obj.AuthUserObject
+import com.api.pladder.domain.entity.user.Detective
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -51,5 +52,10 @@ class DetectiveService : UserService {
         manager.save(model)
         return UserResp(model)
     }
+
+    fun findById(detectiveId: UUID): Detective {
+        return reader.findById(detectiveId)
+    }
+
 
 }

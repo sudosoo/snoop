@@ -30,8 +30,7 @@ class CompanyController(
     fun register(request: RegisterCompanyReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.register(
-                request = request,
-                authObj = getAuthReq()
+                request = request
             )
         )
     }

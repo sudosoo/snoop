@@ -7,5 +7,4 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CompanyRepository extends BaseRepository<Company, UUID> {
-    Optional<Company> findByDetectiveId(UUID detectiveId);
 }

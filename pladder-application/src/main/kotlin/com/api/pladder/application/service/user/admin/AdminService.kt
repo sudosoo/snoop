@@ -1,5 +1,6 @@
 package com.api.pladder.application.service.user.admin
 
+import com.api.pladder.application.dto.auth.request.SignInUserReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.application.dto.user.common.request.UpdatePasswdUserReq
 import com.api.pladder.application.dto.user.common.response.UserResp
@@ -14,7 +15,7 @@ class AdminService :UserService {
         throw AccessDeniedException("관리자는 사용할 수 없는 기능 입니다.")
     }
 
-    override fun signInFromId(email: String): UserResp {
+    override fun signInFromReq(request: SignInUserReq): UserResp {
         throw AccessDeniedException("관리자는 사용할 수 없는 기능 입니다.")
     }
 
