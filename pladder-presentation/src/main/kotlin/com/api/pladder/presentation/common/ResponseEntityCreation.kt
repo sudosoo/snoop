@@ -18,7 +18,7 @@ interface ResponseEntityCreation {
         )
     }
 
-    fun getRespEntity(resp : Any?, errorStatus : ErrorStatus = ErrorStatus.OK): ResponseEntity<BaseResp> {
+    fun getRespEntity(resp: Any?, errorStatus: ErrorStatus = ErrorStatus.OK): ResponseEntity<BaseResp> {
         return ResponseEntity.ok(BaseResp(resp))
     }
 }

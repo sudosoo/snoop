@@ -6,9 +6,7 @@ import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
@@ -16,8 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
-
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity(name="pd_company")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Company extends BaseEntity {

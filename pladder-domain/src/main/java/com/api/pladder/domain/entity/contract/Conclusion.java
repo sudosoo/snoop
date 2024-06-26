@@ -2,14 +2,12 @@ package com.api.pladder.domain.entity.contract;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
-
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="pd_conclusion")
 public class Conclusion{

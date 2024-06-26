@@ -24,20 +24,23 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api")
 class CompanyController(
     val service: CompanyService
-): AuthDataProvider , ResponseEntityCreation {
+) : AuthDataProvider, ResponseEntityCreation {
     @ExplainRegisterCompany
     @PostMapping(value = ["/detective/company"])
-    fun register(request:RegisterCompanyReq): ResponseEntity<BaseResp> {
+    fun register(request: RegisterCompanyReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.register(
-                request = request ,
-                authObj = getAuthReq()))
+                request = request,
+                authObj = getAuthReq()
+            )
+        )
     }
 
     @ExplainGetCompanyList
     @GetMapping(value = ["/open/company"])
-    fun getList(@RequestParam(defaultValue = "0") page : Int,
-    ) : ResponseEntity<BaseListRespV2>{
+    fun getList(
+        @RequestParam(defaultValue = "0") page: Int,
+    ): ResponseEntity<BaseListRespV2> {
         return getListRespEntity(service.getList(PageRequest.of(page, PAGE_SIZE)))
     }
 
@@ -46,7 +49,9 @@ class CompanyController(
     fun updateInfo(request: UpdateCompanyInfoReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.updateInfo(
-                request = request))
+                request = request
+            )
+        )
     }
 
     @ExplainRegisterProfileImage
@@ -55,16 +60,20 @@ class CompanyController(
         return getRespEntity(
             service.updateProfileImage(
                 request = request,
-                authObj = getAuthReq()))
+                authObj = getAuthReq()
+            )
+        )
     }
 
     @ExplainRegisterProfileImage
-    @GetMapping(value = ["/detective/profileImage","/consumer/profileImage"])
+    @GetMapping(value = ["/detective/profileImage", "/consumer/profileImage"])
     fun getProfileImage(@RequestParam companyId: String): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.getProfileImage(
                 companyId = companyId,
-                authObj = getAuthReq()))
+                authObj = getAuthReq()
+            )
+        )
     }
 
 }

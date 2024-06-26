@@ -7,10 +7,7 @@ import com.api.pladder.domain.entity.contract.enums.ContractStatus;
 import com.api.pladder.domain.entity.progressHistory.Progress;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -19,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Entity(name="pd_contract")
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Entity(name = "pd_contract")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract extends BaseEntity {
     @Id
@@ -29,20 +26,25 @@ public class Contract extends BaseEntity {
     private UUID contractId;
 
     private UUID customerId;
+
     private String customerName;
+
     private String customerPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="company_id")
+    @JoinColumn(name = "company_id")
     private Company company;
 
     //분야
     @Enumerated(EnumType.STRING)
     private Specialty specialty = Specialty.NONE;
+
     //선금
     private int advanceDeposit;
+
     //수임료
     private int pee;
+
     //목적 ( 고소 , 신고)
     private String purpose;
 
@@ -55,7 +57,6 @@ public class Contract extends BaseEntity {
     private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
     //계약종료일
     private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
-
 
     //계약 후 계약서 정보
     @Embedded
@@ -76,7 +77,7 @@ public class Contract extends BaseEntity {
     private UUID conclusionId;
 
 
-    public Contract(Company company,UUID customerId, String customerName, String customerPhone, Specialty specialty, String purpose, String solutionFormat, String description) {
+    public Contract(Company company, UUID customerId, String customerName, String customerPhone, Specialty specialty, String purpose, String solutionFormat, String description) {
         addCompany(company);
         this.customerId = customerId;
         this.customerName = customerName;
@@ -92,25 +93,24 @@ public class Contract extends BaseEntity {
         company.getContracts().add(this);
     }
 
-    public void addProgress(Progress history ){
+    public void addProgress(Progress history) {
         this.progress.add(history);
     }
 
-    public void updateContent(ContractContent contractContent){
+    public void updateContent(ContractContent contractContent) {
         this.contractContent = contractContent;
     }
 
-
-    public void updateDescription(String description){
+    public void updateDescription(String description) {
         this.description = description;
     }
 
-    public void apply(int pee , int advanceDeposit, LocalDate startPeriod , LocalDate endPeriod) {
+    public void suggest(int pee, int advanceDeposit, LocalDate startPeriod, LocalDate endPeriod,String description) {
         this.pee = pee;
         this.advanceDeposit = advanceDeposit;
         this.startPeriod = startPeriod;
         this.endPeriod = endPeriod;
-        this.status = ContractStatus.APPLY;
+        this.description = description;
     }
 
     public void updateOngoing() {

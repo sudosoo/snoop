@@ -3,19 +3,16 @@ package com.api.pladder.domain.entity.contract;
 import com.api.pladder.domain.entity.contract.enums.Gender;
 import com.api.pladder.domain.entity.contract.enums.PersonStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity(name = "pd_person")
 @Table(indexes = {@Index(name = "idx_person_id_status", columnList = "id, status")})
 public class Person {
@@ -57,6 +54,11 @@ public class Person {
         this.impression = impression;
         this.residenceAddr = residenceAddr;
     }
+
+    public Person() {
+
+    }
+
     public void appendAccomplice(Person accomplice){
         this.leader = this;
         this.accomplice.add(accomplice);

@@ -7,11 +7,11 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "탐정전용", description ="탐정 전용 API")
+@Tag(name = "탐정전용", description = "탐정 전용 API")
 @RestController
 @RequestMapping("/api/detective")
-class CustomerController (
-    val service : DetectiveService
+class CustomerController(
+    val service: DetectiveService
 ) : AuthDataProvider, ResponseEntityCreation {
 
 

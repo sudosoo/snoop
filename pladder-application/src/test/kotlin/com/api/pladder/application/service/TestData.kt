@@ -2,7 +2,7 @@ package com.api.pladder.application.service
 
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.contract.person.request.RegisterPersonReq
-import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
+import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.core.enums.UserType
@@ -17,20 +17,20 @@ import java.util.*
 
 object TestData {
     val detectiveSignup = RegisterUserReq(
-        email = "abc@naver.com",
+        id = "abc@naver.com",
         passwd = "abc1q2w3e",
         phoneNumber = "010-1234-5678",
         userType = UserType.DETECTIVE
     )
 
     val customerSignup = RegisterUserReq(
-        nickname = "안녕",
+        id = "안녕",
         passwd = "abc1q2w3e",
         userType = UserType.CUSTOMER
     )
 
     val adminSignup = RegisterUserReq(
-        nickname = "안녕",
+        id = "안녕",
         passwd = "abc1q2w3e",
         userType = UserType.ADMIN
     )
@@ -122,19 +122,19 @@ object TestData {
     /**
      * contractContent
      */
-    val contractContent1 = RegisterContractContentReq(
+    val contractContent1 = UpdateContractContentReq(
         contractId = "CT100001",
         incidentLocation = "서울시 강남구",
         incidentTime = LocalDateTime.parse("2024-06-01 14:00")
     )
 
 
-    val contractContent2 = RegisterContractContentReq(
+    val contractContent2 = UpdateContractContentReq(
         contractId = "CT100002",
         incidentLocation = "부산시 해운대구",
         incidentTime = LocalDateTime.parse("2024-06-02 15:30")
     )
-    val contractContent3 = RegisterContractContentReq(
+    val contractContent3 = UpdateContractContentReq(
         contractId = "CT100003",
         incidentLocation = "대전시 서구",
         incidentTime = LocalDateTime.parse("2024-06-03 10:00")

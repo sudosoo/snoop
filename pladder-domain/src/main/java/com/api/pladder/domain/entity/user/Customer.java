@@ -6,13 +6,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity(name="pd_customer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity implements User {

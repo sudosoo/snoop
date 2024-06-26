@@ -1,23 +1,25 @@
 package com.api.pladder.domain.entity.file;
 
 import com.api.pladder.core.exception.NotFoundException;
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.file.enums.FileExtension;
 import com.api.pladder.domain.entity.file.enums.FileTargetType;
 import com.api.pladder.domain.entity.file.enums.FileType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
-
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity(name = "pd_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(indexes = {
         @Index(name = "idx_target_type_id_file_type", columnList = "targetType, targetId, fileType")
 })
-public class File {
+public class File extends BaseEntity {
     @Id
     @Column(updatable = false, nullable = false)
     private String fileName;

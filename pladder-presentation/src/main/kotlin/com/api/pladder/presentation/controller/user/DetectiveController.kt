@@ -13,19 +13,21 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "탐정전용", description ="탐정 전용 API")
+@Tag(name = "탐정전용", description = "탐정 전용 API")
 @RestController
 @RequestMapping("/api/detective")
-class DetectiveController (
-    val service : DetectiveService
+class DetectiveController(
+    val service: DetectiveService
 ) : AuthDataProvider, ResponseEntityCreation {
     @ExplainRegisterDetectiveCareer
     @PostMapping(value = ["/career"])
-    fun registerCareer(@RequestBody request : List<RegisterDetectiveCareerReq>) : ResponseEntity<BaseResp> {
-        return getRespEntity(service.registerCareer(
-            request = request,
-            authObj = getAuthReq()))
+    fun registerCareer(@RequestBody request: List<RegisterDetectiveCareerReq>): ResponseEntity<BaseResp> {
+        return getRespEntity(
+            service.registerCareer(
+                request = request,
+                authObj = getAuthReq()
+            )
+        )
     }
-
 
 }

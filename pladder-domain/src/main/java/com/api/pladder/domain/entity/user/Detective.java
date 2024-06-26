@@ -4,7 +4,8 @@ import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.DetectiveStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -12,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Entity(name="pd_detective")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Detective extends BaseEntity implements User{

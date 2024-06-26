@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 
-class ApplyContractReq (
+class SuggestContractReq (
     @Schema(description="계약서 ID")
     val contractId :String,
     @Schema(description="선금", example = "500000")
@@ -17,4 +17,6 @@ class ApplyContractReq (
     @Schema(description="조사 종료일", example = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     var endPeriod : LocalDate ?= null,
+    @Schema(description="수정 사안", example = "계약금은 변경 없으며, 조사 기간은 더 늘어 날 수 있습니다.")
+    var description: String? = null,
 )

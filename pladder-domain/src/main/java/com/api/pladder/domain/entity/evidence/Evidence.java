@@ -1,20 +1,20 @@
 package com.api.pladder.domain.entity.evidence;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
-
-@Getter
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "pd_evidence")
-public class Evidence {
+public class Evidence extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID id;

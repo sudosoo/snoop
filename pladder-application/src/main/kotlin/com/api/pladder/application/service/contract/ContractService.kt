@@ -1,10 +1,9 @@
 package com.api.pladder.application.service.contract
 
-import com.api.pladder.application.dto.contract.mapper.ContractDtoMapper
-import com.api.pladder.application.dto.contract.request.ApplyContractReq
-import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.request.RegisterSignReq
+import com.api.pladder.application.dto.contract.request.SuggestContractReq
+import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.contract.response.ContractDetailResp
 import com.api.pladder.application.dto.contract.response.CountContractStatusResp
 import com.api.pladder.application.dto.file.request.FileRequest
@@ -28,81 +27,89 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ContractService (
+class ContractService(
     private val manager: ContractManager,
     private val reader: ContractReader,
     private val companyService: CompanyService,
     private val customerService: CustomerService,
     private val fileService: FileService,
-    private val fileUtils : FileUtils
+    private val fileUtils: FileUtils
 ) {
-    fun register(request : RegisterContractReq , authObj : AuthUserObject){
-        if (authObj.userType == UserType.DETECTIVE){
+    fun register(request: RegisterContractReq, authObj: AuthUserObject) {
+        if (authObj.userType == UserType.DETECTIVE) {
             throw AccessDeniedException("해당 계약을 등록할 권한이 없습니다.")
         }
         val company = companyService.reader.getInstance(request.companyId)
         val customer = customerService.reader.findById(authObj.userId!!)
-        manager.register(request,company,customer)
+        manager.register(request, company, customer)
     }
 
-
-    fun apply(request : ApplyContractReq){
+    fun suggest(request: SuggestContractReq) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        ContractDtoMapper.apply(contract,request)
+        manager.suggest(contract,request)
+    }
+
+    fun apply(contractId: String) {
+        val contract = reader.findById(UUID.fromString(contractId))
+        contract.updateOngoing()
         manager.save(contract)
     }
 
-    fun countStatus(request : AuthUserObject) : CountContractStatusResp {
+    fun countStatus(request: AuthUserObject): CountContractStatusResp {
         val contracts = reader.findAllById(request.userId!!)
         return CountContractStatusResp(contracts)
     }
-    fun getContractList(request : AuthUserObject,pageReq : PageRequest): Page<ContractDetailResp> {
+
+    fun getList(request: AuthUserObject, pageReq: PageRequest): Page<ContractDetailResp> {
         val company = companyService.reader.getInstanceByDetectiveId(request.userId!!)
         val contracts = reader.findWaitingContractByCompany(company)
         val contentResp = contracts.map { ContractDetailResp(it) }
-        return PageImpl(contentResp,pageReq,contracts.size.toLong())
+        return PageImpl(contentResp, pageReq, contracts.size.toLong())
     }
 
-    fun getContractDetail(request : AuthUserObject ,contractId : String): ContractDetailResp {
+    fun getDetail(request: AuthUserObject, contractId: String): ContractDetailResp {
         val contract = reader.findById(UUID.fromString(contractId))
-        if (contract.company.detectiveId != request.userId && request.userType != UserType.ADMIN){
+        if (contract.company.detectiveId != request.userId && request.userType != UserType.ADMIN) {
             throw AccessDeniedException("해당 계약에 대한 접근 권한이 없습니다.")
         }
         return ContractDetailResp(contract)
     }
 
-    fun findById(contractId : UUID) : Contract = reader.findById(contractId)
+    fun findById(contractId: UUID): Contract = reader.findById(contractId)
 
-    fun updateContent(request : RegisterContractContentReq){
-        manager.updateContent(request)
+    fun updateContent(request: UpdateContractContentReq) {
+        val contract = reader.findById(UUID.fromString(request.contractId))
+        manager.updateContent(contract,request)
     }
 
-    fun delete(contractId : String){
+    fun delete(contractId: String) {
         manager.deleteById(UUID.fromString(contractId))
     }
 
-    fun uploadSign(request: RegisterSignReq, authObj: AuthUserObject){
+    fun uploadSign(request: RegisterSignReq, authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        fileService.save(FileRequest(
-            type = FileType.SIGN,
-            file = request.image,
-            targetId = contract.contractId,
-            targetType = FileTargetType.CONTRACT,
-            writerId = authObj.userId!!,
-            userType = authObj.userType
-        ))
+        fileService.save(
+            FileRequest(
+                type = FileType.SIGN,
+                file = request.image,
+                targetId = contract.contractId,
+                targetType = FileTargetType.CONTRACT,
+                writerId = authObj.userId!!,
+                userType = authObj.userType
+            )
+        )
     }
 
     fun getSign(contractId: String): List<SignResp> {
         val fileResps = fileService.getPagedFileRespByTargetIdAndTargetType(
             UUID.fromString(contractId),
             FileTargetType.CONTRACT,
-            PageRequest.of(0,10)
+            PageRequest.of(0, 10)
         )
 
-        return fileResps.map{
+        return fileResps.map {
             val userType = fileUtils.getUserTypeFromFileName(it.fileName)
-            SignResp(it,userType.toString())
+            SignResp(it, userType.toString())
         }
     }
 
