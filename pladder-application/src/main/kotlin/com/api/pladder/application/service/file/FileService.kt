@@ -84,7 +84,7 @@ class FileService(
     ): List<FileResp> {
         val files = reader.findByTargetIdAndTargetType(targetId, targetType, pageRequest)
         return files.content.map {
-            val byteArray = s3Provider.downloadByFileName(it.fileName)
+            val byteArray = s3Provider.download(it.fileName)
             FileResp(
                 fileName = it.fileName,
                 byteArray = byteArray,
@@ -108,7 +108,7 @@ class FileService(
     fun getProfileImage(targetId: UUID, targetType: FileTargetType): FileResp {
         val file = reader.findByTargetIdAndTargetTypeAndFileType(targetId, targetType ,FileType.PROFILE)
             .orElseThrow { throw NoSuchElementException("File not found") }
-        val byteArray = s3Provider.downloadByFileName(file.fileName)
+        val byteArray = s3Provider.download(file.fileName)
 
         return FileResp(
             fileName = file.fileName,

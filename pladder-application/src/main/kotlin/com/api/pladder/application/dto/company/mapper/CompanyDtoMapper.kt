@@ -7,7 +7,7 @@ import java.util.*
 
 object CompanyDtoMapper {
 
-    fun companyToEntity(request : RegisterCompanyReq,detectiveId :UUID) : Company {
+    fun companyToEntity(request: RegisterCompanyReq, detectiveId: UUID) : Company {
         return Company(
             request.name,
             request.addr,
@@ -17,7 +17,7 @@ object CompanyDtoMapper {
             detectiveId)
     }
 
-    fun updateInfo(company: Company , request : UpdateCompanyInfoReq){
+    fun updateInfo(company: Company, request: UpdateCompanyInfoReq){
         company.updateInfo(request.introduction,request.specialization)
     }
 

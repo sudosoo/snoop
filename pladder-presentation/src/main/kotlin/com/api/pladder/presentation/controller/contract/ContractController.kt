@@ -1,5 +1,6 @@
 package com.api.pladder.presentation.controller.contract
 
+import com.api.pladder.application.dto.common.BaseListRespV2
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.contract.request.ApplyContractReq
 import com.api.pladder.application.dto.contract.request.RegisterContractContentReq
@@ -38,8 +39,8 @@ class ContractController (
     @GetMapping(value = ["/detective/contract/getList"])
     fun getList(
         @RequestParam(defaultValue = "0") page : Int
-    ) : ResponseEntity<BaseResp>{
-        return getRespEntity(service.getContractList(getAuthReq(), PageRequest.of(page, PAGE_SIZE)))
+    ) : ResponseEntity<BaseListRespV2>{
+        return getListRespEntity(service.getContractList(getAuthReq(), PageRequest.of(page, PAGE_SIZE)))
     }
 
     @ExplainGetContract

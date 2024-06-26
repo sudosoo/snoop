@@ -21,6 +21,8 @@ import com.api.pladder.core.utils.file.FileUtils
 import com.api.pladder.domain.entity.contract.Contract
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
@@ -54,12 +56,12 @@ class ContractService (
         val contracts = reader.findAllById(request.userId!!)
         return CountContractStatusResp(contracts)
     }
-    fun getContractList(request : AuthUserObject,pageReq : PageRequest): List<ContractDetailResp> {
+    fun getContractList(request : AuthUserObject,pageReq : PageRequest): Page<ContractDetailResp> {
         val company = companyService.reader.getInstanceByDetectiveId(request.userId!!)
-        val contracts: List<Contract> = reader.findWaitingContractByCompany(company)
-        return contracts.map { ContractDetailResp(it) }
+        val contracts = reader.findWaitingContractByCompany(company)
+        val contentResp = contracts.map { ContractDetailResp(it) }
+        return PageImpl(contentResp,pageReq,contracts.size.toLong())
     }
-
 
     fun getContractDetail(request : AuthUserObject ,contractId : String): ContractDetailResp {
         val contract = reader.findById(UUID.fromString(contractId))

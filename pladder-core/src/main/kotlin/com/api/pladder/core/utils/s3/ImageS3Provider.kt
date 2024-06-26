@@ -1,6 +1,7 @@
 package com.api.pladder.core.utils.s3
 
 import com.api.pladder.core.exception.NotFoundException
+import com.api.pladder.core.utils.file.FileStorageService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
@@ -17,10 +18,10 @@ import java.io.IOException
 @Component
 class ImageS3Provider (
     private val s3Client: S3Client,
-) {
+) :FileStorageService {
     @Value("\${cloud.aws.s3.bucket}")
     private val bucketName: String? = null
-    fun upload(fileName: String, file: MultipartFile) {
+    override fun upload(fileName: String, file: MultipartFile) {
         try {
             val putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -36,7 +37,7 @@ class ImageS3Provider (
         }
     }
 
-    fun downloadByFileName(fileName: String): ByteArray {
+    override fun download(fileName: String): ByteArray {
         val getObjectRequest = GetObjectRequest.builder()
             .bucket(bucketName)
             .key(fileName)
@@ -54,7 +55,7 @@ class ImageS3Provider (
         }
     }
 
-    fun delete(fileName: String) {
+    override fun delete(fileName: String) {
         val deleteObjectRequest = DeleteObjectRequest.builder()
             .bucket(bucketName)
             .key(fileName)

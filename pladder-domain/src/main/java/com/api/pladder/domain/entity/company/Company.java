@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.company;
 
+import com.api.pladder.core.exception.InvalidRequestException;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
@@ -44,31 +45,27 @@ public class Company extends BaseEntity {
     private List<Contract> contracts = new ArrayList<>();
 
     @Enumerated(value = STRING)
-    private ConfirmStatus confirmStatus = ConfirmStatus.WAIT_TING;
-
+    private ConfirmStatus confirmStatus = ConfirmStatus.WAITING;
 
     public Company(String companyName,
                    String address,
                    String phoneNumber ,
                    String introduction,
                    List<Specialty> specialization,
-                   UUID detectiveId) {
+                   UUID detectiveId) throws InvalidRequestException {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.introduction = introduction;
         this.specialization.addAll(specialization);
         this.detectiveId = detectiveId;
+        this.confirmStatus = ConfirmStatus.CONFIRMED;
     }
 
     public void updateInfo(String introduction, List<Specialty> specialization) {
         this.introduction = introduction;
         this.specialization.clear();
         this.specialization.addAll(specialization);
-    }
-
-    public void updateConfirmStatus(ConfirmStatus confirmStatus) {
-        this.confirmStatus = confirmStatus;
     }
 
 

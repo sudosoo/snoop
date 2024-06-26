@@ -1,5 +1,6 @@
 package com.api.pladder.presentation.controller.company
 
+import com.api.pladder.application.dto.common.BaseListRespV2
 import com.api.pladder.application.dto.common.BaseResp
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
@@ -36,8 +37,8 @@ class CompanyController(
     @ExplainGetCompanyList
     @GetMapping(value = ["/open/company"])
     fun getList(@RequestParam(defaultValue = "0") page : Int,
-    ){
-        service.getList(PageRequest.of(page, PAGE_SIZE))
+    ) : ResponseEntity<BaseListRespV2>{
+        return getListRespEntity(service.getList(PageRequest.of(page, PAGE_SIZE)))
     }
 
     @ExplainUpdateCompanyInfo
@@ -58,7 +59,7 @@ class CompanyController(
     }
 
     @ExplainRegisterProfileImage
-    @GetMapping(value = ["/detective/profileImage"])
+    @GetMapping(value = ["/detective/profileImage","/consumer/profileImage"])
     fun getProfileImage(@RequestParam companyId: String): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.getProfileImage(
