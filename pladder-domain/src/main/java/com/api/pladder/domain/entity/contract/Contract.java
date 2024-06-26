@@ -55,8 +55,6 @@ public class Contract extends BaseEntity {
 
     //시작일
     private LocalDate startPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
-    //계약종료일
-    private LocalDate endPeriod = DateUtil.INSTANCE.getDEFAULT_DATE();
 
     //계약 후 계약서 정보
     @Embedded
@@ -72,10 +70,6 @@ public class Contract extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ContractStatus status = ContractStatus.WAITING;
-
-    //조사결과
-    private UUID conclusionId;
-
 
     public Contract(Company company, UUID customerId, String customerName, String customerPhone, Specialty specialty, String purpose, String solutionFormat, String description) {
         addCompany(company);
@@ -94,27 +88,16 @@ public class Contract extends BaseEntity {
     }
 
     public void addProgress(Progress history) {
-        this.progress.add(history);
+        history.addContract(this);
     }
 
     public void updateContent(ContractContent contractContent) {
         this.contractContent = contractContent;
     }
 
-    public void updateDescription(String description) {
-        this.description = description;
-    }
-
-    public void suggest(int pee, int advanceDeposit, LocalDate startPeriod, LocalDate endPeriod,String description) {
-        this.pee = pee;
-        this.advanceDeposit = advanceDeposit;
-        this.startPeriod = startPeriod;
-        this.endPeriod = endPeriod;
-        this.description = description;
-    }
-
     public void updateOngoing() {
         this.status = ContractStatus.ONGOING;
+        this.startPeriod = LocalDate.now();
     }
 
 

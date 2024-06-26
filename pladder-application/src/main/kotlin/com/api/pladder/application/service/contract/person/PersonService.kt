@@ -28,7 +28,7 @@ class PersonService(
 
     fun appendAccomplice(personId: UUID, request: RegisterPersonReq): PersonResp {
         val perpetrator = repository.findByIdAndStatus(personId,PersonStatus.PERPETRATOR)
-            .orElseThrow{ NotFoundException("존재하지 않는 가해자ID 입니다 : ${personId}")
+            .orElseThrow{ NotFoundException("존재하지 않는 가해자 ID 입니다 : ${personId}")
             }
         val accomplice = PersonDtoMapper.toEntity(request)
         perpetrator.appendAccomplice(accomplice)
@@ -37,7 +37,7 @@ class PersonService(
 
     fun update(request : UpdatePersonReq) : PersonResp {
         val model = findById(UUID.fromString(request.personId))
-        PersonDtoMapper.update(model,request)
+        PersonDtoMapper.updateInfo(model,request)
         return PersonResp(save(model))
     }
 

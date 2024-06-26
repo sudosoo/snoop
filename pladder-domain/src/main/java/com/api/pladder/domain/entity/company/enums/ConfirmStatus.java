@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 public enum ConfirmStatus implements StatusProvider {
     WAITING("인증대기"), REJECTED("인증거절"),CONFIRMED("인증완료") ;
 
-    public abstract ConfirmStatus confirmAction();
     private String status;
     private
     ConfirmStatus(String status) {

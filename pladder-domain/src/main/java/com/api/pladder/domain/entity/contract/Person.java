@@ -3,8 +3,10 @@ package com.api.pladder.domain.entity.contract;
 import com.api.pladder.domain.entity.contract.enums.Gender;
 import com.api.pladder.domain.entity.contract.enums.PersonStatus;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @Entity(name = "pd_person")
 @Table(indexes = {@Index(name = "idx_person_id_status", columnList = "id, status")})
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Person {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
@@ -40,7 +43,6 @@ public class Person {
     @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
     private List<Person> accomplice = new ArrayList<>();
 
-
     private PersonStatus status = PersonStatus.UNKNOWN;
 
     public Person(UUID contractId, PersonStatus status, String name, Gender gender, int age, String relationship, String workplaceAddr, String impression, String residenceAddr ) {
@@ -55,29 +57,9 @@ public class Person {
         this.residenceAddr = residenceAddr;
     }
 
-    public Person() {
-
-    }
-
     public void appendAccomplice(Person accomplice){
         this.leader = this;
         this.accomplice.add(accomplice);
-    }
-
-    public void update(String name,
-                       Gender gender,
-                       int age,
-                       String relationship,
-                       String workplaceAddr,
-                       String impression,
-                       String residenceAddr){
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.relationship = relationship;
-        this.workplaceAddr = workplaceAddr;
-        this.impression = impression;
-        this.residenceAddr = residenceAddr;
     }
 
 }

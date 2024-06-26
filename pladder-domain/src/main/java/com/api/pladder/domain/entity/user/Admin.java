@@ -20,7 +20,7 @@ public class Admin extends BaseEntity implements User{
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID adminId;
     @Column(unique = true)
-    private String email;
+    private String id;
     private String pwd;
 
 }

@@ -2,16 +2,13 @@ package com.api.pladder.domain.entity.file.enums;
 
 import com.api.pladder.core.enums.UserType;
 import com.api.pladder.core.exception.AccessDeniedException;
-import com.api.pladder.core.utils.enums.EnumUtils;
-import com.api.pladder.core.utils.enums.StatusProvider;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public enum FileType implements StatusProvider {
+public enum FileType{
     BUSINESS_REGISTRATION_CERTIFICATE(
             "BU",
             "사업자 등록증",
@@ -20,22 +17,22 @@ public enum FileType implements StatusProvider {
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     ),
     DETECTIVE_LICENSE(
-            "DL",
-            "탐정 면허증",
+            "AC",
+            "아카데미 수료증",
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     ),
     LOCAL_GOVERNMENT_REPORT(
-            "LR",
-            "지자체 신고증",
+            "HI",
+            "건강보험 자격득실 확인서",
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.CUSTOMER, UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
     ),
     ID_CARD(
-            "ID",
-            "신분증",
+            "DE",
+            "탐정 자격증",
             Arrays.asList(UserType.DETECTIVE),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN),
             Arrays.asList(UserType.DETECTIVE, UserType.ADMIN)
@@ -91,27 +88,10 @@ public enum FileType implements StatusProvider {
                 .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
     }
 
-    public static FileType fromDescription(String reqDescription) {
-        return Arrays.stream(FileType.values())
-                .filter(fileType -> fileType.description.equals(reqDescription))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당 prefix에 맞는 ImageType이 없습니다."));
-    }
-
-
-    public static FileType fromStringStatus(String status) {
-        return EnumUtils.INSTANCE.fromStringStatus(FileType.class, status);
-    }
-
     public void checkSelectPermission(UserType userType) throws AccessDeniedException {
         if (!selectPermissions.contains(userType)) {
             throw new AccessDeniedException("해당 파일을 조회할 권한이 없습니다.");
         }
     }
 
-    @NotNull
-    @Override
-    public String getStringStatus() {
-        return this.description;
-    }
 }

@@ -10,9 +10,9 @@ import java.util.*
 class FileRequest(
     @Schema(description = "이미지 종류" ,
         example = "PR - 프로필 , " +
-                "ID - 신분증 , " +
-                "LR - 지자체 신고증 , " +
-                "DL - 탐정 면허증 , " +
+                "DE - 탐정 자격증 , " +
+                "AC - 아카데미 수료증 , " +
+                "HI - 건강보험 자격득실 확인서 , " +
                 "BU - 사업자 등록증" +
                 "EI - 증거 사진" +
                 "EO - 증거 오디오"+

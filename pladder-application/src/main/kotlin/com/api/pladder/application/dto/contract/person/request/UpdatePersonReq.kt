@@ -11,7 +11,7 @@ class UpdatePersonReq (
     @Schema(description="변경 나이")
     var age: Int = 0,
     @Schema(description="변경 성별")
-    var gender :Gender = Gender.UNKNOWN,
+    var gender :Gender? = null,
     @Schema(description="변경 관계")
     var relationship: String?= null,
     @Schema(description="변경 직장 주소")

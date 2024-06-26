@@ -17,15 +17,16 @@ class CompanyManager (
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 
     fun register(request: RegisterCompanyReq, detectiveId: UUID): Company {
-        val company = CompanyDtoMapper.companyToEntity(request,detectiveId)
+        val company = CompanyDtoMapper.toEntity(request,detectiveId)
         return save(company)
     }
 
-    fun updateInfo(request : UpdateCompanyInfoReq): Company{
-     val company = findById(UUID.fromString(request.companyId))
-        CompanyDtoMapper.updateInfo(company,request)
+    fun updateInfo(company: Company, request: UpdateCompanyInfoReq): Company {
+        val company = CompanyDtoMapper.updateInfo(company,request)
         return save(company)
-     }
+    }
+
+
 
 
 }

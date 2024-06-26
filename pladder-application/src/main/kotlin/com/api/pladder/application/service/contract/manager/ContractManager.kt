@@ -24,14 +24,12 @@ class ContractManager(
         save(contract)
     }
 
-    fun suggest(contract: Contract, request: SuggestContractReq) {
-        ContractDtoMapper.suggest(contract, request)
+    fun updateAndSave(contract: Contract, request: SuggestContractReq) {
+        ContractDtoMapper.updateSuggestContent(contract, request)
         save(contract)
     }
 
-
-    fun updateContent(contract: Contract, request: UpdateContractContentReq) {
-
+    fun updateAndSave(contract: Contract, request: UpdateContractContentReq) {
         ContractDtoMapper.updateContent(contract, request)
         save(contract)
     }

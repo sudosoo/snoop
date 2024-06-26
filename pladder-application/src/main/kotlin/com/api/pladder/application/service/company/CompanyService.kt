@@ -32,7 +32,11 @@ class CompanyService (
     }
     
     fun updateInfo(request : UpdateCompanyInfoReq){
-        manager.updateInfo(request)
+        val company = reader.findById(UUID.fromString(request.companyId))
+        if (!request.introduction.isNullOrBlank()) company.introduction = request.introduction
+        if (!request.specialization.isEmpty()) company.specialization = request.specialization
+
+        manager.save(company)
     }
 
     fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject){

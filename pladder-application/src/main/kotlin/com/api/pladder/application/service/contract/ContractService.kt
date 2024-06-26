@@ -46,7 +46,7 @@ class ContractService(
 
     fun suggest(request: SuggestContractReq) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        manager.suggest(contract,request)
+        manager.updateAndSave(contract,request)
     }
 
     fun apply(contractId: String) {
@@ -79,7 +79,7 @@ class ContractService(
 
     fun updateContent(request: UpdateContractContentReq) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        manager.updateContent(contract,request)
+        manager.updateAndSave(contract,request)
     }
 
     fun delete(contractId: String) {
