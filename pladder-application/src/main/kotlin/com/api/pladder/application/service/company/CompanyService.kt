@@ -5,6 +5,7 @@ import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyProfileImageReq
 import com.api.pladder.application.dto.company.response.CompanyListResp
 import com.api.pladder.application.dto.company.response.CompanyResp
+import com.api.pladder.application.dto.company.response.UpdateCompanyResp
 import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.company.manager.CompanyManager
@@ -35,9 +36,9 @@ class CompanyService (
         return PageImpl(models, pageReq, pagination.totalElements)
     }
     
-    fun updateInfo(request : UpdateCompanyInfoReq): CompanyResp{
+    fun updateInfo(request : UpdateCompanyInfoReq): UpdateCompanyResp {
         val company = reader.findById(UUID.fromString(request.companyId))
-        return CompanyResp(manager.updateInfo(company,request))
+        return UpdateCompanyResp(manager.updateInfo(company,request))
     }
 
     fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject): CompanyResp{
