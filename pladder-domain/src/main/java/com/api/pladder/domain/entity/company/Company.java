@@ -17,7 +17,7 @@ import static jakarta.persistence.EnumType.STRING;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity(name="pd_company")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Company extends BaseEntity {
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
@@ -55,6 +55,20 @@ public class Company extends BaseEntity {
         this.introduction = introduction;
         this.specialization.addAll(specialization);
         this.confirmStatus = ConfirmStatus.CONFIRMED;
+    }
+
+    private Company (UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.introduction = introduction;
+        this.specialization.addAll(specialization);
+        this.confirmStatus = ConfirmStatus.CONFIRMED;
+    }
+
+    public Company testOf(UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
+        return new Company(companyId, companyName, address, phoneNumber, introduction, specialization);
     }
 
     public void updateInfo(String introduction, List<Specialty> specialization) {

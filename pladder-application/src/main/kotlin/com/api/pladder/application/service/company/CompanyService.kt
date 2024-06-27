@@ -29,7 +29,7 @@ class CompanyService (
         return CompanyResp(manager.register(request))
     }
 
-    fun getList(pageReq: PageRequest) : Page<CompanyListResp> {
+    fun getList(pageReq: PageRequest): Page<CompanyListResp> {
         val pagination = reader.findAllPagination(pageReq)
         val models = pagination.content.map { CompanyListResp(it) }
         return PageImpl(models, pageReq, pagination.totalElements)
