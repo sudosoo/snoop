@@ -1,9 +1,9 @@
-package com.api.pladder.application.service
+package com.api.pladder.application.service.auth
 
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.contract.person.request.RegisterPersonReq
-import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
+import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.obj.AuthUserObject

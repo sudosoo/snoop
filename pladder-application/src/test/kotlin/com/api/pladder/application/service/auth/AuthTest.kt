@@ -1,11 +1,11 @@
 package com.api.pladder.application.service.auth
 
 import com.api.pladder.application.dto.user.common.response.UserResp
-import com.api.pladder.application.service.TestData.adminSignup
-import com.api.pladder.application.service.TestData.customer
-import com.api.pladder.application.service.TestData.customerSignup
-import com.api.pladder.application.service.TestData.detective
-import com.api.pladder.application.service.TestData.detectiveSignup
+import com.api.pladder.application.service.auth.TestData.adminSignup
+import com.api.pladder.application.service.auth.TestData.customer
+import com.api.pladder.application.service.auth.TestData.customerSignup
+import com.api.pladder.application.service.auth.TestData.detective
+import com.api.pladder.application.service.auth.TestData.detectiveSignup
 import com.api.pladder.application.service.user.admin.AdminService
 import com.api.pladder.application.service.user.customer.CustomerService
 import com.api.pladder.application.service.user.detective.DetectiveService

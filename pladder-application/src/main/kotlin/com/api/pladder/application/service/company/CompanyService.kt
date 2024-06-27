@@ -3,16 +3,18 @@ package com.api.pladder.application.service.company
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyProfileImageReq
+import com.api.pladder.application.dto.company.response.CompanyListResp
+import com.api.pladder.application.dto.company.response.CompanyResp
 import com.api.pladder.application.dto.file.request.FileRequest
 import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.company.manager.CompanyManager
 import com.api.pladder.application.service.company.reader.CompanyReader
 import com.api.pladder.application.service.file.FileService
 import com.api.pladder.core.obj.AuthUserObject
-import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
 import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
@@ -23,23 +25,22 @@ class CompanyService (
     val reader : CompanyReader,
     val fileService: FileService
 ){
-    fun register(request: RegisterCompanyReq) {
-        manager.register(request)
+    fun register(request: RegisterCompanyReq): CompanyResp {
+        return CompanyResp(manager.register(request))
     }
 
-    fun getList(pageReq: PageRequest) : Page<Company> {
-        return reader.findAllPagination(pageReq)
+    fun getList(pageReq: PageRequest) : Page<CompanyListResp> {
+        val pagination = reader.findAllPagination(pageReq)
+        val models = pagination.content.map { CompanyListResp(it) }
+        return PageImpl(models, pageReq, pagination.totalElements)
     }
     
-    fun updateInfo(request : UpdateCompanyInfoReq){
+    fun updateInfo(request : UpdateCompanyInfoReq): CompanyResp{
         val company = reader.findById(UUID.fromString(request.companyId))
-        if (!request.introduction.isNullOrBlank()) company.introduction = request.introduction
-        if (!request.specialization.isEmpty()) company.specialization = request.specialization
-
-        manager.save(company)
+        return CompanyResp(manager.updateInfo(company,request))
     }
 
-    fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject){
+    fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject): CompanyResp{
         val fileRequest = FileRequest(
             type = FileType.PROFILE,
             file = request.image,
@@ -48,6 +49,7 @@ class CompanyService (
             writerId = authObj.userId!!,
             userType = authObj.userType)
         fileService.updateOrCreateProfileImage(fileRequest)
+        return CompanyResp(request.companyId)
     }
 
     fun getProfileImage(companyId:String, authObj: AuthUserObject) : FileResp {
