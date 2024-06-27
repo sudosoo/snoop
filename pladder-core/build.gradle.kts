@@ -1,7 +1,7 @@
 val kotestVersion = "5.7.2"
 
 dependencies {
-    //Spring Security
+    // Spring Security
     implementation("org.springframework.boot:spring-boot-starter-security")
 
     // JSON Web Token (JWT) library - jjwt
@@ -9,10 +9,12 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    //S3
+    // S3
     implementation ("io.awspring.cloud:spring-cloud-aws-s3:3.0.2")
 
-    // jasypt
+    // Jasypt
     implementation ("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 
+    // Redis
+    implementation ("org.springframework.boot:spring-boot-starter-data-redis:3.1.5")
 }
