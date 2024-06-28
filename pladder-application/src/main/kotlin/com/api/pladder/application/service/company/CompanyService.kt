@@ -12,7 +12,10 @@ import com.api.pladder.application.service.company.manager.CompanyManager
 import com.api.pladder.application.service.company.reader.CompanyReader
 import com.api.pladder.application.service.file.FileService
 import com.api.pladder.application.service.user.detective.DetectiveService
+import com.api.pladder.core.enums.UserType
+import com.api.pladder.core.exception.AccessDeniedException
 import com.api.pladder.core.obj.AuthUserObject
+import com.api.pladder.domain.entity.company.Company
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
 import org.springframework.data.domain.Page
@@ -39,12 +42,15 @@ class CompanyService (
         return PageImpl(models, pageReq, pagination.totalElements)
     }
     
-    fun updateInfo(request : UpdateCompanyInfoReq): UpdateCompanyResp {
+    fun updateInfo(request : UpdateCompanyInfoReq, authObj: AuthUserObject): UpdateCompanyResp {
         val company = reader.findById(UUID.fromString(request.companyId))
+        ownerValidation(authObj, company)
         return UpdateCompanyResp(manager.updateInfo(company,request))
     }
 
     fun updateProfileImage(request: UpdateCompanyProfileImageReq, authObj: AuthUserObject): CompanyResp{
+        val company = reader.findById(UUID.fromString(request.companyId))
+        ownerValidation(authObj, company)
         val fileRequest = FileRequest(
             type = FileType.PROFILE,
             file = request.image,
@@ -59,7 +65,16 @@ class CompanyService (
     fun getProfileImage(companyId:String, authObj: AuthUserObject) : FileResp {
         return fileService.getProfileImage(UUID.fromString(companyId), FileTargetType.COMPANY,authObj.userType)
     }
-    
-    
+
+    private fun ownerValidation(
+        authObj: AuthUserObject,
+        company: Company
+    ) {
+        if (authObj.userType != UserType.ADMIN) {
+            if (company.detective.detectiveId != authObj.userId!!) {
+                throw AccessDeniedException("잘못된 접근입니다.")
+            }
+        }
+    }
 
 }

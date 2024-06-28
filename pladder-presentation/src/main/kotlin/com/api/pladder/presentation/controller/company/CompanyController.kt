@@ -30,7 +30,8 @@ class CompanyController(
     fun register(request: RegisterCompanyReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.register(
-                request = request
+                request = request,
+                authObj = getAuthReq()
             )
         )
     }
@@ -48,7 +49,8 @@ class CompanyController(
     fun updateInfo(request: UpdateCompanyInfoReq): ResponseEntity<BaseResp> {
         return getRespEntity(
             service.updateInfo(
-                request = request
+                request = request,
+                authObj = getAuthReq()
             )
         )
     }

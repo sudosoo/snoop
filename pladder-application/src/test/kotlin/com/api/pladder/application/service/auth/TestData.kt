@@ -3,7 +3,6 @@ package com.api.pladder.application.service.auth
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.contract.person.request.RegisterPersonReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
-import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.dto.user.common.request.RegisterUserReq
 import com.api.pladder.core.enums.UserType
 import com.api.pladder.core.obj.AuthUserObject
@@ -11,7 +10,6 @@ import com.api.pladder.domain.entity.contract.enums.Gender
 import com.api.pladder.domain.entity.user.Customer
 import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.entity.user.enums.Specialty
-import java.time.LocalDateTime
 import java.util.*
 
 
@@ -38,17 +36,17 @@ object TestData {
     /**
      * authReq
      */
-    val testCustomer = AuthUserObject(
+    val customerAuthObj = AuthUserObject(
         userId = UUID.fromString("feeb066f-a118-4dfd-a141-eb8d6f31b8b1"),
         userType = UserType.CUSTOMER,
     )
 
-    val testDetective = AuthUserObject(
+    val detectiveAuthObj = AuthUserObject(
         userId = UUID.fromString("f6744202-f40f-4ce7-b00f-1a8d10456454"),
         userType = UserType.DETECTIVE,
     )
 
-    val testAdmin = AuthUserObject(
+    val adminAuthObj = AuthUserObject(
         userId = UUID.fromString("82eb81c2-7df9-4e47-9362-c71c6ac78f60"),
         userType = UserType.ADMIN,
     )
@@ -122,7 +120,7 @@ object TestData {
     /**
      * contractContent
      */
-    val contractContent1 = UpdateContractContentReq(
+    /*val contractContent1 = UpdateContractContentReq(
         contractId = "CT100001",
         incidentLocation = "서울시 강남구",
         incidentTime = LocalDateTime.parse("2024-06-01 14:00")
@@ -139,7 +137,7 @@ object TestData {
         incidentLocation = "대전시 서구",
         incidentTime = LocalDateTime.parse("2024-06-03 10:00")
     )
-
+*/
     /**
      * perpetrator
      */

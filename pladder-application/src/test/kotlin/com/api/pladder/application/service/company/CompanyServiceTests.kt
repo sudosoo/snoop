@@ -2,6 +2,8 @@ package com.api.pladder.application.service.company
 
 import com.api.pladder.application.dto.company.response.CompanyResp
 import com.api.pladder.application.dto.company.response.UpdateCompanyResp
+import com.api.pladder.application.service.auth.TestData.detective
+import com.api.pladder.application.service.auth.TestData.detectiveAuthObj
 import com.api.pladder.application.service.company.CompanyTestData.company1
 import com.api.pladder.application.service.company.CompanyTestData.company2
 import com.api.pladder.application.service.company.CompanyTestData.company3
@@ -10,6 +12,7 @@ import com.api.pladder.application.service.company.CompanyTestData.request2
 import com.api.pladder.application.service.company.manager.CompanyManager
 import com.api.pladder.application.service.company.reader.CompanyReader
 import com.api.pladder.application.service.file.FileService
+import com.api.pladder.application.service.user.detective.DetectiveService
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -26,8 +29,9 @@ class CompanyServiceTests  : BehaviorSpec({
     val manager : CompanyManager = mockk()
     val reader : CompanyReader = mockk()
     val fileService: FileService = mockk()
+    val detectiveService: DetectiveService = mockk()
 
-    var service = CompanyService(manager, reader, fileService)
+    var service = CompanyService(manager, reader,detectiveService, fileService)
 
     Given("회사 등록 관련 TEST"){
 
@@ -43,22 +47,18 @@ class CompanyServiceTests  : BehaviorSpec({
 
         beforeContainer {
             every { reader.findAllPagination(pageReq) } returns page
-            every { manager.register(any()) } returns company1
+            every { manager.register(any(),any()) } returns company1
+            every { detectiveService.findById(any()) } returns detective
 
             every { reader.findById(any())} returns company2
-            every { manager.register(any()) } returns company1
 
             every { manager.updateInfo(any(),any())} returns company1
 
-            service = CompanyService(
-                manager,
-                reader,
-                fileService,
-            )
         }
+
         When("회사 등록 요청을 하면"){
-                val result = service.register(request)
-                verify {manager.register(request)}
+                val result = service.register(request,detectiveAuthObj)
+                verify {manager.register(any(),any())}
 
                 Then("회사 객체가 생성 된다"){
                     result.id shouldBe CompanyResp(company1).id
