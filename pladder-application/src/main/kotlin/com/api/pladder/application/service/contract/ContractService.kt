@@ -46,23 +46,16 @@ class ContractService(
 
     fun suggest(request: SuggestContractReq, authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.customerId == authObj.userId!!) {
-                throw AccessDeniedException("잘못된 접근입니다.")
-            }
-        }
+        ownerValidation(authObj, contract)
 
         manager.updateAndSave(contract, request)
     }
 
     fun apply(contractId: String, authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.company.detective.detectiveId != authObj.userId!!) {
-                throw AccessDeniedException("잘못된 접근입니다.")
-            }
-        }
+        ownerValidation(authObj, contract)
         contract.updateOngoing()
+
         manager.save(contract)
     }
 
@@ -81,7 +74,8 @@ class ContractService(
 
     fun getDetail(authObj: AuthUserObject, contractId: String): ContractDetailResp {
         val contract = reader.findById(UUID.fromString(contractId))
-        validateOwner(authObj, contract)
+        ownerValidation(authObj, contract)
+
         return ContractDetailResp(contract)
     }
 
@@ -91,31 +85,22 @@ class ContractService(
 
     fun updateContent(request: UpdateContractContentReq, authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.company.detective.detectiveId != authObj.userId) {
-                throw AccessDeniedException("잘못된 접근입니다.");
-            }
-        }
+        ownerValidation(authObj, contract)
+
         manager.updateAndSave(contract, request)
     }
 
     fun delete(contractId: String , authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.company.detective.detectiveId != authObj.userId && contract.customerId != authObj.userId) {
-                throw AccessDeniedException("잘못된 접근입니다.");
-            }
-        }
+        ownerValidation(authObj, contract)
+
         manager.deleteById(UUID.fromString(contractId))
     }
 
     fun uploadSign(request: RegisterSignReq, authObj: AuthUserObject) {
         val contract = reader.findById(UUID.fromString(request.contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.company.detective.detectiveId != authObj.userId && contract.customerId != authObj.userId) {
-                throw AccessDeniedException("잘못된 접근입니다.");
-            }
-        }
+        ownerValidation(authObj, contract)
+
         fileService.save(
             FileRequest(
                 type = FileType.SIGN,
@@ -130,11 +115,7 @@ class ContractService(
 
     fun getSign(contractId: String , authObj: AuthUserObject): List<SignResp> {
         val contract = reader.findById(UUID.fromString(contractId))
-        if (authObj.userType != UserType.ADMIN) {
-            if (contract.company.detective.detectiveId != authObj.userId) {
-                throw AccessDeniedException("잘못된 접근입니다.");
-            }
-        }
+        ownerValidation(authObj, contract)
         val fileResps = fileService.getPagedFileRespByTargetIdAndTargetType(
             UUID.fromString(contractId),
             FileTargetType.CONTRACT,
@@ -147,7 +128,7 @@ class ContractService(
         }
     }
 
-    private fun validateOwner(
+    private fun ownerValidation(
         authObj: AuthUserObject,
         contract: Contract
     ) {
