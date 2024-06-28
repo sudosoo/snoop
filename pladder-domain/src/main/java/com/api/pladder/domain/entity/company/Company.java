@@ -4,6 +4,7 @@ import com.api.pladder.core.exception.InvalidRequestException;
 import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.company.enums.ConfirmStatus;
 import com.api.pladder.domain.entity.contract.Contract;
+import com.api.pladder.domain.entity.user.Detective;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,9 @@ public class Company extends BaseEntity {
 
     private String introduction;
 
+    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Detective detective;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "company")
     private List<Contract> contracts = new ArrayList<>();
 
@@ -47,7 +51,8 @@ public class Company extends BaseEntity {
                    String address,
                    String phoneNumber ,
                    String introduction,
-                   List<Specialty> specialization
+                   List<Specialty> specialization,
+                   Detective detective
     ) throws InvalidRequestException {
         this.companyName = companyName;
         this.address = address;
@@ -55,6 +60,7 @@ public class Company extends BaseEntity {
         this.introduction = introduction;
         this.specialization.addAll(specialization);
         this.confirmStatus = ConfirmStatus.CONFIRMED;
+        addDetective(detective);
     }
 
     private Company (UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
@@ -67,6 +73,11 @@ public class Company extends BaseEntity {
         this.confirmStatus = ConfirmStatus.CONFIRMED;
     }
 
+    private void addDetective(Detective detective) {
+        this.detective = detective;
+        detective.addCompany(this);
+    }
+
     public Company testOf(UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
         return new Company(companyId, companyName, address, phoneNumber, introduction, specialization);
     }
@@ -76,6 +87,7 @@ public class Company extends BaseEntity {
         this.specialization.clear();
         this.specialization.addAll(specialization);
     }
+
 
 
 }

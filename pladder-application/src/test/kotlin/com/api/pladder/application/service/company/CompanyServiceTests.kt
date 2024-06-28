@@ -20,7 +20,6 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.test.context.ActiveProfiles
 
-
 @SpringBootTest
 @ActiveProfiles("local")
 class CompanyServiceTests  : BehaviorSpec({

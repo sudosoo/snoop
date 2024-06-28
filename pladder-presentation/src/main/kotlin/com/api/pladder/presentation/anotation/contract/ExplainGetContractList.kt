@@ -6,7 +6,8 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 @Operation(
-    summary = "(ICN003) 계약서 조회"
+    summary = "(ICN003) 계약서 리스트 조회",
+    description = "진행 상태에 따른 계약서 리스트를 조회합니다."
 )
 @ApiResponse(
     responseCode = "200",

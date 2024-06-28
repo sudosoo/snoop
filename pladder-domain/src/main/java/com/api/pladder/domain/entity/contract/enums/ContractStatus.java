@@ -16,7 +16,7 @@ public enum ContractStatus implements StatusProvider {
     * 조사 완료 - 완료
     * 취소 - 취소/환불
     * */
-    WAITING("신청서"),APPLY("신청완료"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
+    WAITING("신청서"),APPLY("결제대기"),ONGOING("진행중"),COMPLETED("완료"),CANCELED("취소/환불");
     private String status;
 
     @NotNull
@@ -25,7 +25,7 @@ public enum ContractStatus implements StatusProvider {
         return this.status;
     }
 
-    public static ContractStatus fromStatus(String status) {
+    public static ContractStatus fromString(String status) {
         return EnumUtils.INSTANCE.fromStringStatus(ContractStatus.class, status);
     }
 

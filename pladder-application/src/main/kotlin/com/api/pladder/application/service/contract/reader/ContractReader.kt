@@ -18,7 +18,7 @@ class ContractReader (
     fun findAllById(id : UUID): List<Contract> {
         return repository.findAll()
     }
-    fun findWaitingContractByCompany(company: Company): List<Contract> {
-        return repository.findAllByCompanyAndStatus(company,ContractStatus.WAITING)
+    fun findAllByCompanyAndStatus(company: Company,status :ContractStatus ): List<Contract> {
+        return repository.findAllByCompanyAndStatus(company,status)
     }
 }

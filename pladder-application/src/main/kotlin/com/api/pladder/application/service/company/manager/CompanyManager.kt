@@ -5,6 +5,7 @@ import com.api.pladder.application.dto.company.mapper.CompanyDtoMapper
 import com.api.pladder.application.dto.company.request.RegisterCompanyReq
 import com.api.pladder.application.dto.company.request.UpdateCompanyInfoReq
 import com.api.pladder.domain.entity.company.Company
+import com.api.pladder.domain.entity.user.Detective
 import com.api.pladder.domain.repository.common.BaseRepository
 import com.api.pladder.domain.repository.company.CompanyRepository
 import org.springframework.stereotype.Component
@@ -16,8 +17,8 @@ class CompanyManager (
 ): JpaService<Company, UUID> {
     override var jpaRepository: BaseRepository<Company, UUID> = repository
 
-    fun register(request: RegisterCompanyReq): Company {
-        val company = CompanyDtoMapper.toEntity(request)
+    fun register(request: RegisterCompanyReq, detective: Detective): Company {
+        val company = CompanyDtoMapper.toEntity(request,detective)
         return save(company)
     }
 

@@ -11,6 +11,7 @@ import com.api.pladder.application.dto.file.response.FileResp
 import com.api.pladder.application.service.company.manager.CompanyManager
 import com.api.pladder.application.service.company.reader.CompanyReader
 import com.api.pladder.application.service.file.FileService
+import com.api.pladder.application.service.user.detective.DetectiveService
 import com.api.pladder.core.obj.AuthUserObject
 import com.api.pladder.domain.entity.file.enums.FileTargetType
 import com.api.pladder.domain.entity.file.enums.FileType
@@ -24,10 +25,12 @@ import java.util.*
 class CompanyService (
     val manager : CompanyManager,
     val reader : CompanyReader,
+    val detectiveService: DetectiveService,
     val fileService: FileService
 ){
-    fun register(request: RegisterCompanyReq): CompanyResp {
-        return CompanyResp(manager.register(request))
+    fun register(request: RegisterCompanyReq, authObj: AuthUserObject): CompanyResp {
+        val detective = detectiveService.findById(authObj.userId!!)
+        return CompanyResp(manager.register(request,detective))
     }
 
     fun getList(pageReq: PageRequest): Page<CompanyListResp> {

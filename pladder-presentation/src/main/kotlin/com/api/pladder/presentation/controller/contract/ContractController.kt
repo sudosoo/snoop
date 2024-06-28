@@ -2,9 +2,9 @@ package com.api.pladder.presentation.controller.contract
 
 import com.api.pladder.application.dto.common.BaseListRespV2
 import com.api.pladder.application.dto.common.BaseResp
-import com.api.pladder.application.dto.contract.request.SuggestContractReq
 import com.api.pladder.application.dto.contract.request.RegisterContractReq
 import com.api.pladder.application.dto.contract.request.RegisterSignReq
+import com.api.pladder.application.dto.contract.request.SuggestContractReq
 import com.api.pladder.application.dto.contract.request.UpdateContractContentReq
 import com.api.pladder.application.service.contract.ContractService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
@@ -37,10 +37,12 @@ class ContractController(
 
     @ExplainGetContractList
     @GetMapping(value = ["/detective/contract/getList"])
-    fun getList(
-        @RequestParam(defaultValue = "0") page: Int
+    fun getListByStatus(
+        @RequestParam(name = "신청서,결제 대기,진행중") status : String,
+        @RequestParam(defaultValue = "0"
+        ) page: Int
     ): ResponseEntity<BaseListRespV2> {
-        return getListRespEntity(service.getList(getAuthReq(), PageRequest.of(page, PAGE_SIZE)))
+        return getListRespEntity(service.getListByStatus(status,getAuthReq(), PageRequest.of(page, PAGE_SIZE)))
     }
 
     @ExplainGetContract
@@ -52,25 +54,25 @@ class ContractController(
     @ExplainApplyContract
     @PutMapping(value = ["/detective/contract/suggest"])
     fun suggest(request: SuggestContractReq): ResponseEntity<BaseResp> {
-        return getRespEntity(service.suggest(request))
+        return getRespEntity(service.suggest(request,getAuthReq()))
     }
 
     @ExplainApplyContract
     @PutMapping(value = ["/consumer/contract/apply"])
     fun apply(@RequestParam contractId: String): ResponseEntity<BaseResp> {
-        return getRespEntity(service.apply(contractId))
+        return getRespEntity(service.apply(contractId,getAuthReq()))
     }
 
     @ExplainUpdateContractContent
     @PutMapping(value = ["/detective/contract/updateContent"])
     fun updateContent(request: UpdateContractContentReq): ResponseEntity<BaseResp> {
-        return getRespEntity(service.updateContent(request))
+        return getRespEntity(service.updateContent(request,getAuthReq()))
     }
 
     @ExplainUpdateContractContent
-    @DeleteMapping(value = ["/detective/contract/delete"])
+    @DeleteMapping(value = ["/detective/contract, /customer/contract"])
     fun delete(@RequestParam contractId: String): ResponseEntity<BaseResp> {
-        return getRespEntity(service.delete(contractId))
+        return getRespEntity(service.delete(contractId,getAuthReq()))
     }
 
     @ExplainUploadContractSign
@@ -82,7 +84,7 @@ class ContractController(
     @ExplainGetContractSign
     @GetMapping(value = ["/customer/contract/sign", "/detective/contract/sign"])
     fun getSign(@RequestParam contractId: String): ResponseEntity<BaseResp> {
-        return getRespEntity(service.getSign(contractId))
+        return getRespEntity(service.getSign(contractId,getAuthReq()))
     }
 
 

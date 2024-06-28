@@ -1,6 +1,7 @@
 package com.api.pladder.domain.entity.user;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
+import com.api.pladder.domain.entity.company.Company;
 import com.api.pladder.domain.entity.user.enums.DetectiveStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -26,7 +27,9 @@ public class Detective extends BaseEntity implements User{
     private String passwd;
     private String phoneNumber;
 
-    private UUID companyId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     private DetectiveStatus status = DetectiveStatus.UNVERIFIED;
     //TODO :을 기준으로 [0]연차:[1]경력사항 총 년차 계산
@@ -66,8 +69,8 @@ public class Detective extends BaseEntity implements User{
         this.passwd = reqPasswd;
     }
 
-    public void setCompany(UUID companyId){
-        this.companyId = companyId;
+    public void addCompany(Company company){
+        this.company= company;
     }
 
     public void updateTotalCareer(int career){
