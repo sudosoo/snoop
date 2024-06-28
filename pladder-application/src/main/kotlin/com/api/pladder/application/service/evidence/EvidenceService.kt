@@ -44,13 +44,14 @@ class EvidenceService (
 
     fun getContents(evidenceId: String, pageRequest: PageRequest): EvidenceFileResp {
         val evidence = reader.findById(UUID.fromString(evidenceId))
-        val files = fileService.getPagedFileRespByTargetIdAndTargetType(evidence.id,FileTargetType.EVIDENCE,pageRequest)
+        val files = fileService.getPagedFileRespByTargetIdAndTargetType(evidence.id, FileTargetType.EVIDENCE, pageRequest)
 
         return EvidenceFileResp(evidence, files)
     }
 
     fun delete(evidenceId: String, authObj: AuthUserObject){
-        return manage.deleteById(UUID.fromString(evidenceId))
+        manage.deleteById(UUID.fromString(evidenceId))
+        fileService.deleteAllByTargetIdAndTargetType(UUID.fromString(evidenceId), FileTargetType.EVIDENCE)
     }
 
 }

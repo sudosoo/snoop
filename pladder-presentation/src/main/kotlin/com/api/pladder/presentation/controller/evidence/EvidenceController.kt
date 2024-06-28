@@ -5,6 +5,7 @@ import com.api.pladder.application.dto.contract.evidence.RegisterEvidenceReq
 import com.api.pladder.application.service.evidence.EvidenceService
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider
 import com.api.pladder.core.utils.securityProvider.AuthDataProvider.Companion.PAGE_SIZE
+import com.api.pladder.presentation.anotation.evidence.ExplainDeleteEvidence
 import com.api.pladder.presentation.anotation.evidence.ExplainGetEvidenceContents
 import com.api.pladder.presentation.anotation.evidence.ExplainRegisterEvidence
 import com.api.pladder.presentation.common.ResponseEntityCreation
@@ -29,10 +30,19 @@ class EvidenceController (
     @GetMapping(value = ["/detective/evidence","/customer/evidence"])
     @ExplainGetEvidenceContents
     fun getContents(
-        evidenceId : String,
+        @RequestParam evidenceId : String,
         @RequestParam(defaultValue = "0") page : Int,
-                    ) : ResponseEntity<BaseResp> {
+        ) : ResponseEntity<BaseResp> {
         return getRespEntity(service.getContents(evidenceId,PageRequest.of(page, PAGE_SIZE)))
+    }
+
+    @GetMapping(value = ["/detective/evidence"])
+    @ExplainDeleteEvidence
+    fun delete(
+        @RequestParam evidenceId : String,
+        @RequestParam(defaultValue = "0") page : Int,
+    ) : ResponseEntity<BaseResp> {
+        return getRespEntity(service.delete(evidenceId, getAuthReq()))
     }
 
 

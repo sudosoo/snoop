@@ -75,7 +75,7 @@ class CompanyServiceTests  : BehaviorSpec({
         }
 
         When("회사 정보 수정 요청을 하면"){
-            val result = service.updateInfo(request2)
+            val result = service.updateInfo(request2,detectiveAuthObj)
             verify {manager.updateInfo(company2,request2)}
 
             Then("회사 객체가 수정 된다"){

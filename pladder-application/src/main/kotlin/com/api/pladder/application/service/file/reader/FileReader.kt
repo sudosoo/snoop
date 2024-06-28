@@ -21,6 +21,10 @@ class FileReader (
         return repository.findByTargetIdAndTargetType(targetId,targetType,pageRequest)
     }
 
+    fun findByTargetIdAndTargetType(targetId: UUID, targetType: FileTargetType): List<File> {
+        return repository.findByTargetIdAndTargetType(targetId,targetType)
+    }
+
     fun findByTargetIdAndTargetTypeAndFileType(targetId: UUID, targetType: FileTargetType, fileType: FileType): Optional<File> {
         return repository.findByTargetIdAndTargetTypeAndFileType(targetId,targetType,fileType)
     }

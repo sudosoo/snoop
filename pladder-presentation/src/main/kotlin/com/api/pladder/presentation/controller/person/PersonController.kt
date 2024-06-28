@@ -43,7 +43,7 @@ class PersonController(
 
     @DeleteMapping()
     @ExplainDeletePerson
-    fun delete(personId: String) : ResponseEntity<BaseResp> {
+    fun delete(@RequestParam personId: String) : ResponseEntity<BaseResp> {
         return getRespEntity(service.delete(personId))
     }
 

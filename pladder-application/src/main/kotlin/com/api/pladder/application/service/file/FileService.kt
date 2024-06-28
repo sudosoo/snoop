@@ -125,6 +125,12 @@ class FileService(
         )
     }
 
+    fun deleteAllByTargetIdAndTargetType(targetId: UUID, targetType: FileTargetType){
+        val files = reader.findByTargetIdAndTargetType(targetId,targetType)
+        files.forEach { s3Provider.delete(it.fileName) }
+        manager.deleteAll(files)
+    }
+
     fun test(files: List<MultipartFile>){
         val req = FileRequest(
             type = FileType.PROFILE,
