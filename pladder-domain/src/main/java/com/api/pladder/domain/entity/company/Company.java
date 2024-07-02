@@ -7,12 +7,12 @@ import com.api.pladder.domain.entity.contract.Contract;
 import com.api.pladder.domain.entity.user.Detective;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
 @Data
@@ -20,10 +20,6 @@ import static jakarta.persistence.EnumType.STRING;
 @Entity(name="pd_company")
 @NoArgsConstructor
 public class Company extends BaseEntity {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID companyId;
-
     @Column(unique = true)
     private String companyName;
 
@@ -63,8 +59,7 @@ public class Company extends BaseEntity {
         addDetective(detective);
     }
 
-    private Company (UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
-        this.companyId = companyId;
+    private Company (String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -78,8 +73,8 @@ public class Company extends BaseEntity {
         detective.addCompany(this);
     }
 
-    public Company testOf(UUID companyId, String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
-        return new Company(companyId, companyName, address, phoneNumber, introduction, specialization);
+    public Company testOf(String companyName, String address, String phoneNumber, String introduction, List<Specialty> specialization){
+        return new Company( companyName, address, phoneNumber, introduction, specialization);
     }
 
     public void updateInfo(String introduction, List<Specialty> specialization) {

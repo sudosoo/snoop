@@ -15,9 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "pd_evidence")
 public class Evidence extends BaseEntity {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID id;
     private UUID contractId;
     private String title;
 

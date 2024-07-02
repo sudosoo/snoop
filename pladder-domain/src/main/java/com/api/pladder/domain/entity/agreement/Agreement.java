@@ -1,19 +1,13 @@
 package com.api.pladder.domain.entity.agreement;
 
-import jakarta.persistence.Id;
+import com.api.pladder.domain.entity.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Agreement {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID agreementId;
+public class Agreement extends BaseEntity {
     private String name;
     private String content;
 
