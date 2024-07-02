@@ -4,23 +4,16 @@ import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.user.enums.CustomerStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity(name="pd_customer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity implements User {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID customerId;
     @Column(unique = true)
     private String nickname;
     private String passwd;
@@ -28,11 +21,15 @@ public class Customer extends BaseEntity implements User {
     //TODO 간편로그인 추후 예정
     //@Enumerated(EnumType.STRING)
     //private AuthChannel authChannel = AuthChannel.LOCAL;
+
     private CustomerStatus status = CustomerStatus.UNVERIFIED;
 
-     public Customer(String nickname, String passwd) {
+     private Customer(String nickname, String passwd) {
         this.passwd = passwd;
         this.nickname = nickname;
+    }
+    public static Customer of(String nickname, String passwd) {
+        return new Customer(nickname, passwd);
     }
 
     public void updateInfo(String phoneNumber) {
@@ -48,14 +45,7 @@ public class Customer extends BaseEntity implements User {
         this.status = CustomerStatus.CERTIFIED;
     }
 
-    public static Customer testEntity(UUID id , String nickname, String passwd){
-        return new Customer(id , nickname, passwd);
-    }
-    private Customer(UUID customerId, String nickname, String passwd) {
-        this.customerId = customerId;
-        this.nickname = nickname;
-        this.passwd = passwd;
-    }
+
 }
 
 

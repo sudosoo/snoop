@@ -19,9 +19,6 @@ import java.util.UUID;
 @Entity(name="pd_detective")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Detective extends BaseEntity implements User{
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID detectiveId;
     @Column(unique = true)
     private String email;
     private String passwd;
@@ -48,15 +45,6 @@ public class Detective extends BaseEntity implements User{
         this.phoneNumber = phoneNumber;
     }
 
-    private Detective(UUID detectiveId, String email, String passwd, String phoneNumber) {
-        this.detectiveId = detectiveId;
-        this.email = email;
-        this.passwd = passwd;
-        this.phoneNumber = phoneNumber;
-    }
-    public static Detective testEntity(UUID id,String email, String passwd, String phoneNumber){
-        return new Detective(id,email,passwd,phoneNumber);
-    }
     public static Detective of(String email, String passwd, String phoneNumber){
         return new Detective(email,passwd,phoneNumber);
     }

@@ -1,24 +1,25 @@
-package com.api.pladder.domain.entity.user;
+package com.api.pladder.domain.entity.event;
 
 import com.api.pladder.domain.entity.base.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.tool.schema.TargetType;
 
 import java.util.UUID;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Entity(name="pd_admin")
+@Entity(name = "pd_events")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Admin extends BaseEntity implements User{
-
-    @Column(unique = true)
-    private String id;
-    private String pwd;
+public class Event extends BaseEntity {
+    private UUID targetId;
+    private TargetType targetType;
+    private String payload;
+    private int count;
 
 }
+
+

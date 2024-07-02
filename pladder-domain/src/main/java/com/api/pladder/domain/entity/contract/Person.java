@@ -1,5 +1,6 @@
 package com.api.pladder.domain.entity.contract;
 
+import com.api.pladder.domain.entity.base.BaseEntity;
 import com.api.pladder.domain.entity.contract.enums.Gender;
 import com.api.pladder.domain.entity.contract.enums.PersonStatus;
 import jakarta.persistence.*;
@@ -7,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +18,8 @@ import java.util.UUID;
 @Entity(name = "pd_person")
 @Table(indexes = {@Index(name = "idx_person_id_status", columnList = "id, status")})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Person {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID id;
+public class Person extends BaseEntity {
+
     private UUID contractId;
     private String name;
     @Enumerated(EnumType.STRING)

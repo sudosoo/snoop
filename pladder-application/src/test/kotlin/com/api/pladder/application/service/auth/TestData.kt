@@ -54,16 +54,14 @@ object TestData {
     /**
      * user
      */
-    val detective = Detective.testEntity(
-        UUID.fromString("f6744202-f40f-4ce7-b00f-1a8d10456454"),
+    val detective = Detective.of(
         "abc@naver.com",
         "abc1q2w3e",
         "010-1234-5678")
 
 
 
-    val customer = Customer.testEntity(
-        UUID.fromString("feeb066f-a118-4dfd-a141-eb8d6f31b8b1"),
+    val customer = Customer.of(
         "안녕",
         "abc1q2w3e")
 

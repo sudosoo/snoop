@@ -7,8 +7,10 @@ import com.api.pladder.domain.entity.contract.enums.ContractStatus;
 import com.api.pladder.domain.entity.progressHistory.Progress;
 import com.api.pladder.domain.entity.user.enums.Specialty;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,9 +23,6 @@ import java.util.UUID;
 @Entity(name = "pd_contract")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract extends BaseEntity {
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID contractId;
 
     private UUID customerId;
 
