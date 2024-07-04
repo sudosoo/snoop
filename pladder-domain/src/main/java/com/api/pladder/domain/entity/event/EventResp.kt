@@ -4,14 +4,14 @@ import com.api.pladder.core.enums.ErrorStatus
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 
-@Schema(description="이벤트 단건 응답")
+@Schema(description="이벤트 객체")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class EventResp(
     data : Any?,
     errorStatus : ErrorStatus = ErrorStatus.OK,
     errMessage : String? = null,
-) {
-    @Schema(description = "데이터")
+){
+    @Schema(description = "데이터 Json")
     var data : Any? = data
 
     @Schema(description = "응답 상태")

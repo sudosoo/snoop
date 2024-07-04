@@ -18,7 +18,10 @@ public class Event extends BaseEntity {
     private UUID targetId;
     private TargetType targetType;
     private String payload;
-    private int count;
+    private int successCount;
+    private boolean isComplete;
+
+
 
 }
 
